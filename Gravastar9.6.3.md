@@ -12,9 +12,9 @@ We present **Gravastar**, a microphysics-agnostic, *teleomorphic* (ends-first) v
 
 The calculus is formalized by the **Timeline Selection Theorem (TST)** and a ternary decision gate $\delta\in\{-1,0,+1\}$: $\delta=+1$ admits and actualizes a candidate timeline, $\delta=0$ preserves superposition, and $\delta=-1$ vetoes.
 
-Decisions draw on an **acceptability field** $\Phi(x,t)$ with preregistered bands $\Phi_{\text{neutral}}$ (indifference) and $\Phi_{\min}$ (strict pass), together with a **moral geometry** $y=\arctanh(x)$. We map $\Phi$ to orientation by $x = 2(\Phi/\Phi_{\max}) - 1$, **where $\Phi_{\max}$** is the preregistered maximum acceptability in the pinned **III.json manifest**; thus $x\!\to\!-1^{+}$ marks moral egoism, $x=0$ neutrality, and $x\!\to\!1^{-}$ moral perfection. The gradient $dy/dx = 1/(1-x^2)$ yields an explicit **repair vector** whenever $\delta\in\{-1,0\}$. All comparisons obey **round-before-compare** at precisions fixed in **III.json** (budgets, rounding, tie policy).
+Decisions draw on an **acceptability field** $\Phi(x,t)$ with preregistered bands $\Phi_{\text{neutral}}$ (indifference) and $\Phi_{\min}$ (strict pass), together with a **moral geometry** $y=\mathrm{arctanh}(x)$. We map $\Phi$ to orientation by $x = 2(\Phi/\Phi_{\max}) - 1$, **where $\Phi_{\max}$** is the preregistered maximum acceptability in the pinned **III.json manifest**; thus $x\!\to\!-1^{+}$ marks moral egoism, $x=0$ neutrality, and $x\!\to\!1^{-}$ moral perfection. The gradient $dy/dx = 1/(1-x^2)$ yields an explicit **repair vector** whenever $\delta\in\{-1,0\}$. All comparisons obey **round-before-compare** at precisions fixed in **III.json** (budgets, rounding, tie policy).
 
-Correctness is enforced by fail-closed **floors** that **dominate $\Phi$**: a **G-floor** (gauge invariance under admissible redescriptions; observer-equivalence group G), the **PoS Screen** (neutrality operations only), **WITNESS** (asynchronous $W(n)$ with separability bounds $B(n)$), **CAUSALITY/ISO** (near-isotropy $A^\star$ and fitted front-speed cap $\hat c \le 1$), **CAPTION→RECEIPT** byte-equality binding, and **DETERMINISM**. A default invariant set (**DII-4**) is preregistered in **III.json**: $R(u)$ (universality ratio), $A^\star$, $\hat c$, and $W(n)$ vs $B(n)$. Methods are standardized via **ScanProtocol v1** (bidirectional scans, dark-window readout, $\ge 3\cdot\tau_{\text{reset}}$ waits, three-grid alias refuter; with bright/dark basis disclosure when interference or phase matters).
+Correctness is enforced by fail-closed **floors** that **dominate $\Phi$**: a **G-floor** (gauge invariance under admissible redescriptions; observer-equivalence group G), the **PoS Screen** (neutrality operations only), **WITNESS** (asynchronous $W(n)$ with separability bounds $B(n)$ ), **CAUSALITY/ISO** (near-isotropy $A^\star$ and fitted front-speed cap $\hat c \le 1$), **CAPTION→RECEIPT** byte-equality binding, and **DETERMINISM**. A default invariant set (**DII-4**) is preregistered in **III.json**: $R(u)$ (universality ratio), $A^\star$, $\hat c$, and $W(n)$ vs $B(n)$. Methods are standardized via **ScanProtocol v1** (bidirectional scans, dark-window readout, $\ge 3\cdot\tau_{\text{reset}}$ waits, three-grid alias refuter; with bright/dark basis disclosure when interference or phase matters).
 
 An optional **engineered $\Phi$** layer (Discrete Nonlinear Transport) is quarantined—useful for “soliton-like” dynamics—yet cannot relax floors and must publish a causality cap $\hat c$. **Portability is demonstrated on the Adamas-1D physical testbed** (e.g., carbon-nanotube (CNT) strain/spectroscopy runs) with $\delta$-windows, byte-equality receipts, and end-to-end **REPLAY-RFD**; see also **SSH-like topological transitions under CNT strain** for context. In an agentless limit (CHSH [1]; see §9) of the witness program (e.g., **Clauser–Horne–Shimony–Holt, CHSH [1]**), the framework recovers standard quantum predictions; in all cases, admissibility is decided by $\delta$, not narrative. Panels/coverage may be reported as evidence, but **never define “all.”** The result is a gauge-invariant, time-stable, auditable standard for **admissible outcomes** that makes the PoS actionable and falsifiable.
 
@@ -39,7 +39,7 @@ Principle of Superposition (PoS); open-join audit; ternary validation (δ); mora
 3. Moral Geometry & Acceptability Field
 3.1 Acceptability field $\Phi(x,t)$ and bands $\Phi_{\min}, \Phi_{\text{neutral}}$
 3.2 Mapping $\Phi \to x$ via $x = 2(\Phi/\Phi_{\max}) - 1$ (with $\Phi_{\max}$ preregistered)
-3.3 Moral state $y=\arctanh(x)$, gradient $dy/dx = 1/(1-x^2)$, and repair vector
+3.3 Moral state $y=\mathrm{arctanh}(x)$, gradient $dy/dx = 1/(1-x^2)$, and repair vector
 
 4. Timeline Selection Theorem (TST) & Ternary Validation
 4.1 Decision gate $\delta \in \{-1,0,+1\}$: semantics and admissibility
@@ -75,7 +75,7 @@ Principle of Superposition (PoS); open-join audit; ternary validation (δ); mora
 9.2 Agentless limit: recovery of standard quantum predictions
 9.3 Panels/coverage as evidence (why panels ≠ “all”)
 
-10. Engineered-$\Phi$ (Quarantined Dynamics)
+10. **Engineered $\Phi$** (Quarantined Dynamics)
 10.1 Discrete Nonlinear Transport (DNT) model and parameters
 10.2 Causality cap reporting $\hat c$ and quarantine boundary
 10.3 Falsification windows and admissible deviations
@@ -102,7 +102,7 @@ Principle of Superposition (PoS); open-join audit; ternary validation (δ); mora
 
 15. Future Work
 15.1 Expanded witness suites and cross-domain portability
-15.2 Engineered-$\Phi$ soliton engineering road map
+15.2 **Engineered $\Phi$** soliton engineering road map
 15.3 Gravastar-TVLM / LLM integration pathways
 
 16. Acknowledgments
@@ -120,7 +120,7 @@ Appendix D. **Receipt v2** JSON schema and verification scripts
 Appendix E. **ScanProtocol v1** checklists and operator run-cards
 Appendix F. Estimation of **DII-4** invariants $(R(u), A^\star, \hat c, W(n)\!:\!B(n))$
 Appendix G. Adamas-1D hardware specs and calibration curves
-Appendix H. Engineered-$\Phi$ (DNT) parameter tables and ablations (quarantined)
+Appendix H. **Engineered $\Phi$** (DNT) parameter tables and ablations (quarantined)
 Appendix I. REPLAY-RFD auditor’s guide and first-divergence exemplars
 Appendix J. Right-to-Temporal-Resolution API (endpoints, budgets, audit logs)
 Appendix K. Extended examples: round-before-compare, tie policy, and repair vectors
@@ -375,3 +375,69 @@ function CMP(m, theta, spec):
 | `III.json`                                                | Pinned manifest: budgets, thresholds, rounding, tie policy                 |
 | Receipt v2, REPLAY-RFD                                    | Audit artifacts (hashes, explain_url; replay to first divergence)          |
 | FIGCERT                                                   | Figure certificate; caption→receipt binding                                |
+
+## 2.2 Admissible observers and the observer-equivalence group $G$
+
+**Admissible observer (plain language).**
+An observer is *admissible* if they (i) follow the declared method $M$ (models, data, thresholds, budgets, scan protocol), (ii) operate within the pinned `III.json` (units, rounding, tie policy, time budgets), and (iii) restrict transformations to the **observer-equivalence group $G$**. Under these conditions, they must be able to **reproduce or defeat** the decision.
+
+**Observer-equivalence group $G$ (definition).**
+$G$ is the preregistered set of admissible re-descriptions—changes of description that preserve meaning and should not tilt the decision. Each $g\in G$ acts on both the candidate timeline and the method: $g\cdot\tau$, $g\cdot M$. The **G-floor** requires gauge invariance:
+$\delta_o(g\cdot \tau;\, g\cdot M)=\delta_o(\tau; M)\quad \text{for all admissible }o\text{ and }g\in G.$
+
+**Group axioms & scope (made explicit).**
+$G$ is declared as a group under composition on the admissible domain:
+
+* **Closure:** if $g_1,g_2\in G$ then $g_1\circ g_2\in G$.
+* **Identity:** $e\in G$ with $e\cdot(\tau,M)=(\tau,M)$.
+* **Inverse:** for each $g\in G$ there is $g^{-1}\in G$.
+* **Domain of validity:** each class in $G$ names the inputs it applies to (e.g., “unit map applies to all numeric fields listed in `III.json` section units”). Outside its domain a transform is **not** admissible.
+
+**What typically belongs to $G$ (declared in `III.json`).**
+
+* **Lexical/format:** meaning-preserving paraphrase; whitespace/punctuation normalization; harmless renamings (column names, figure labels) when bound by **caption→receipt** and FIGCERT.
+* **Order semantics:** reordering rows/columns **only** where the method declares order non-semantic; otherwise order changes are out of $G$.
+* **Encoding/locale:** Unicode/ASCII normalization; decimal separator and thousands-separator conventions; date/time and timezone re-encodings.
+* **Units/scale:** SI ↔ customary conversions with pinned formulas; sign conventions when physically equivalent.
+* **Tokenization:** tokenizer/detokenizer pairs and stable segmentation variants that preserve content/effect under the method.
+* **Timebase/admin:** streaming vs. batch within the preregistered TTDA parity budget; clock format/epoch re-encodings; replay order within declared tolerance windows.
+* **Containers & byte layout:** CSV↔Parquet (or similar) **with pinned adapters**; endianness conversions **when explicitly declared** and receipt-checked.
+* **Libraries/FP:** alternative math libraries or FP flags **only if** pinned in `III.json` and the gate inputs remain invariant after **RBC** (see §2.1).
+
+**Non-examples (out of $G$; fail the G-floor).**
+
+* Meaning-altering edits (added qualifiers, dropped terms, adversarial paraphrases).
+* Unit changes without a pinned conversion; partial conversions that alter magnitudes.
+* Timebase manipulations that exceed **TTDA** budgets (violating streaming/batch parity).
+* Tokenization that changes effective content or model behavior beyond declared tolerances.
+* Monotone reparameterizations that **change** the operational thresholding unless preregistered as equivalent (e.g., probit↔logit without remapping thresholds is **out of $G$**).
+* Privacy/anonymization transforms that remove or perturb fields used by $M$, unless preregistered and proven neutral to the gate under **RBC**.
+* Any change that exploits representation to cross a threshold **without** changing the underlying claim.
+
+**Byte vs. semantic layers (how G-floor relates to receipts).**
+
+* **CAPTION→RECEIPT** is a **byte-equality** layer; it does not normalize. If a $g$ change affects bytes, new receipts must be produced and linked (FIGCERT).
+* **$G$-invariance** is a **semantic** layer: after applying $g$ and recomputing gate inputs under **RBC**, the decision must match. Floors **dominate** $\Phi$.
+
+**How $G$ is enforced (G-floor sketch; details in §5).**
+
+1. **Declare $G$** in `III.json` by **classes** of admissible transforms and their parameters (unit maps, locale maps, tokenizer family, container adapters, timebase parity, library/FP pins).
+2. **Equivariance tests.** For each class, apply a **representative grid** of $g$’s and verify invariance of the **rounded** gate inputs (RBC) and the gate output.
+3. **Receipt checks.** If $g$ changes bytes, regenerate **Receipt v2** (hashes, thresholds, energy, explain_url) and bind captions; byte-equality must still pass.
+4. **Time governance.** Apply **TTDA** parity bounds; any exceedance is a **floor failure**, independent of $\Phi$.
+5. **Supersession readiness.** If any compliant $g$ produces a defeat (floor violation or first divergence under **REPLAY-RFD**), standing is removed and the update is receipt-backed.
+
+**Admissible observer (formal).**
+Given $\tau$ and $M$, an observer $o$ is admissible iff:
+
+* $o$ executes $M$ exactly as published (code, thresholds, budgets, scan protocol);
+* uses units/rounding/tie policy declared in `III.json` (RBC, §2.1);
+* limits transformations to $g\in G$; and
+* publishes a **Receipt v2** with **REPLAY-RFD**.
+  Then $\delta_o(\tau;M)\in{-1,0,+1}$ is **eligible to count**; any compliant counterexample (including a $g$ that defeats invariance) removes standing via **supersession**.
+
+**Notes.**
+
+* **Floors dominate $\Phi$.** If G-floor fails under any admissible $g$, the claim cannot pass on the basis of $\Phi$.
+* **Panels/coverage** may be cited as evidence but never define “all”; **all** means *every admissible observer under* $G$ *following the method and budgets*.
+* $G$ can be **extended** (e.g., spectroscopy encodings) by preregistering transforms in `III.json`; extensions must pass the same G-floor tests.
