@@ -174,9 +174,9 @@ All admissibility comparisons use a **deterministic** procedure with **declared 
 Normalize locale/encoding (decimal point `.`, minus `-`, no thousands separators) and **cast units** to the canonical unit in `III.json` before any rounding or comparison.
 
 **R1 — Budgeting, then rounding.**
-For any scalar metric $m$ (e.g., $\Phi$, $A^\star$, $\hat{c}$, $R(u)$, $W(n)$):
+For any scalar metric $m$ (e.g., $\Phi$, $A^\star$, $\hat{c}$, $R(u)$, $W(n)$ ):
 
-1. cast to the canonical unit; 2) apply budgeting (if declared) to form an effective value; 3) round to precision $p_m$ with tie policy $\mathrm{tie}_m$. Notation: $\mathrm{round}_{p,\mathrm{tie}}(v)$.
+1. cast to the canonical unit; 2) apply budgeting (if declared) to form an effective value; 3) round to precision $p(m)$ with tie policy $\text{tie}(m)$. Notation: $r(v; p,\text{tie})$, where $r$ denotes the rounding function.
 
 **R2 — Round, then compare.**
 Compare **rounded** values only. If a threshold/band endpoint is $\theta$, compute
@@ -229,7 +229,7 @@ function CMP(m, theta, spec):
 
 **Examples (half-even).**
 
-* $p=2$: $\mathrm{round}_{2}(1.245)=1.24$, $\mathrm{round}_{2}(1.255)=1.26$.
+* $p=2$: $r_{2}(1.245)=1.24$, $r_{2}(1.255)=1.26$.
 * Gate check: pass iff $\Phi' \ge \Phi'_{\min}$, where primes denote RBC-rounded values at their declared precisions.
 
 ---
