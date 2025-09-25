@@ -724,10 +724,108 @@ A practical two-step:
 * **Gradients:** if analytic $\nabla\Phi$ is unavailable, use symmetric finite differences that honor units, quantizers, and RBC.
 
 **Example (schematic).**
-With `p=3` (so $h=0.001$), tie = half-even, current $\Phi=0.1180$, $\Phi_{\min}=0.1234$. Then $T=R(\Phi_{\min})=0.123$ and
-$\Phi_{\text{target}} = 0.123 - 0.0005 + 0.0001 = 0.1226$. Thus $\Delta\Phi_{\text{need}}=0.0046$. If the gradient two-norm equals $\lVert \nabla \Phi \rVert_2 = 2.0$, the unconstrained proposal is
-$$\Delta \mathbf{u}^{\star} = 0.00115 \cdot \nabla \Phi.$$ Follow with a line search to satisfy floors and TTDA. For reporting, with
-$$\Phi_{\max} = 1.000, \qquad x = 2(0.1180)-1 = -0.764,$$ the achieved increment is $$\Delta y \approx \frac{2\,\Delta \Phi_{\text{eff}}}{\Phi_{\max}(1-x^{2})}.$$
+With `p=3` (so $h=0.001$), tie = half-even, current $\Phi=0.1180$, $\Phi_{\min}=0.1234$. Then $T=R(\Phi_{\min})=0.123$ and $\Phi_{\text{target}} = 0.123 - 0.0005 + 0.0001 = 0.1226$. Thus $\Delta\Phi_{\text{need}}=0.0046$. If the gradient two-norm equals $\lVert \nabla \Phi \rVert_2 = 2.0$, the unconstrained proposal is $$\Delta \mathbf{u}^{\star} = 0.00115 \cdot \nabla \Phi.$$ Follow with a line search to satisfy floors and TTDA. For reporting, with $$\Phi_{\max} = 1.000, \qquad x = 2(0.1180)-1 = -0.764,$$ the achieved increment is $$\Delta y \approx \frac{2\,\Delta \Phi_{\text{eff}}}{\Phi_{\max}(1-x^{2})}.$$
 
 **Receipts and auditability.**
 Each repair that changes inputs produces a new **Receipt v2** (hashes, thresholds, energy, explain_url) and a **REPLAY-RFD** trace to first divergence. The manifest hash and RBC parameters are pinned so an auditor can recompute the gate, verify floors, and confirm that the post-repair $\delta$ is warranted.
+
+# 4. Timeline Selection Theorem (TST) & Ternary Validation
+## 4.1 Decision gate $\delta \in {!-1,0,+1}$: semantics and admissibility
+
+**Role.**
+The ternary gate $\delta$ is the sole arbiter of whether a candidate timeline/action $\tau$ **counts** under open-join audit. It yields **admit** ($+1$), **preserve superposition** ($0$), or **veto** ($-1$). Floors are checked first and **dominate** $\Phi$; all comparisons use **round-before-compare (RBC)** (see §2.1); invariance under the observer-equivalence group $G$ and time governance (TTDA) are mandatory. Any compliant counterexample defeats standing (**supersession**).
+
+**Semantics.**
+
+* **$\delta=+1$ (admit / actualize).** Floors pass; after RBC, the rounded field meets the strict pass band ($\Phi' \ge \Phi'_{\min}$); $G$-invariance and TTDA parity hold. Publish **Receipt v2** and a **REPLAY-RFD** trace to first divergence.
+* **$\delta=0$ (preserve superposition).** Floors pass; after RBC, $\Phi' \in \Phi'_{\mathrm{neutral}}$. Only **neutrality-preserving** operations are allowed (**PoS Screen**). Repairs may proceed (see §3.3) but may not tilt the gate; publish a **repair vector**.
+* **$\delta=-1$ (veto).** Any floor failure suffices, or after RBC the field is below the strict pass band outside neutrality. Publish a **repair vector** unless infeasible under floors.
+
+(Primes denote values rounded at the declared precision and tie policy; cf. §2.1.)
+
+**Panels/coverage.** May supply primitives feeding $\Phi$ but **never define “all.”** Here “all” means **every admissible observer under $G$ following the method and budgets**; one compliant counterexample defeats the claim.
+
+**Authoritative evaluation order (fail-closed).**
+
+1. **Floors (dominate $\Phi$).** Verify **G-floor** (gauge invariance under admissible re-descriptions), **PoS Screen** (neutrality-only while $\delta=0$), **WITNESS** ($W(n)$ vs B(n)), **CAUSALITY/ISO** (near-isotropy $A^\star$, front-speed cap $\hat{c}\le 1$), **CAPTION → RECEIPT** (byte-equality), **DETERMINISM** (RNG freeze, platform parity). Any failure ⇒ $\delta=-1$ (report failure + repair direction; §3.3).
+2. **Compute effective field.** Apply temporal budgeting (TTDA), then clamp/canonicalize
+
+   $$\Phi_{\text{eff}} = \mathrm{clamp}(\Phi - \Pi_{\text{eff}}, 0, \Phi_{\max}).$$
+
+   and proceed with **RBC** at the precisions and tie policies declared in `III.json`.
+4. Band test (rounded values). Let $\Phi_{\text{eff}}',\ \Phi_{\min}',\ \Phi_{\text{neutral}}'$ denote the RBC-rounded quantities.
+
+- If $\Phi_{\text{eff}}' \ge \Phi_{\min}'$ the field passes.
+- If $\Phi_{\text{eff}}' \in \Phi_{\text{neutral}}'$ neutrality is required.
+- Otherwise it is below neutral.
+
+
+5. **Time parity & invariance checks.** Enforce the TTDA stream↔batch bound on **rounded** statistics, $$|\delta_{\text{stream}} - \delta_{\text{batch}}| \le \Pi + 0.01\Pi$$, and enforce observer-equivalence $$\delta(g\cdot\tau;\,g\cdot M)=\delta(\tau; M)\quad\text{for all } g\in G.$$ Any violation implies $\delta\ne +1$ and **supersession** of any prior $+1$.
+7. **Gate.**
+
+$$
+\delta =
+\begin{cases}
++1 & \text{if } \Phi'_{\text{eff}} \ge \Phi'_{\min} \text{ and floors, TTDA, } G \text{ hold},\\
+0  & \text{if } \Phi'_{\text{eff}} \in \Phi'_{\text{neutral}} \text{ and floors hold},\\
+-1 & \text{otherwise.}
+\end{cases}
+$$
+
+
+**Properties (sketch).** **Idempotence** (deterministic; RBC pins boundaries); **gauge invariance** (for all admissible $g\in G$); **temporal stability** (within TTDA budgets, including streaming vs. batch parity); **monotonicity in the RBC sense** (holding floors, $G$, and TTDA fixed, increasing rounded $\Phi$ cannot flip $+1!\to!-1$); **floors $\gg \Phi$** (no amount of field mass rescues a floor failure).
+
+**Multiple candidates (ties & selection).**
+Apply the gate **per** candidate $\tau_k$. If multiple achieve $\delta=+1$, selection follows a **preregistered** policy in `III.json` (e.g., earliest receipt time, lexicographic receipt hash, or a tie-break metric under RBC). Post-hoc tie-breaks are non-admissible.
+
+---
+
+### Gate pseudocode (normative, receipt-grade)
+
+```text
+# Spec objects are pinned in III.json (units, precision p, tie policy, budgets).
+# r(v; p, tie) is the RBC operator (ROUND BEFORE COMPARE).
+# Returns δ ∈ {+1, 0, -1}; emits receipts on +1.
+
+function DECIDE(tau, M, spec):
+    # 1) FLOORS (fail-closed; floors dominate Φ)
+    if not G_INVARIANCE_CHECK(tau, M, spec):            return VETO("G-floor fail")
+    if not POS_SCREEN_CHECK(tau, M, spec):              return VETO("PoS Screen fail")
+    if not WITNESS_CHECK(M, spec):                      return VETO("W(n) vs B(n) fail")
+    if not CAUSALITY_ISO_CHECK(M, spec):                return VETO("A* / c_hat floor fail")
+    if not CAPTION_TO_RECEIPT_OK(tau, M):               return VETO("caption→receipt fail")
+    if not DETERMINISM_CHECK(M, spec):                  return VETO("determinism fail")
+
+    # 2) EFFECTIVE FIELD and RBC
+    phi_raw   = COMPUTE_PHI(tau, M)                           # declared aggregator
+    phi_eff   = APPLY_TTDA_AND_BUDGETS(phi_raw, spec)         # time quantizers, budgets
+    phi_cmp   = r(phi_eff;              spec.p_phi, spec.tie_phi)
+    phi_min_c = r(spec.phi_min;         spec.p_phi, spec.tie_phi)
+    band_L_c  = r(spec.phi_neutral_L;   spec.p_phi, spec.tie_phi)
+    band_U_c  = r(spec.phi_neutral_U;   spec.p_phi, spec.tie_phi)
+
+    # 3) DECISION in Φ-space (rounded values only)
+    if phi_cmp >= phi_min_c:
+        delta = +1
+    elif band_L_c <= phi_cmp and phi_cmp <= band_U_c:
+        delta = 0
+    else:
+        delta = -1
+
+    # 4) TIME PARITY & INVARIANCE (after tentative δ)
+    if not TTDA_PARITY_CHECK(tau, M, spec):                   return VETO("TTDA parity fail")
+    if not G_INVARIANCE_RECHECK(tau, M, spec):                return VETO("post-RBC G-floor fail")
+
+    # 5) AUDIT & RECEIPTS
+    if delta == +1:
+        receipt = EMIT_RECEIPT_V2(tau, M, spec, phi_cmp, phi_min_c, band_L_c, band_U_c)
+        EMIT_REPLAY_RFD_TRACE(tau, M, receipt)
+
+    return delta
+```
+
+*Notes.*
+
+* Thresholds/band endpoints come from `III.json` and are **rounded with the same spec** as the statistic before comparison (RBC).
+* On any **VETO**, publish a **repair vector** (see §3.3), unless repairs are infeasible under floors.
+* If several candidates yield $\delta=+1$, selection follows the preregistered tie policy in `III.json` (no post-hoc rules).
