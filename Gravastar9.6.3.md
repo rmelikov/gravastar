@@ -109,7 +109,7 @@ The paper delivers: (i) a **provable decision kernel** (TST + ternary gate) with
 
 **Section 9 — Witness program and agentless limit.** CHSH-style witnesses; an agentless limit that recovers standard quantum predictions; why panels/coverage are evidence but never define “all.”
 
-**Section 10 — Engineered $\Phi$ (quarantined dynamics).** Discrete nonlinear transport as an optional engineered-$\Phi$ layer that cannot relax floors and must publish a measured causality cap $\hat{c}$.
+**Section 10 — Engineered $\Phi$ (quarantined dynamics).** Discrete nonlinear transport as an optional **engineered $\Phi$** layer that cannot relax floors and must publish a measured causality cap $\hat{c}$.
 
 **Section 11 — Adamas-1D physical testbed.** CNT strain/spectroscopy runs with $\delta$-windows, byte-equality receipts, and end-to-end REPLAY-RFD demonstrating portability and microphysics-agnostic operation.
 
