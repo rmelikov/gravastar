@@ -7653,4 +7653,3 @@ Rounding is not a formatting nicety—it is part of the **method**. By pinning p
 **$\Pi$ (deviation budget).** TTDA budget used in parity bound and RtTR decisions; may be decomposed (class/join/clock/priv) in III.json. See §6 and App. J.
 
 **$\rho$ (precision).** Pinned decimal precision for a statistic/table (or time quantum $\Delta$); used by RBC with a declared tie policy. See §2.1 and App. K.
-
