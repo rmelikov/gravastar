@@ -2,9 +2,9 @@
 
 **Author:** Ramin Melikov (Independent Researcher, St. Louis, MO) · ORCID: 0009-0001-4232-2222 · Email: [ramin.melikov@gmail.com](mailto:ramin.melikov@gmail.com)
 
-> I claim; my claim is receipt-true to any admissible observer; therefore I count.
+> I claim; my claim is receipt-true to any admissible observer; therefore I count.<br>
 > Warranted assertibility under open-ended inquiry confers epistemic standing.<br>
-Epigraph provenance: Descartes [9]; Dewey [10]; Peirce [11].
+> *Epigraph provenance: Descartes [9]; Dewey [10]; Peirce [11].*
 
 # Abstract
 
