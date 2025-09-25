@@ -13,12 +13,8 @@ Scientific claims, safety decisions, and model deployments are too often adjudic
 
 * **Ternary gate and TST.** A **Timeline Selection Theorem (TST)** governs a ternary decision gate $\delta \in {-1,0,+1}$: $\delta=+1$ admits and actualizes a candidate timeline; $\delta=0$ preserves superposition; $\delta=-1$ vetoes.
 * **Acceptability field and moral geometry.** Decisions use an **acceptability field** $\Phi(x,t)$ with preregistered bands $\Phi_{\mathrm{neutral}}$ (indifference) and $\Phi_{\min}$ (strict pass). Orientation is set by
-
-  $$
-  x = 2(\Phi/\Phi_{\max}) - 1,
-  $$
-
-  with $\Phi_{\max}$ preregistered, and the moral state $y=\operatorname{arctanh}(x)$ exposes a **repair vector** via $dy/dx = 1/(1-x^{2})$ whenever $\delta \in {-1,0}$.
+  $x = 2(\Phi/\Phi_{\max}) - 1,$
+  with $\Phi_{\max}$ preregistered, and the moral state $y=\mathrm{arctanh}(x)$ exposes a **repair vector** via $dy/dx = 1/(1-x^{2})$ whenever $\delta \in {-1,0}$.
 * **Pinned manifest and comparisons.** A pinned `III.json` declares budgets, thresholds, rounding, and tie policy; all comparisons obey **round-before-compare** at the declared precisions.
 * **Floors dominate $\Phi$.** Fail-closed floors are prerequisites: **G-floor** (gauge invariance under admissible re-descriptions), **PoS Screen** (neutrality-only ops), **WITNESS** (asynchronous $W(n)$ vs. separability bounds $B(n)$), **CAUSALITY/ISO** (near-isotropy $A^\star$ and front-speed cap $\hat{c} \le 1$), **CAPTION $\to$ RECEIPT** (byte-equality), and **DETERMINISM** (RNG freeze, platform parity). If a floor fails, $\delta$ cannot pass on the basis of $\Phi$.
 * **Temporal governance and receipts.** **TTDA** supplies the time spine: a UTC-anchored **Clock Disclosure Badge**, a **Right-to-Temporal-Resolution** budget, and an explicitly preregistered **streaming/batch parity** bound. Evidence is packaged as **Receipt v2** (code/data/SBOM hashes, thresholds, energy) and audited by **REPLAY-RFD** (Replay-to-First-Divergence).
@@ -41,31 +37,20 @@ Only **neutrality-preserving** operations are permitted while $\delta=0$; **repa
 **Who is “all”?** “All” is **not** a survey panel, a coverage metric, a popularity vote, or any other selection-dependent notion. “All” means **every observer admissible under $G$**—including admissible re-descriptions (tokenization, units/encodings, paraphrase/order, locale)—who follows the method and budgets (time governance, scan protocol) and can reproduce or defeat the decision.
 
 **Operational form (acceptability).**
-Let $\tau$ be a candidate timeline and $M$ the declared method (models, data, thresholds, budgets, scan protocol). For any admissible observer $o$,
+Let $\tau$ be a candidate timeline and $M$ the declared method (models, data, thresholds, budgets, scan protocol). For any admissible observer $o$:
+$\delta_o(\tau; M) \in {-1,0,+1}$.
 
-$$
-\delta_o(\tau; M) \in \{-1,0,+1\}.
-$$
+PoS is satisfied for $\tau$ iff:
 
-PoS is satisfied for $\tau$ iff
-
-$$
-\begin{aligned}
-\textbf{(i) Floors)}\ &\forall o:\ \text{all floors pass and \emph{dominate} }\Phi;\\
-\textbf{(ii) Reproducibility)}\ &\forall o:\ \delta_o(\tau;M)=+1\ \text{within preregistered budgets};\\
-\textbf{(iii) Invariance)}\ &\forall g\in G,\ \forall o:\ \delta_o(g\!\cdot\!\tau;\, g\!\cdot\!M)=\delta_o(\tau;M);\\
-\textbf{(iv) Time stability)}\ &\text{streaming/batch parity and other TTDA time constraints hold as preregistered};\\
-\textbf{(v) Defeat)}\ &\text{if a compliant counterexample exists, then }\delta\neq+1\ \text{(claim loses standing).}
-\end{aligned}
-$$
+* **(i) Floors)** $\forall o$: all floors pass and **dominate** $\Phi$.
+* **(ii) Reproducibility)** $\forall o$: $\delta_o(\tau;M)=+1$ within preregistered budgets.
+* **(iii) Invariance)** $\forall g\in G,\ \forall o$: $\delta_o(g\cdot \tau;, g\cdot M)=\delta_o(\tau;M)$.
+* **(iv) Time stability)** streaming/batch parity and other TTDA time constraints hold as preregistered.
+* **(v) Defeat)** if a compliant counterexample exists, then $\delta\neq+1$ (claim loses standing).
 
 **Acceptability field and moral geometry.**
 Decisions use an **acceptability field** $\Phi(x,t)$ with preregistered bands $\Phi_{\mathrm{neutral}}$ (indifference) and $\Phi_{\min}$ (strict pass). Orientation is set by
-
-$$
-x = 2(\Phi/\Phi_{\max}) - 1,\qquad y=\operatorname{arctanh}(x),\qquad \frac{dy}{dx}=\frac{1}{1-x^{2}},
-$$
-
+$x = 2(\Phi/\Phi_{\max}) - 1,\quad y=\mathrm{arctanh}(x),\quad \frac{dy}{dx}=\frac{1}{1-x^{2}},$
 with $\Phi_{\max}$ preregistered in `III.json`. When $\delta\in{-1,0}$, the **repair vector** is read off from $dy/dx$ (how to change inputs to reach $\Phi_{\min}$ under the floors).
 
 **Floors (fail-closed; dominate $\Phi$).**
@@ -96,11 +81,7 @@ PoS guarantees a **gauge-invariant, time-stable, open-audit** standard for a cla
 * **Law → calculus.** We formalize the Principle of Superposition (PoS)—“Do only that, which would be acceptable to all”—into a validation calculus that is **universally admissible under open-join audit**: any observer admissible under the declared observer-equivalence group $G$ who follows the public method reproduces the decision within preregistered budgets; any compliant counterexample defeats a claim.
 * **Timeline Selection Theorem (TST) & ternary gate.** We define a ternary decision gate $\delta \in {-1,0,+1}$ governed by TST: $\delta=+1$ **admits** and actualizes a candidate timeline; $\delta=0$ **preserves superposition**; $\delta=-1$ **vetoes**. Defeat by compliant counterexample triggers **supersession**.
 * **Acceptability field and moral geometry with repairs.** We introduce an **acceptability field** $\Phi(x,t)$ with preregistered bands $\Phi_{\mathrm{neutral}}$ (indifference) and $\Phi_{\min}$ (strict pass), orientation
-
-  $$
-  x = 2(\Phi/\Phi_{\max}) - 1,\qquad y=\operatorname{arctanh}(x),\qquad \frac{dy}{dx}=\frac{1}{1-x^{2}},
-  $$
-
+  $x = 2(\Phi/\Phi_{\max}) - 1,\quad y=\mathrm{arctanh}(x),\quad \frac{dy}{dx}=\frac{1}{1-x^{2}},$
   and an explicit **repair vector** for $\delta \in {-1,0}$ that prescribes minimal adjustments toward admissibility **without breaking floors**.
 * **Floors that dominate $\Phi$.** We specify **fail-closed invariants** that must pass before $\Phi$ can decide: **G-floor** (gauge invariance under admissible re-descriptions), **PoS Screen** (neutrality-only ops), **WITNESS** (asynchronous $W(n)$ vs. separability bounds $B(n)$), **CAUSALITY/ISO** (near-isotropy $A^\star$ and front-speed cap $\hat{c} \le 1$), **CAPTION $\to$ RECEIPT** (byte-equality), and **DETERMINISM** (RNG freeze, platform parity). **Floors $\gg \Phi$:** no amount of score mass can rescue a floor failure.
 * **Temporal governance (TTDA).** We define a UTC-anchored **Clock Disclosure Badge**, a **Right-to-Temporal-Resolution** budget, and preregistered **streaming/batch parity** constraints; temporal budgets are integrated directly into the decision calculus with **round-before-compare**, pinned in the **III.json** manifest.
@@ -112,4 +93,4 @@ PoS guarantees a **gauge-invariant, time-stable, open-audit** standard for a cla
 * **Governance and supersession.** We define an **open-join audit** and **supersession** regime whereby a compliant counterexample or first divergence removes standing and replaces prior decisions with a receipt-backed update.
 
 **Summary of results.**
-The paper delivers: (i) a **provable decision kernel** (TST + ternary gate) with defeat/supersession; (ii) a **moral-geometry repair calculus** $y=\operatorname{arctanh}(x)$ with a usable gradient $dy/dx=1/(1-x^{2})$; (iii) a **floor system that dominates $\Phi$** (G-floor, PoS Screen, WITNESS, CAUSALITY/ISO, CAPTION $\to$ RECEIPT, DETERMINISM); (iv) a **pinned manifest** with **round-before-compare**; (v) a **TTDA time spine** (Clock Badge, RTR budget, streaming/batch parity); (vi) **Receipt v2 + REPLAY-RFD**; (vii) **ScanProtocol v1** and **DII-4**; (viii) portability to **Adamas-1D** and recovery of **CHSH** predictions in the agentless witness program. Together these components yield a gauge-invariant, time-stable, auditable standard for **admissible outcomes** under the universal law *“acceptable to all.”*
+The paper delivers: (i) a **provable decision kernel** (TST + ternary gate) with defeat/supersession; (ii) a **moral-geometry repair calculus** $y=\mathrm{arctanh}(x)$ with a usable gradient $dy/dx=1/(1-x^{2})$; (iii) a **floor system that dominates $\Phi$** (G-floor, PoS Screen, WITNESS, CAUSALITY/ISO, CAPTION $\to$ RECEIPT, DETERMINISM); (iv) a **pinned manifest** with **round-before-compare**; (v) a **TTDA time spine** (Clock Badge, RTR budget, streaming/batch parity); (vi) **Receipt v2 + REPLAY-RFD**; (vii) **ScanProtocol v1** and **DII-4**; (viii) portability to **Adamas-1D** and recovery of **CHSH** predictions in the agentless witness program. Together these components yield a gauge-invariant, time-stable, auditable standard for **admissible outcomes** under the universal law *“acceptable to all.”*
