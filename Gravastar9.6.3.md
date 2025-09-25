@@ -25,8 +25,6 @@ Gravastar is a **validation calculus**, not a dynamics proposal. It specifies th
 **Intended users and artifacts.**
 Experimentalists, ML/AI deployment teams, standards bodies, and auditors seeking a gauge-invariant, time-stable, auditable standard for **admissible outcomes** under open-join audit.
 
----
-
 ## 1.2 The Principle of Superposition (PoS): “acceptable to all”
 
 Only **neutrality-preserving** operations are permitted while $\delta=0$; **repairs must not tilt the gate**.
@@ -70,8 +68,6 @@ TTDA provides the **time spine**: UTC-anchored **Clock Disclosure Badge**, **Rig
 **What PoS guarantees (and what it doesn’t).**
 PoS guarantees a **gauge-invariant, time-stable, open-audit** standard for a claim to **count** under the universal quantifier “all.” It does **not** guarantee truth beyond the declared method/budgets; it guarantees that **standing** is earned only by meeting floors, invariance, time stability, and defeat-by-counterexample.
 
----
-
 ## 1.3 Contributions and summary of results
 
 **Problem.** Across science, engineering, and AI deployment, admissibility is too often decided by narrative and selection effects. Small re-descriptions (paraphrase, units/encodings, locale, tokenization, ordering) or timebase changes (streaming vs. batch, clock skew, replay order) can flip outcomes. We require a gauge-invariant, time-stable, open-audit calculus that makes *“acceptable to all”* operational, falsifiable, and reproducible.
@@ -99,28 +95,37 @@ The paper delivers: (i) a **provable decision kernel** (TST + ternary gate) with
 
 **Section 2 — Preliminaries & notation.** Symbols and conventions; admissible observers and the observer-equivalence group $G$; the pinned `III.json` manifest (budgets, thresholds, rounding, tie policy) and the **round-before-compare** rule.
 
-**Section 3 — Moral geometry & acceptability field.** Definition of the acceptability field $\Phi(x,t)$ with bands $\Phi_{\min}$ and $\Phi_{\mathrm{neutral}}$; mapping $\Phi$ to $x$ via $x = 2(\Phi/\Phi_{\max}) - 1$ (with $\Phi_{\max}$ preregistered); moral state $y=\mathrm{arctanh}(x)$ and construction of the **repair vector** from $dy/dx = 1/(1-x^2)$.
+**Section 3 — Moral geometry & acceptability field.** Definition of the acceptability field $\Phi(x,t)$ with bands $\Phi_{\min}$ and $\Phi_{\mathrm{neutral}}$; mapping $\Phi \mapsto x$ via $x = 2(\Phi/\Phi_{\max})-1$ (with $\Phi_{\max}$ preregistered); moral state $y=\mathrm{arctanh}(x)$ and the construction of the **repair vector** from $dy/dx=1/(1-x^{2})$.
 
-**Section 4 — Timeline Selection Theorem (TST) & ternary validation.** Ternary gate $\delta\in{-1,0,+1}$; conditions for admission ($\delta=+1$), superposition ($\delta=0$), and veto ($\delta=-1$); defeat by compliant counterexample and public **supersession**.
+**Section 4 — Timeline Selection Theorem (TST) & ternary validation.** Decision gate $\delta \in {-1,0,+1}$ (admit, superposition, veto); TST statement and operational consequences; defeat by compliant counterexample and public **supersession**.
 
-**Section 5 — Floors (fail-closed invariants).** Formal specification of floors that **dominate $\Phi$**: **G-floor** (gauge invariance under admissible re-descriptions), **PoS Screen** (neutrality-only ops), **WITNESS** (asynchronous $W(n)$ vs. separability bounds B(n)), **CAUSALITY/ISO** (near-isotropy $A^\star$ and front-speed cap $\hat{c}\le 1$), **CAPTION $\to$ RECEIPT** (byte-equality), **DETERMINISM** (RNG freeze, platform parity).
+**Section 5 — Floors (fail-closed invariants).** Formal specification and proofs for **G-floor** (gauge-invariance under admissible re-descriptions), **PoS Screen** (neutrality-only ops), **WITNESS** (asynchronous $W(n)$ vs. separability bounds B(n)), **CAUSALITY/ISO** (near-isotropy $A^\star$ and front-speed cap $\hat{c}\le 1$), **CAPTION $\to$ RECEIPT** (byte-equality), and **DETERMINISM** (RNG freeze, platform parity); procedures ensuring **floors dominate $\Phi$**.
 
-**Section 6 — Temporal governance (TTDA).** UTC-anchored **Clock Disclosure Badge**; **Right-to-Temporal-Resolution** budget; preregistered **streaming/batch parity** constraint (e.g., $|\delta_{\mathrm{stream}}-\delta_{\mathrm{batch}}|\le \Pi + 0.01,\Pi$); integration of temporal budgets into comparisons.
+**Section 6 — Temporal governance (TTDA).** UTC-anchored **Clock Disclosure Badge**, **Right-to-Temporal-Resolution** budget, and preregistered **streaming/batch parity** constraints; integration of temporal budgets directly into comparisons and audits.
 
-**Section 7 — Receipts & auditability.** **Receipt v2** schema (code/data/SBOM hashes, thresholds, energy, explain_url); caption→receipt token trailers and byte-equality verification; **REPLAY-RFD** (Replay-to-First-Divergence): definition, auditor workflow, and outputs.
+**Section 7 — Receipts & auditability.** **Receipt v2** schema (code/data/SBOM hashes, thresholds, energy, explain_url) and **REPLAY-RFD** (Replay-to-First-Divergence); auditor workflow and outputs.
 
-**Section 8 — ScanProtocol v1 (methods standardization).** Bidirectional scans; dark-window readout; waits of $\ge 3\cdot \tau_{\mathrm{reset}}$; three-grid alias refuter; basis disclosure when interference or phase matters.
+**Section 8 — ScanProtocol v1 (methods standardization).** Bidirectional scans, dark-window readout, waits of $\ge 3\cdot\tau_{\mathrm{reset}}$, three-grid alias refuter; basis disclosure when interference or phase matters.
 
-**Section 9 — Witness program & agentless limit.** CHSH-style agents/witnesses and an **agentless** limit that recovers standard quantum predictions; why panels/coverage are evidence but never define “all.”
+**Section 9 — Witness program and agentless limit.** CHSH-style witnesses; an agentless limit that recovers standard quantum predictions; why panels/coverage are evidence but never define “all.”
 
-**Section 10 — Engineered $\Phi$ (quarantined dynamics).** Discrete nonlinear transport (optional), quarantined from the decision kernel (no relaxation of floors); causality cap $\hat{c}$; falsification windows.
+**Section 10 — Engineered $\Phi$ (quarantined dynamics).** Discrete nonlinear transport as an optional engineered-$\Phi$ layer that cannot relax floors and must publish a measured causality cap $\hat{c}$.
 
-**Section 11 — Adamas-1D physical testbed.** Hardware/setup (e.g., CNT strain/spectroscopy runs); $\delta$-windows, byte-equality receipts, and end-to-end **REPLAY-RFD**; portability notes and SSH-like strain-transition context.
+**Section 11 — Adamas-1D physical testbed.** CNT strain/spectroscopy runs with $\delta$-windows, byte-equality receipts, and end-to-end REPLAY-RFD demonstrating portability and microphysics-agnostic operation.
 
-**Section 12 — Falsification, threat models, and governance.** Open-join audit; defeat modes (floor violations, first divergence, time-skew, aliasing); revocation and public supersession protocols.
+**Section 12 — Falsification, threat models, and governance.** Adversarial scenarios, defeat conditions, governance defaults, and supersession procedures under open-join audit.
 
-**Section 13 — Related work.** Foundational tests (e.g., CHSH); reproducibility/audit literature; placement within the teleomorphic/CA context and distinctions from proprietary mechanisms.
+**Section 13 — Related work.** Connections to standards, reproducibility frameworks, and theory relevant to gauge invariance, time governance, and auditability.
 
-**Section 14 — Discussion & limitations.** What Gravastar does and does not claim; boundary conditions; ethical considerations; limitations and open issues.
+**Section 14 — Discussion & limitations.** What Gravastar does and does not guarantee; assumptions, scope limits, and ethical notes on PoS and universal admissibility.
 
-**Section 15 — Future work.** Expanded witness suites and cross-domain testbeds; broader governance; extensions for engineered $\Phi$; Gravastar-TVLM / LLM integration pathways.
+**Section 15 — Future work.** Expanded witness suites, cross-domain testbeds, extensions to temporal budgets and receipts, and implementation pathways (including Gravastar-TVLM / LLM integrations).
+
+**Section 16 — Acknowledgments.**
+
+**Section 17 — Data, code & receipt availability.** Identifiers, links, explain_url, and distribution of Receipt v2 bundles and audit traces.
+
+**Section 18 — References.**
+
+**Appendices (A–L).** Formal TST statement and lemmas (A); G-floor formalities and tests; TTDA details and parity proofs; receipt schemas and replay traces; III.json examples; rounding/ties and repair-vector worked examples; glossary.
+
