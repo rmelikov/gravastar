@@ -129,3 +129,122 @@ The paper delivers: (i) a **provable decision kernel** (TST + ternary gate) with
 
 **Appendices (A–L).** Formal TST statement and lemmas (A); G-floor formalities and tests; TTDA details and parity proofs; receipt schemas and replay traces; III.json examples; rounding/ties and repair-vector worked examples; glossary.
 
+---
+
+## 2.1 Symbols, sets, and rounding conventions (round-before-compare)
+
+This section fixes symbols and the numeric discipline used throughout. All items below are **normative**; additions or overrides must be preregistered in `III.json`.
+
+### Sets & basic notation
+
+* $\mathbb{R}$ (reals), $\mathbb{Z}$ (integers), $\mathbb{N}$ (positive integers). Intervals: $(\cdot,\cdot)$, $[\cdot,\cdot]$.
+* Vectors bold: $\mathbf{v}$; component $i$: $v_i$; norms $|\cdot|_2$; indicator $\mathbf{1}[\cdot]$.
+* Inner product $\langle a,b\rangle$; concatenation $(a;b)$ when order matters.
+* Expectations $\mathbb{E}[\cdot]$. Logs are natural unless stated: $\log \equiv \ln$ (use $\log_{10}$ when base-10).
+
+### Core symbols (alphabetical)
+
+* $A^\star$ — near-isotropy statistic (**floor**).
+* $G$ — observer-equivalence group (admissible re-descriptions); actions $g\cdot(\tau,M)$.
+* $\hat{c}$ — fitted front-speed cap (**floor**).
+* **CAPTION $\to$ RECEIPT** — byte-equality binding (non-numeric; see §7).
+* **DII-4** — default invariant set: $(R(u), A^\star, \hat{c}, W(n)!:!\text{B(n)})$.
+* $\delta \in {-1,0,+1}$ — ternary gate: veto / superpose / admit.
+* **FIGCERT** — figure certificate id printed in captions, paired with the receipt.
+* **III.json** — pinned manifest (budgets, thresholds, **precision**, **tie policy**, units).
+* $\Pi$ — declared deviation budget (e.g., streaming–batch parity).
+* **Receipt v2** — code/data/SBOM hashes, thresholds, energy, explain_url.
+* **REPLAY-RFD** — Replay-to-First-Divergence audit trace.
+* $R(u)$ — universality ratio (invariant).
+* **ScanProtocol v1** — methods layer (bidirectional scans, dark-window readout, waits $\ge 3\cdot\tau_{\mathrm{reset}}$, three-grid alias refuter; basis disclosure when interference/phase matters).
+* $\tau$ — candidate timeline/action; $M$ — declared method (code, params, manifest).
+* **TTDA** — temporal governance (Clock Disclosure Badge, Right-to-Temporal-Resolution, parity constraints).
+* $W(n)$ and B(n) — witness statistic and separability bound.
+* $x\in(-1,1)$ — orientation; $y=\mathrm{arctanh}(x)$ — moral state (used for the repair vector).
+* $\Phi(x,t)$ — acceptability field; bands $\Phi_{\min}$ (strict pass), $\Phi_{\mathrm{neutral}}$ (indifference); $\Phi_{\max}$ — preregistered maximum in `III.json`.
+* **repair vector** — direction/magnitude from $y=\mathrm{arctanh}(x)$ guiding a failing proposal to $\Phi_{\min}$ **without violating floors**.
+
+---
+
+### Rounding conventions: **round-before-compare (RBC)**
+
+All admissibility comparisons use a **deterministic** procedure with **declared precision and tie policy**. Printed decimals in receipts are part of the evidence and must match the declared precision.
+
+**R0 — Canonicalize, then operate.**
+Normalize locale/encoding (decimal point `.`, minus `-`, no thousands separators) and **cast units** to the canonical unit in `III.json` before any rounding or comparison.
+
+**R1 — Budgeting, then rounding.**
+For any scalar metric $m$ (e.g., $\Phi$, $A^\star$, $\hat{c}$, $R(u)$, $W(n)$):
+
+1. cast to the canonical unit; 2) apply budgeting (if declared) to form an effective value; 3) round to precision $p_m$ with tie policy $\mathrm{tie}*m$.
+   Notation: $\mathrm{round}*{p,\ \mathrm{tie}}(v)$.
+
+**R2 — Round, then compare.**
+Compare **rounded** values only. If a threshold/band endpoint is $\theta$, compute
+
+$$
+m'=\mathrm{round}_{p_{\mathrm{cmp}},\ \mathrm{tie}_{\mathrm{cmp}}}(m),\quad
+\theta'=\mathrm{round}_{p_{\mathrm{cmp}},\ \mathrm{tie}_{\mathrm{cmp}}}(\theta),
+$$
+
+then evaluate the declared relation on $(m',\theta')$.
+
+* Non-strict ($\ge,\le$): pass iff $m'\ge \theta'$ (resp. $m'\le \theta'$).
+* Strict ($>,<$): pass iff $m' > \theta'$ (resp. $m' < \theta'$). Equality after rounding does **not** pass a strict bound.
+
+**R3 — Bands & windows.**
+For band $B=[\theta_L,\theta_U]$ (closed recommended), round both endpoints and $m$ with the same comparison spec; pass iff $\theta_L' \le m' \le \theta_U'$. For half-open bands, declare closure in `III.json`.
+
+**R4 — Arrays & aggregates.**
+For vectors/tuples, apply **R1–R3** component-wise **before** any aggregate rule. If the threshold is on an aggregate (e.g., $|\mathbf v|_2 \ge \theta$), compute the aggregate from **rounded** components, then apply **R2**.
+
+**R5 — Printed decimals = audit surface.**
+Receipts must print exactly the declared decimals for each audited value; the tie policy must be stated. Auditors re-execute RBC during **REPLAY-RFD**.
+
+**R6 — Deterministic tie policy.**
+Tie policy is fixed per metric in `III.json` (e.g., half-even, half-up, toward-zero, floor/ceil). Don’t mix policies for the **same** metric across sections.
+
+**R7 — Binary floating-point guard.**
+If binary FP is used at run time, the receipt pins: (i) library and flags, (ii) decimal presentation precision, (iii) an ulp tolerance for internal checks. External admissibility still follows RBC with the manifest’s decimal precision.
+
+**R8 — Time spine & parity checks.**
+TTDA parity/temporal checks compare **rounded** statistics at the declared precision unless the manifest specifies exact match for discrete states (e.g., $\delta$). For real-valued deltas (latency, energy, AUC), apply **R1–R3** before evaluating the TTDA bound (budget $\Pi$).
+
+**R9 — Strings & bytes (non-numeric).**
+RBC **never** applies to **CAPTION $\to$ RECEIPT**: captions bind to receipts by **byte-equality**. Any display transformation is documented and excluded from the bound bytes.
+
+---
+
+#### Canonical compare (reference pseudocode)
+
+```text
+function CMP(m, theta, spec):
+    # spec: {unit, precision p, tie_policy, budgeting}
+    v = cast_unit(m, spec.unit)
+    t = cast_unit(theta, spec.unit)
+    v = apply_budgeting(v, spec.budgeting)   # if declared in III.json
+    v_ = round(v, p=spec.p, tie=spec.tie_policy)
+    t_ = round(t, p=spec.p, tie=spec.tie_policy)
+    return compare(v_, t_, spec.relation)    # >=, >, in-band, etc.
+```
+
+**Examples (half-even).**
+
+* $p=2$: $\mathrm{round}*{2}(1.245)=1.24$, $\mathrm{round}*{2}(1.255)=1.26$.
+* Gate check: pass iff $\Phi' \ge \Phi'_{\min}$, where primes denote RBC-rounded values at their declared precisions.
+
+---
+
+### Notational quick table (symbols referenced in §§1–3)
+
+| Symbol                                                    | Meaning                                                                    |
+| --------------------------------------------------------- | -------------------------------------------------------------------------- |
+| $\delta$                                                  | Ternary decision ($+1$ admit, $0$ superposition, $-1$ veto)                |
+| $\Phi, \Phi_{\min}, \Phi_{\mathrm{neutral}}, \Phi_{\max}$ | Acceptability field and bands (max preregistered)                          |
+| $x, y$                                                    | Orientation $x=2(\Phi/\Phi_{\max})-1$, moral state $y=\mathrm{arctanh}(x)$ |
+| $W(n)$, B(n)                                              | Witness schedule; separability bounds B(n)                                 |
+| $A^\star$, $\hat{c}$                                      | Near-isotropy indicator; front-speed cap                                   |
+| $G$, $g\cdot(\cdot)$                                      | Observer-equivalence group and admissible actions                          |
+| `III.json`                                                | Pinned manifest: budgets, thresholds, rounding, tie policy                 |
+| Receipt v2, REPLAY-RFD                                    | Audit artifacts (hashes, explain_url; replay to first divergence)          |
+| FIGCERT                                                   | Figure certificate; caption→receipt binding                                |
