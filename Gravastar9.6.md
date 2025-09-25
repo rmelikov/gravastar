@@ -2,9 +2,10 @@
 
 **Author:** Ramin Melikov (Independent Researcher, St. Louis, MO) · ORCID: 0009-0001-4232-2222 · Email: [ramin.melikov@gmail.com](mailto:ramin.melikov@gmail.com)
 
-> I claim; my claim is receipt-true to any admissible observer; therefore I count.<br>
-> Warranted assertibility under open-ended inquiry confers epistemic standing.<br>
-> *Epigraph provenance: Descartes [9]; Dewey [10]; Peirce [11].*
+> I claim; my claim is receipt-true to any admissible observer; therefore I count.
+> Warranted assertibility under open-ended inquiry confers epistemic standing.
+
+Epigraph provenance: Descartes [9]; Dewey [10]; Peirce [11].
 
 # Abstract
 
@@ -12,7 +13,7 @@ We present **Gravastar**, a microphysics-agnostic, *teleomorphic* (ends-first) v
 
 The calculus is formalized by the **Timeline Selection Theorem (TST)** and a ternary decision gate $\delta\in\{-1,0,+1\}$: $\delta=+1$ admits and actualizes a candidate timeline, $\delta=0$ preserves superposition, and $\delta=-1$ vetoes.
 
-Decisions draw on an **acceptability field** $\Phi(x,t)$ with preregistered bands $\Phi_{\text{neutral}}$ (indifference) and $\Phi_{\min}$ (strict pass), together with a **moral geometry** $y=\operatorname{arctanh}(x)$. We map $\Phi$ to orientation by $x = 2(\Phi/\Phi_{\max}) - 1$, **where $\Phi_{\max}$** is the preregistered maximum acceptability in the pinned **III.json manifest**; thus $x\!\to\!-1^{+}$ marks moral egoism, $x=0$ neutrality, and $x\!\to\!1^{-}$ moral perfection. The gradient $dy/dx = 1/(1-x^2)$ yields an explicit **repair vector** whenever $\delta\in\{-1,0\}$. All comparisons obey **round-before-compare** at precisions fixed in **III.json** (budgets, rounding, tie policy).
+Decisions draw on an **acceptability field** $\Phi(x,t)$ with preregistered bands $\Phi_{\text{neutral}}$ (indifference) and $\Phi_{\min}$ (strict pass), together with a **moral geometry** $y=\mathrm{arctanh}(x)$. We map $\Phi$ to orientation by $x = 2(\Phi/\Phi_{\max}) - 1$, **where $\Phi_{\max}$** is the preregistered maximum acceptability in the pinned **III.json manifest**; thus $x\!\to\!-1^{+}$ marks moral egoism, $x=0$ neutrality, and $x\!\to\!1^{-}$ moral perfection. The gradient $dy/dx = 1/(1-x^2)$ yields an explicit **repair vector** whenever $\delta\in\{-1,0\}$. All comparisons obey **round-before-compare** at precisions fixed in **III.json** (budgets, rounding, tie policy).
 
 Correctness is enforced by fail-closed **floors** that **dominate $\Phi$**: a **G-floor** (gauge invariance under admissible redescriptions; observer-equivalence group G), the **PoS Screen** (neutrality operations only), **WITNESS** (asynchronous $W(n)$ with separability bounds $B(n)$), **CAUSALITY/ISO** (near-isotropy $A^\star$ and fitted front-speed cap $\hat c \le 1$), **CAPTION→RECEIPT** byte-equality binding, and **DETERMINISM**. A default invariant set (**DII-4**) is preregistered in **III.json**: $R(u)$ (universality ratio), $A^\star$, $\hat c$, and $W(n)$ vs $B(n)$. Methods are standardized via **ScanProtocol v1** (bidirectional scans, dark-window readout, $\ge 3\cdot\tau_{\text{reset}}$ waits, three-grid alias refuter; with bright/dark basis disclosure when interference or phase matters).
 
@@ -44,7 +45,7 @@ Notation: G (observer-equivalence group); G-floor denotes the invariant; **admis
 (both statistic and thresholds are rounded at the pinned precision before comparison)
 
 3.2 Mapping $\Phi \to x$ via $x = 2(\Phi/\Phi_{\max}) - 1$ (with $\Phi_{\max}$ preregistered)
-3.3 Moral state $y=\operatorname{arctanh}(x)$, gradient $dy/dx = 1/(1-x^2)$, and repair vector
+3.3 Moral state $y=\mathrm{arctanh}(x)$, gradient $dy/dx = 1/(1-x^2)$, and repair vector
 
 **4. Timeline Selection Theorem (TST) & Ternary Validation**
 4.1 Decision gate $\delta \in \{-1,0,+1\}$: semantics and admissibility
@@ -195,7 +196,7 @@ If any condition fails, **PoS requires non-actualization**: either **preserve su
 **How PoS interfaces with the calculus.**
 
   $$
-  x = 2(\Phi/\Phi_{\max})-1,\quad y=\operatorname{arctanh}(x),\quad \frac{dy}{dx}=\frac{1}{1-x^2}.
+  x = 2(\Phi/\Phi_{\max})-1,\quad y=\mathrm{arctanh}(x),\quad \frac{dy}{dx}=\frac{1}{1-x^2}.
   $$
 
   When $\delta\in\{-1,0\}$, the **repair vector** is read off from the geometry (how to change inputs to reach $\Phi_{\min}$ under the floors).
@@ -222,7 +223,7 @@ If any condition fails, **PoS requires non-actualization**: either **preserve su
 
 **Section 2 — Preliminaries & notation.** Symbols and conventions; admissible observers and the observer-equivalence group $G$; the pinned **III.json manifest** (budgets, thresholds, rounding, tie policy) and the **round-before-compare** rule.
 
-**Section 3 — Moral geometry & acceptability field.** Definition of the acceptability field $\Phi(x,t)$; preregistered bands $\Phi_{\min}$ and $\Phi_{\text{neutral}}$; mapping $\Phi \to x = 2(\Phi/\Phi_{\max})-1$ (with $\Phi_{\max}$ preregistered) and moral state $y=\operatorname{arctanh}(x)$; construction of the **repair vector**.
+**Section 3 — Moral geometry & acceptability field.** Definition of the acceptability field $\Phi(x,t)$; preregistered bands $\Phi_{\min}$ and $\Phi_{\text{neutral}}$; mapping $\Phi \to x = 2(\Phi/\Phi_{\max})-1$ (with $\Phi_{\max}$ preregistered) and moral state $y=\mathrm{arctanh}(x)$; construction of the **repair vector**.
 
 **Section 4 — Timeline Selection Theorem (TST) & ternary validation.** Decision gate $\delta\in\{-1,0,+1\}$ and semantics; TST statement and operational consequences; defeat by compliant counterexample and public **supersession**.
 
@@ -278,21 +279,21 @@ For any scalar metric $m$ (e.g., $\Phi, A^\star, \hat c, R(u), W(n)$), apply in 
 2. **Budgeting** if specified (e.g., subtract declared measurement bias or apply TTDA budget to form an effective value; details per-metric in §2.3/§6).
 3. **Rounding** to precision $p_m$ from **III.json** using tie policy $\mathsf{tie\_m}$ (default: *bankers/half-even*).
 
-We denote $\operatorname{round}_{p,\mathsf{tie}}(v)$ as the deterministic operator.
+We denote $\mathrm{round}_{p,\mathsf{tie}}(v)$ as the deterministic operator.
 
 **R2 — Round then compare (scalar thresholds or band endpoints).**
 Let $(p_{\mathrm{cmp}}, \mathsf{tie}_{\mathrm{cmp}})$ be the **comparison** rounding parameters for statistic $m$ (or for its band). Compute
 
 $$
-\tilde m \leftarrow \operatorname{round}_{p_{\mathrm{cmp}},\mathsf{tie}_{\mathrm{cmp}}}(m),\qquad
-\tilde\theta \leftarrow \operatorname{round}_{p_{\mathrm{cmp}},\mathsf{tie}_{\mathrm{cmp}}}(\theta).
+\tilde m \leftarrow \mathrm{round}_{p_{\mathrm{cmp}},\mathsf{tie}_{\mathrm{cmp}}}(m),\qquad
+\tilde\theta \leftarrow \mathrm{round}_{p_{\mathrm{cmp}},\mathsf{tie}_{\mathrm{cmp}}}(\theta).
 $$
 
 Then compare $\tilde m$ to $\tilde\theta$ per the declared relation:
 
 *Band variant.* For a band $B$ with endpoints $\theta_L,\theta_U$, round both endpoints with the same $(p_{\mathrm{cmp}},\mathsf{tie}_{\mathrm{cmp}})$. If the band is **closed** (recommended), pass iff $\tilde\theta_L \le \tilde m \le \tilde\theta_U$. For half-open bands, adjust the inequalities accordingly and declare the closure in `III.json`.
 
-*Notes.* Do not round $m$ or $\theta$ elsewhere on the gate path (avoid double-rounding). If the quantity is time-like, replace `round` with the pinned quantizer $\operatorname{quant}_{\Delta,\text{epoch}}(\cdot)$. Any NaN/missing $\theta$ fails closed.
+*Notes.* Do not round $m$ or $\theta$ elsewhere on the gate path (avoid double-rounding). If the quantity is time-like, replace `round` with the pinned quantizer $\mathrm{quant}_{\Delta,\text{epoch}}(\cdot)$. Any NaN/missing $\theta$ fails closed.
 
 **R3 — Bands and windows.**
 For band tests (e.g., $\Phi \in \Phi_{\text{neutral}}$), round endpoints and statistic at the same precision $p_\Phi$ before interval membership is evaluated.
@@ -571,7 +572,7 @@ Every instance of $\Phi$ must be produced by a *deterministic* pipeline pinned i
 Temporal budgets apply *before* gating. Let $\Pi_{\text{eff}}$ be the manifest-declared deviation for the relevant window; the **effective** field used by the $\delta$-gate is
 
 $$
-\Phi_{\text{eff}}(x,t)\;=\;\operatorname{clamp}\big(\Phi(x,t)-\Pi_{\text{eff}},\ 0,\ \Phi_{\max}\big),
+\Phi_{\text{eff}}(x,t)\;=\;\mathrm{clamp}\big(\Phi(x,t)-\Pi_{\text{eff}},\ 0,\ \Phi_{\max}\big),
 $$
 
 then rounded per §2.1 (R1–R3). Stream↔batch parity is evaluated on the **rounded** values.
@@ -580,7 +581,7 @@ then rounded per §2.1 (R1–R3). Stream↔batch parity is evaluated on the **ro
 Let $\rho_\Phi$ and $\mathsf{tie}_\Phi$ be the **comparison** precision and tie policy for $\Phi$ pinned in `III.json`. For any scalar $z$, write
 
 $$
-\tilde z \;\coloneqq\; \operatorname{round}_{\rho_\Phi,\;\mathsf{tie}_\Phi}(z).
+\tilde z \;\coloneqq\; \mathrm{round}_{\rho_\Phi,\;\mathsf{tie}_\Phi}(z).
 $$
 
 Two preregistered regions in $[0,\Phi_{\max}]$ govern the decision:
@@ -594,7 +595,7 @@ Two preregistered regions in $[0,\Phi_{\max}]$ govern the decision:
   then the *field* condition for admission is satisfied (the $\delta$-gate may set $\delta=+1$ provided all floors pass).
   **Strictness rule.** The default relation is non-strict $(\ge)$. If `III.json` declares a **strict** relation $(>)$, then **equality after rounding does not pass**.
 
-* **Neutral band $\Phi_{\text{neutral}}$.** A nonempty interval with endpoints declared in `III.json`. Let $\tilde\Phi_L \coloneqq \operatorname{round}_{\rho_\Phi,\mathsf{tie}_\Phi}(\Phi_L)$ and $\tilde\Phi_U \coloneqq \operatorname{round}_{\rho_\Phi,\mathsf{tie}_\Phi}(\Phi_U)$.
+* **Neutral band $\Phi_{\text{neutral}}$.** A nonempty interval with endpoints declared in `III.json`. Let $\tilde\Phi_L \coloneqq \mathrm{round}_{\rho_\Phi,\mathsf{tie}_\Phi}(\Phi_L)$ and $\tilde\Phi_U \coloneqq \mathrm{round}_{\rho_\Phi,\mathsf{tie}_\Phi}(\Phi_U)$.
   **Closure rule (normative).** The neutral band is **closed after rounding**:
 
   $$
@@ -620,7 +621,7 @@ $$
 x \;=\; 2\big(\Phi_{\text{eff}}/\Phi_{\max}\big)-1 \quad\in (-1,1),
 $$
 
-with moral state $y=\operatorname{arctanh}(x)$ and gradient $dy/dx=1/(1-x^2)$. When $\delta\in\{-1,0\}$, the **repair vector** is computed as the *minimal declared adjustment* $\Delta s$ to primitives $\{s_i\}$ that raises $\Phi_{\text{eff}}$ to $\Phi_{\min}$ **without violating floors** (e.g., a convex program with nonnegative component changes and manifest-pinned sensitivities). The resulting repair card (top-$k$ actionable levers, expected $\Delta\Phi$, and energy/time costs) is emitted in the receipt.
+with moral state $y=\mathrm{arctanh}(x)$ and gradient $dy/dx=1/(1-x^2)$. When $\delta\in\{-1,0\}$, the **repair vector** is computed as the *minimal declared adjustment* $\Delta s$ to primitives $\{s_i\}$ that raises $\Phi_{\text{eff}}$ to $\Phi_{\min}$ **without violating floors** (e.g., a convex program with nonnegative component changes and manifest-pinned sensitivities). The resulting repair card (top-$k$ actionable levers, expected $\Delta\Phi$, and energy/time costs) is emitted in the receipt.
 
 **Edge cases (fail-closed).**
 
@@ -645,7 +646,7 @@ $$
 x \;=\; 2\big(\Phi_{\text{eff}}/\Phi_{\max}\big)-1 \;\in (-1,1),
 $$
 
-where $\Phi_{\max}>0$ is **preregistered** in the pinned **III.json** manifest and $\Phi_{\text{eff}}$ is the TTDA-budgeted field from §3.1. This affine map preserves order and puts the geometry on a fixed interval, enabling a canonical moral state $y=\operatorname{arctanh}(x)$ and a well-defined gradient $dy/dx=1/(1-x^2)$ for **repair vectors**.
+where $\Phi_{\max}>0$ is **preregistered** in the pinned **III.json** manifest and $\Phi_{\text{eff}}$ is the TTDA-budgeted field from §3.1. This affine map preserves order and puts the geometry on a fixed interval, enabling a canonical moral state $y=\mathrm{arctanh}(x)$ and a well-defined gradient $dy/dx=1/(1-x^2)$ for **repair vectors**.
 
 **Semantics of the endpoints and center.**
 
@@ -672,10 +673,10 @@ where $\Phi_{\max}>0$ is **preregistered** in the pinned **III.json** manifest a
 * Compute $x_{\text{raw}} = 2(\Phi_{\text{eff}}/\Phi_{\max})-1$ and **clamp** to $(-1,1)$ after numeric rounding of inputs per §2.1:
 
   $$
-  x \leftarrow \operatorname{clamp}(x_{\text{raw}},-1+\epsilon,\;1-\epsilon),
+  x \leftarrow \mathrm{clamp}(x_{\text{raw}},-1+\epsilon,\;1-\epsilon),
   $$
 
-  with a manifest-declared tiny $\epsilon$ (e.g., $10^{-9}$) to avoid singularities in $y=\operatorname{arctanh}(x)$.
+  with a manifest-declared tiny $\epsilon$ (e.g., $10^{-9}$) to avoid singularities in $y=\mathrm{arctanh}(x)$.
 * If $\Phi_{\max}$ is missing/invalid (≤0) or if $\Phi$ cannot be canonicalized to the declared unit, **G-floor or determinism** fails ⇒ $\delta=-1$.
 
 **Monotonicity and invariance.**
@@ -685,7 +686,7 @@ where $\Phi_{\max}>0$ is **preregistered** in the pinned **III.json** manifest a
 
 **Geometry and repairs.**
 
-* With $x$ defined, the **moral state** $y=\operatorname{arctanh}(x)\in\mathbb R$ linearizes progress near the extremes (large magnitude $|y|$ indicates proximity to $\pm1$).
+* With $x$ defined, the **moral state** $y=\mathrm{arctanh}(x)\in\mathbb R$ linearizes progress near the extremes (large magnitude $|y|$ indicates proximity to $\pm1$).
 * The **repair vector** seeks the minimal, manifest-admissible adjustment $\Delta s$ to primitives $\{s_i\}$ that raises $\Phi_{\text{eff}}$ to $\Phi_{\min}$ (thus $x$ to $x_{\min}$) **without violating floors**. Because
 
   $$
@@ -698,18 +699,18 @@ where $\Phi_{\max}>0$ is **preregistered** in the pinned **III.json** manifest a
 
 1. Recompute $\Phi$ (and $\Phi_{\text{eff}}$) using the manifest; verify floors.
 2. Map to $x = 2(\Phi_{\text{eff}}/\Phi_{\max})-1$ and clamp to $(-1+\epsilon,1-\epsilon)$.
-3. Derive $y=\operatorname{arctanh}(x)$ for geometry; **do not** gate $\delta$ in $x$-space.
+3. Derive $y=\mathrm{arctanh}(x)$ for geometry; **do not** gate $\delta$ in $x$-space.
 4. If $\delta\in\{0,-1\}$, publish the repair card in $\Phi$ and optionally $x/y$; confirm no $G$-admissible re-description flips the $\Phi$-band.
 
 This normalization fixes the scale, preserves ordering, and gives a smooth, singularity-aware geometry for computing and communicating repairs, while keeping the **authoritative admissibility** strictly in the $\Phi$-domain under the manifest’s rounding and band rules.
 
-## 3.3 Moral state $y=\operatorname{arctanh}(x)$, gradient $dy/dx = \tfrac{1}{1-x^2}$, and repair vector
+## 3.3 Moral state $y=\mathrm{arctanh}(x)$, gradient $dy/dx = \tfrac{1}{1-x^2}$, and repair vector
 
 **Moral state (geometry).**
 Given orientation $x\in(-1,1)$ from §3.2, define the **moral state**
 
 $$
-y \;=\; \operatorname{arctanh}(x) \;\in\; \mathbb{R}.
+y \;=\; \mathrm{arctanh}(x) \;\in\; \mathbb{R}.
 $$
 
 This map is odd, strictly increasing, and sends the open interval $(-1,1)$ to $\mathbb{R}$. Near the extremes $x\to\pm 1$ the state magnitude $|y|$ grows without bound, so equal steps in $y$ correspond to progressively smaller steps in $x$ (and hence in $\Phi$) as one approaches saturation. The **local metric** induced by this chart is
@@ -721,7 +722,7 @@ $$
 which we treat as the canonical **sensitivity** of state to orientation. Distances in $y$-space,
 
 $$
-d((x_1),(x_2)) \;=\; \bigl|\,\operatorname{arctanh}(x_2)-\operatorname{arctanh}(x_1)\,\bigr|,
+d((x_1),(x_2)) \;=\; \bigl|\,\mathrm{arctanh}(x_2)-\mathrm{arctanh}(x_1)\,\bigr|,
 $$
 
 serve as an invariant way to report “how far” a proposal sits from a target orientation (e.g., from the pass boundary).
@@ -741,7 +742,7 @@ $$
 \Phi \;=\; \Phi_{\max}\,\sum_i \alpha_i\, g_i\!\big(s_i\big).
 $$
 
-Inside the unclamped region of $\Phi_{\text{eff}}=\operatorname{clamp}(\Phi-\Pi_{\text{eff}},0,\Phi_{\max})$, the **field gradient** in primitive space is
+Inside the unclamped region of $\Phi_{\text{eff}}=\mathrm{clamp}(\Phi-\Pi_{\text{eff}},0,\Phi_{\max})$, the **field gradient** in primitive space is
 
 $$
 \nabla_{s}\Phi \;=\; \bigl(\,\Phi_{\max}\,\alpha_i\, g_i'(s_i)\,\bigr)_i,
@@ -807,7 +808,7 @@ $$
 or fall back to a manifest-declared convex program (e.g., linear program with monotone $g_i$). In all cases, we verify floors on the proposed update; violating a floor nullifies the repair.
 
 **TTDA-aware repairs.**
-Because $\Phi_{\text{eff}}=\operatorname{clamp}(\Phi-\Pi_{\text{eff}},\cdot)$, repairs may target **$\Phi$** (improve measurements) and/or **$\Pi_{\text{eff}}$** (reduce lateness/jitter within the Right-to-Temporal-Resolution). The repair card must specify which portion of the lift comes from each lever and certify that the **stream↔batch parity** bound remains satisfied.
+Because $\Phi_{\text{eff}}=\mathrm{clamp}(\Phi-\Pi_{\text{eff}},\cdot)$, repairs may target **$\Phi$** (improve measurements) and/or **$\Pi_{\text{eff}}$** (reduce lateness/jitter within the Right-to-Temporal-Resolution). The repair card must specify which portion of the lift comes from each lever and certify that the **stream↔batch parity** bound remains satisfied.
 
 **Reporting (repair card).**
 Each non-admitting decision publishes a **repair card** in the receipt:
@@ -856,7 +857,7 @@ Example (monotone, capped card): define $g_i(x) = \min(\Phi_{\max}, \tfrac{a}{1+
    If any floor fails → $\boxed{\delta=-1}$ (publish floor failure + repair vector).
 
 2. **Compute effective field.**
-   Form $\Phi_{\text{eff}}=\operatorname{clamp}(\Phi-\Pi_{\text{eff}},0,\Phi_{\max})$ (TTDA). Canonicalize units; apply **round-before-compare** at precisions/ties from **III.json** (§2.1).
+   Form $\Phi_{\text{eff}}=\mathrm{clamp}(\Phi-\Pi_{\text{eff}},0,\Phi_{\max})$ (TTDA). Canonicalize units; apply **round-before-compare** at precisions/ties from **III.json** (§2.1).
 
 3. **Band test (in $\Phi$-space).**
    With rounded values $\tilde\Phi_{\text{eff}},\widetilde{\Phi_{\min}},\widetilde{\Phi_{\text{neutral}}}$:
@@ -943,7 +944,7 @@ function DECIDE(τ, M, III):
 **Setup.** Fix a candidate timeline/action $\tau$, public method $M$ (code, parameters), and the pinned **III.json** manifest. Let $G$ be the declared observer-equivalence group, and let **TTDA** specify the time spine (clock badge, RG budgets, stream↔batch parity). Let $\Phi$ be the receipt-backed acceptability field, with effective score
 
 $$
-\Phi_{\text{eff}} \;=\; \operatorname{clamp}\!\big(\Phi - \Pi_{\text{eff}},\,0,\,\Phi_{\max}\big),
+\Phi_{\text{eff}} \;=\; \mathrm{clamp}\!\big(\Phi - \Pi_{\text{eff}},\,0,\,\Phi_{\max}\big),
 $$
 
 all numeric comparisons executed **round-before-compare** at per-metric precision/tie policy from **III.json**.
@@ -1780,7 +1781,7 @@ Every admitted figure/table and the main receipt carry a compact token trailer:
 2. **Budgeting (TTDA).** The badge feeds TTDA’s deviation term $\Pi$. Effective field uses
 
    $$
-   \Phi_{\text{eff}}=\operatorname{clamp}\!\bigl(\Phi-\Pi_{\text{eff}}(\text{offset},\ \text{drift},\ \text{jitter}),\,0,\,\Phi_{\max}\bigr),
+   \Phi_{\text{eff}}=\mathrm{clamp}\!\bigl(\Phi-\Pi_{\text{eff}}(\text{offset},\ \text{drift},\ \text{jitter}),\,0,\,\Phi_{\max}\bigr),
    $$
 
    with the mapping from badge metrics to $\Pi_{\text{eff}}$ declared in **III.json**.
@@ -3184,7 +3185,7 @@ Panels—finite cohorts of sites, users, devices, or reviewers—are valuable **
 Panels feed **auxiliary evidence** that can adjust $\Phi$ within declared caps, e.g.,
 
 $$
-\Phi \leftarrow \operatorname{clamp}\bigl(\Phi + \lambda_{\text{panel}}\cdot s(P),\,0,\,1\bigr),
+\Phi \leftarrow \mathrm{clamp}\bigl(\Phi + \lambda_{\text{panel}}\cdot s(P),\,0,\,1\bigr),
 $$
 
 where $s(P)$ is a preregistered score (e.g., cross-platform parity, universality ratio $R(u)$, cross-site WITNESS agreement), and $0\le \lambda_{\text{panel}}\le \lambda_{\max}$ is fixed in **III.json**. Floors (G-floor, PoS Screen, WITNESS, CAUSALITY/ISO, CAPTION→RECEIPT, DETERMINISM) are applied **after** this update and **dominate** $\Phi$.
@@ -3306,7 +3307,7 @@ DNT never writes $\delta$. It emits **Pulse Cards**:
 * **Score map.** A preregistered scalar $s_{\text{DNT}}\in[0,1]$ (e.g., normalized survival·coherence) updates the acceptability field strictly within a cap:
 
   $$
-  \Phi \leftarrow \operatorname{clamp}\!\big(\Phi + \lambda_{\text{DNT}}\cdot s_{\text{DNT}},\,0,\,\Phi_{\max}\big),\quad 0\le \lambda_{\text{DNT}}\le \lambda_{\text{cap}}.
+  \Phi \leftarrow \mathrm{clamp}\!\big(\Phi + \lambda_{\text{DNT}}\cdot s_{\text{DNT}},\,0,\,\Phi_{\max}\big),\quad 0\le \lambda_{\text{DNT}}\le \lambda_{\text{cap}}.
   $$
 
 Caps and the score definition are in **III.json**. Floors still **dominate** $\Phi$.
@@ -3399,7 +3400,7 @@ $$
 Evaluate on **three phase-shifted grids** $k\in\{0,H/3,2H/3\}$ (§8.3). The fitted cap is
 
 $$
-\hat c \;=\; \max_{k}\ \operatorname*{median\_trim}_{(i,j)\in E}\bigl( v_{ij}^{(k)} \bigr),
+\hat c \;=\; \max_{k}\ \mathrm*{median\_trim}_{(i,j)\in E}\bigl( v_{ij}^{(k)} \bigr),
 $$
 
 with the trim and rounding precisions pinned in **III.json**. If embeddings use physical units, publish the unit map (e.g., $d$ in meters, $\Delta t$ in seconds) and the **normalization** that sets the lawful bound to **1**.
@@ -3519,7 +3520,7 @@ Each $\mathcal{D}$ must have a **pinned baseline** $\mathcal{D}_0$ computed from
 For each phase $k$ and window $\mathcal{W}$,
 
 $$
-\Delta_k(\mathcal{W}) \;=\; \operatorname{ROUND}\!\left(\ \mathsf{AGG}_{S,[t_1,t_2),k}\bigl(\mathcal{D}\bigr)\ -\ \mathsf{AGG}_{S,[t_1^0,t_2^0),k}\bigl(\mathcal{D}_0\bigr)\ ,\ \mathrm{prec}(\mathcal{D})\right),
+\Delta_k(\mathcal{W}) \;=\; \mathrm{ROUND}\!\left(\ \mathsf{AGG}_{S,[t_1,t_2),k}\bigl(\mathcal{D}\bigr)\ -\ \mathsf{AGG}_{S,[t_1^0,t_2^0),k}\bigl(\mathcal{D}_0\bigr)\ ,\ \mathrm{prec}(\mathcal{D})\right),
 $$
 
 where $\mathsf{AGG}$ is the pinned aggregator (mean, trimmed mean, quantile, etc.), and $[t_1^0,t_2^0)$ is the baseline interval. Report the **phase envelope**
@@ -3566,7 +3567,7 @@ Windows may contribute **positive evidence to $\Phi$** (within pinned caps) if *
 Such evidence can adjust $\Phi$ via a pinned map, e.g.,
 
 $$
-\Phi \leftarrow \operatorname{clamp}\!\bigl(\Phi + \lambda_{\text{win}}\cdot g(\Delta_{\max}-\Delta^\star),\,0,\,\Phi_{\max}\bigr),
+\Phi \leftarrow \mathrm{clamp}\!\bigl(\Phi + \lambda_{\text{win}}\cdot g(\Delta_{\max}-\Delta^\star),\,0,\,\Phi_{\max}\bigr),
 $$
 
 with $\lambda_{\text{win}}$ capped in **III.json** and $g$ monotone-saturating (declared).
@@ -4389,13 +4390,13 @@ $$
 Rounded correlator
 
 $$
-E_{ij}=\operatorname{ROUND}\!\left(\frac{N^{ij}_{++}+N^{ij}_{--}-N^{ij}_{+-}-N^{ij}_{-+}}{N^{ij}_{++}+N^{ij}_{--}+N^{ij}_{+-}+N^{ij}_{-+}},\ \mathrm{prec}_E\right).
+E_{ij}=\mathrm{ROUND}\!\left(\frac{N^{ij}_{++}+N^{ij}_{--}-N^{ij}_{+-}-N^{ij}_{-+}}{N^{ij}_{++}+N^{ij}_{--}+N^{ij}_{+-}+N^{ij}_{-+}},\ \mathrm{prec}_E\right).
 $$
 
 CHSH statistic
 
 $$
-S=\operatorname{ROUND}\!\bigl(E_{00}+E_{01}+E_{10}-E_{11},\ \mathrm{prec}_S\bigr).
+S=\mathrm{ROUND}\!\bigl(E_{00}+E_{01}+E_{10}-E_{11},\ \mathrm{prec}_S\bigr).
 $$
 
 All precisions and the tie policy are pinned in **III.json** and **identical** for stream and batch (TTDA).
@@ -4612,7 +4613,7 @@ Keep the *idea*—ends-first, locally checkable, byte-bound—and discard the *b
 * **Temporal governance.** Decisions are **time-stable** under **TTDA** (UTC-LCRO badge, RG-grid budgets, and the parity bound $|\delta_{\text{stream}}-\delta_{\text{batch}}|\le \Pi+0.01\Pi$).
 * **Public reproducibility.** Every claim that “counts” is **receipt-true**: **Receipt v2** (code/data/SBOM/thresholds/energy) + **CAPTION→RECEIPT** byte binding + **REPLAY-RFD** (replay-to-first-divergence) so any admissible observer can regenerate the rounded verdicts.
 * **Counters decide.** A **single compliant counterexample** (gauge violation, TTDA breach, floor failure, or RFD divergence) **defeats** the claim; supersession and public revocation are mandatory.
-* **Quantified evidence.** The **acceptability field** $\Phi$ is mapped to orientation $x=2(\Phi/\Phi_{\max})-1$ and to state $y=\operatorname{arctanh}(x)$; comparisons use **round-before-compare** at pinned precisions (**III.json**).
+* **Quantified evidence.** The **acceptability field** $\Phi$ is mapped to orientation $x=2(\Phi/\Phi_{\max})-1$ and to state $y=\mathrm{arctanh}(x)$; comparisons use **round-before-compare** at pinned precisions (**III.json**).
 * **Witness compatibility.** The framework accommodates **foundational tests** (e.g., CHSH) as evidence cards $W(n)$ vs bounds $B(n)$ without altering floors; in an **agentless limit** it recovers standard quantum predictions.
 * **Portability.** The same law and floors apply across benches (e.g., Adamas-1D CNT strain/spectroscopy), software-only settings, and internationalized pipelines.
 * **Optional dynamics (quarantined).** An **engineered-$\Phi$** layer (e.g., DNT) may be explored **only** inside quarantine, must publish a **causality cap $\hat c\le 1$** and falsification windows, and **cannot** relax floors or write to gate spec.
@@ -4898,7 +4899,7 @@ $$
 y_{t+1} \;=\; y_t \;+\; \Delta t\left[D\cdot(Ly_t)\;+\;N(y_t)\;+\;u_t\right],
 $$
 
-* $y$: moral state on nodes (operational metric $y=\operatorname{arctanh}(x)$).
+* $y$: moral state on nodes (operational metric $y=\mathrm{arctanh}(x)$).
 * $L$: graph Laplacian of the chosen medium (line, lattice, manifold graph).
 * $D$: diffusion coefficient (preregistered).
 * $N(\cdot)$: bounded nonlinearity (e.g., $N(y)=-\beta\,\tanh(y/\kappa)$ or a saturating cubic), preregistered.
@@ -5026,7 +5027,7 @@ Turn a general-purpose language model into a **Gravastar-TVLM**—a *Ternary-Val
   * **Attribution & license** compliance (source allowlist, excerpt byte-binding).
   * **Reproducibility hooks** (for code: unit tests; for math: CAS replay; for data: query digests).
   * **Safety/policy** cards (domain caps).
-    Map to orientation $x=2(\Phi/\Phi_{\max})-1$, state $y=\operatorname{arctanh}(x)$.
+    Map to orientation $x=2(\Phi/\Phi_{\max})-1$, state $y=\mathrm{arctanh}(x)$.
 * **Floors dominate.** Enforce **G-floor**, **TTDA** (UTC-LCRO stamps + stream↔batch parity), **CAUSALITY/ISO** (if toolchains exhibit front-like propagation), **CAPTION→RECEIPT** (bind tables/plots/quotes by bytes), **DETERMINISM** (RNG-freeze on gate path).
 * **Decision.** Emit $\delta$ with **repair vector** (minimal edits, added citations, tightened numbers) when $\delta\in\{-1,0\}$.
 * **Bundle.** Publish **Receipt v2** (SBOM, thresholds, energy) + **REPLAY-RFD** trace.
@@ -5034,7 +5035,7 @@ Turn a general-purpose language model into a **Gravastar-TVLM**—a *Ternary-Val
 **Training signals for a TVLM (amberfield/greenfield).**
 
 * **δ-aware preference learning.** Use DPO/RLHF where *preference is induced by $\delta$*: responses that *become* $\delta=+1$ under the gate path outrank those that fail floors or lack receipts.
-* **Geometry-matched loss.** Train a light **policy head** to predict $y=\operatorname{arctanh}(x)$ (or its margins) from draft outputs; this head learns to *steer* toward admissibility.
+* **Geometry-matched loss.** Train a light **policy head** to predict $y=\mathrm{arctanh}(x)$ (or its margins) from draft outputs; this head learns to *steer* toward admissibility.
 * **Repair-vector imitation.** Supervise minimal edits that turn $\delta\in\{-1,0\}$ into $\delta=+1$ (add missing citation bytes, swap non-SI units, fix rounding).
 * **G-invariance augmentation.** Paraphrase/locale/unit permutations of the same QA pair must preserve rounded diagnostics; penalize violations (G-floor in the loop).
 
@@ -5260,13 +5261,13 @@ $$
 Define the **effective acceptability**
 
 $$
-\Phi_{\mathrm{eff}} \;=\; \operatorname{clamp}\bigl(\Phi-\Pi,\ 0,\ \Phi_{\max}\bigr),
+\Phi_{\mathrm{eff}} \;=\; \mathrm{clamp}\bigl(\Phi-\Pi,\ 0,\ \Phi_{\max}\bigr),
 $$
 
 and the **orientation/state mapping**
 
 $$
-x \;=\; 2(\Phi_{\mathrm{eff}}/\Phi_{\max})-1,\qquad y=\operatorname{arctanh}(x).
+x \;=\; 2(\Phi_{\mathrm{eff}}/\Phi_{\max})-1,\qquad y=\mathrm{arctanh}(x).
 $$
 
 The gate thresholds are $\Phi_{\text{neutral}}$ and $\Phi_{\min}$ with $0\le \Phi_{\text{neutral}}<\Phi_{\min}\le \Phi_{\max}$.
@@ -5327,7 +5328,7 @@ If each card contributes $\Delta\Phi_i\ge 0$ via a declared monotone map (e.g., 
 *Sketch.* Sum of nonnegative capped terms, then clamp.
 
 **Lemma F (repair vector adequacy).**
-Let $x=2(\Phi_{\mathrm{eff}}/\Phi_{\max})-1$ and $y=\operatorname{arctanh}(x)$. For $\delta\in\{-1,0\}$, any admissible local change that increases $y$ (equivalently, increases $\Phi_{\mathrm{eff}}$) strictly moves the state toward $\delta=+1$.
+Let $x=2(\Phi_{\mathrm{eff}}/\Phi_{\max})-1$ and $y=\mathrm{arctanh}(x)$. For $\delta\in\{-1,0\}$, any admissible local change that increases $y$ (equivalently, increases $\Phi_{\mathrm{eff}}$) strictly moves the state toward $\delta=+1$.
 *Sketch.* $dy/dx=1/(1-x^2)>0$ on $(-1,1)$; thus increasing $x$ increases $y$. The *repair vector* points along declared budget-respecting edits (e.g., add missing byte-bound citations, fix units) that increase $\Phi$.
 
 **Lemma G (counterexample defeat and supersession).**
@@ -5558,7 +5559,7 @@ TTDA (Ternary Threshold & Deviation Accounting) binds *time* so that the ternary
 Let $\Phi_{\text{stream}}$ and $\Phi_{\text{batch}}$ be the (rounded) acceptability fields computed on the *stream* and *batch* pipelines **from the same content-bound bytes**. Define the **effective** fields
 
 $$
-\Phi_{\mathrm{eff}}^{(\cdot)}=\operatorname{clamp}(\Phi^{(\cdot)}-\Pi,\,0,\,\Phi_{\max}),
+\Phi_{\mathrm{eff}}^{(\cdot)}=\mathrm{clamp}(\Phi^{(\cdot)}-\Pi,\,0,\,\Phi_{\max}),
 $$
 
 where $\Pi$ is the preregistered *deviation budget* (units of $\Phi$). TTDA requires the **parity bound**
@@ -6436,7 +6437,7 @@ where $N_+$ is the number of **positive** margins after rounding (stability bonu
 **Aggregation (example, monotone & capped).**
 
 $$
-\Phi \leftarrow \operatorname{clamp}\Bigl(\sum_{S\in\{R,A^\star,\hat c, W:B\}} w_S\,\Delta\Phi_S,\ 0,\ \Phi_{\max}\Bigr),
+\Phi \leftarrow \mathrm{clamp}\Bigl(\sum_{S\in\{R,A^\star,\hat c, W:B\}} w_S\,\Delta\Phi_S,\ 0,\ \Phi_{\max}\Bigr),
 $$
 
 with preregistered nonnegative weights $w_S$ summing $\le 1$. Weights and maps **must** be declared in **III.json** and are part of the method (changing them is a MAJOR edition).
@@ -6695,7 +6696,7 @@ This appendix specifies the **Discrete Nonlinear Transport (DNT)** layer used to
 
 ### H.1 DNT evolution rule (normative form)
 
-State uses Gravastar’s moral geometry: $x\in(-1,1)$, $y=\operatorname{arctanh}(x)$. DNT evolves $y$ on a graph $G=(V,E)$ (sites $i\in V$):
+State uses Gravastar’s moral geometry: $x\in(-1,1)$, $y=\mathrm{arctanh}(x)$. DNT evolves $y$ on a graph $G=(V,E)$ (sites $i\in V$):
 
 $$
 \boxed{ \; y^{(t+1)} \;=\; y^{(t)} \;+\; \Delta t\left[\, D\, (L\,y^{(t)}) \;+\; N\!\big(y^{(t)}\big) \;+\; u^{(t)} \;+\; \xi^{(t)} \,\right] \;}
@@ -7602,7 +7603,7 @@ Rounding is not a formatting nicety—it is part of the **method**. By pinning p
 
 **Margin (witness).** Difference between a measured witness $W$ and bound $B$, computed with round-before-compare at pinned precision $\rho_W$. See §5.3 and App. K.
 
-**Moral geometry.** Map from orientation to moral state: $x \in (-1,1)$, $y=\operatorname{arctanh}(x)$, gradient $dy/dx=1/(1-x^2)$, used for repair vectors. See §3.3.
+**Moral geometry.** Map from orientation to moral state: $x \in (-1,1)$, $y=\mathrm{arctanh}(x)$, gradient $dy/dx=1/(1-x^2)$, used for repair vectors. See §3.3.
 
 **“Open-join audit.”** Anyone may join by following the public method; reproductions must match within declared budgets; counterexamples defeat claims. See §1.2 and §12.1.
 
@@ -7658,7 +7659,7 @@ Rounding is not a formatting nicety—it is part of the **method**. By pinning p
 
 **$x$ (moral orientation).** Normalized orientation in $(-1,1)$ obtained from $\Phi$ by $x = 2(\Phi/\Phi_{\max}) - 1$; $x\!\to\!-1^{+}$ moral egoism, $x=0$ neutrality, $x\!\to\!1^{-}$ moral perfection. See §3.2.
 
-**$y$ (moral state).** Natural coordinate $y=\operatorname{arctanh}(x)$; gradient $dy/dx=1/(1-x^2)$ underlies repair vectors. See §3.3.
+**$y$ (moral state).** Natural coordinate $y=\mathrm{arctanh}(x)$; gradient $dy/dx=1/(1-x^2)$ underlies repair vectors. See §3.3.
 
 **“Count.”** Admitted to the $\delta$ decision calculus as evidence/decision input (subject to PoS Screen and supersession). See Abstract and §4.
 
@@ -7667,4 +7668,3 @@ Rounding is not a formatting nicety—it is part of the **method**. By pinning p
 **$\Pi$ (deviation budget).** TTDA budget used in parity bound and RtTR decisions; may be decomposed (class/join/clock/priv) in III.json. See §6 and App. J.
 
 **$\rho$ (precision).** Pinned decimal precision for a statistic/table (or time quantum $\Delta$); used by RBC with a declared tie policy. See §2.1 and App. K.
-
