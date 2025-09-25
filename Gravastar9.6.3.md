@@ -94,3 +94,33 @@ PoS guarantees a **gauge-invariant, time-stable, open-audit** standard for a cla
 
 **Summary of results.**
 The paper delivers: (i) a **provable decision kernel** (TST + ternary gate) with defeat/supersession; (ii) a **moral-geometry repair calculus** $y=\mathrm{arctanh}(x)$ with a usable gradient $dy/dx=1/(1-x^{2})$; (iii) a **floor system that dominates $\Phi$** (G-floor, PoS Screen, WITNESS, CAUSALITY/ISO, CAPTION $\to$ RECEIPT, DETERMINISM); (iv) a **pinned manifest** with **round-before-compare**; (v) a **TTDA time spine** (Clock Badge, RTR budget, streaming/batch parity); (vi) **Receipt v2 + REPLAY-RFD**; (vii) **ScanProtocol v1** and **DII-4**; (viii) portability to **Adamas-1D** and recovery of **CHSH** predictions in the agentless witness program. Together these components yield a gauge-invariant, time-stable, auditable standard for **admissible outcomes** under the universal law *“acceptable to all.”*
+
+## 1.4 Paper organization
+
+**Section 2 — Preliminaries & notation.** Symbols and conventions; admissible observers and the observer-equivalence group $G$; the pinned `III.json` manifest (budgets, thresholds, rounding, tie policy) and the **round-before-compare** rule.
+
+**Section 3 — Moral geometry & acceptability field.** Definition of the acceptability field $\Phi(x,t)$ with bands $\Phi_{\min}$ and $\Phi_{\mathrm{neutral}}$; mapping $\Phi$ to $x$ via $x = 2(\Phi/\Phi_{\max}) - 1$ (with $\Phi_{\max}$ preregistered); moral state $y=\mathrm{arctanh}(x)$ and construction of the **repair vector** from $dy/dx = 1/(1-x^2)$.
+
+**Section 4 — Timeline Selection Theorem (TST) & ternary validation.** Ternary gate $\delta\in{-1,0,+1}$; conditions for admission ($\delta=+1$), superposition ($\delta=0$), and veto ($\delta=-1$); defeat by compliant counterexample and public **supersession**.
+
+**Section 5 — Floors (fail-closed invariants).** Formal specification of floors that **dominate $\Phi$**: **G-floor** (gauge invariance under admissible re-descriptions), **PoS Screen** (neutrality-only ops), **WITNESS** (asynchronous $W(n)$ vs. separability bounds B(n)), **CAUSALITY/ISO** (near-isotropy $A^\star$ and front-speed cap $\hat{c}\le 1$), **CAPTION $\to$ RECEIPT** (byte-equality), **DETERMINISM** (RNG freeze, platform parity).
+
+**Section 6 — Temporal governance (TTDA).** UTC-anchored **Clock Disclosure Badge**; **Right-to-Temporal-Resolution** budget; preregistered **streaming/batch parity** constraint (e.g., $|\delta_{\mathrm{stream}}-\delta_{\mathrm{batch}}|\le \Pi + 0.01,\Pi$); integration of temporal budgets into comparisons.
+
+**Section 7 — Receipts & auditability.** **Receipt v2** schema (code/data/SBOM hashes, thresholds, energy, explain_url); caption→receipt token trailers and byte-equality verification; **REPLAY-RFD** (Replay-to-First-Divergence): definition, auditor workflow, and outputs.
+
+**Section 8 — ScanProtocol v1 (methods standardization).** Bidirectional scans; dark-window readout; waits of $\ge 3\cdot \tau_{\mathrm{reset}}$; three-grid alias refuter; basis disclosure when interference or phase matters.
+
+**Section 9 — Witness program & agentless limit.** CHSH-style agents/witnesses and an **agentless** limit that recovers standard quantum predictions; why panels/coverage are evidence but never define “all.”
+
+**Section 10 — Engineered $\Phi$ (quarantined dynamics).** Discrete nonlinear transport (optional), quarantined from the decision kernel (no relaxation of floors); causality cap $\hat{c}$; falsification windows.
+
+**Section 11 — Adamas-1D physical testbed.** Hardware/setup (e.g., CNT strain/spectroscopy runs); $\delta$-windows, byte-equality receipts, and end-to-end **REPLAY-RFD**; portability notes and SSH-like strain-transition context.
+
+**Section 12 — Falsification, threat models, and governance.** Open-join audit; defeat modes (floor violations, first divergence, time-skew, aliasing); revocation and public supersession protocols.
+
+**Section 13 — Related work.** Foundational tests (e.g., CHSH); reproducibility/audit literature; placement within the teleomorphic/CA context and distinctions from proprietary mechanisms.
+
+**Section 14 — Discussion & limitations.** What Gravastar does and does not claim; boundary conditions; ethical considerations; limitations and open issues.
+
+**Section 15 — Future work.** Expanded witness suites and cross-domain testbeds; broader governance; extensions for engineered $\Phi$; Gravastar-TVLM / LLM integration pathways.
