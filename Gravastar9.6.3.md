@@ -176,7 +176,7 @@ Normalize locale/encoding (decimal point `.`, minus `-`, no thousands separators
 **R1 — Budgeting, then rounding.**
 For any scalar metric $m$ (e.g., $\Phi$, $A^\star$, $\hat{c}$, $R(u)$, $W(n)$):
 
-1. cast to the canonical unit; 2) apply budgeting (if declared) to form an effective value; 3) round to precision $p_m$ with tie policy $\mathrm{tie}_m$. Notation: $\mathrm{round}_{p,\ \mathrm{tie}}(v)$.
+1. cast to the canonical unit; 2) apply budgeting (if declared) to form an effective value; 3) round to precision $p_m$ with tie policy $\mathrm{tie}_m$. Notation: $\mathrm{round}_{p,\mathrm{tie}}(v)$.
 
 **R2 — Round, then compare.**
 Compare **rounded** values only. If a threshold/band endpoint is $\theta$, compute
