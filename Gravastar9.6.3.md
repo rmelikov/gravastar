@@ -1,3 +1,133 @@
+# Gravastar: Ternary Validation, Moral Geometry, and Gauge-Invariant Admissible Outcomes
+
+**Author:** Ramin Melikov (Independent Researcher, St. Louis, MO) · ORCID: 0009-0001-4232-2222 · Email: [ramin.melikov@gmail.com](mailto:ramin.melikov@gmail.com)
+
+> I claim; my claim is receipt-true to any admissible observer; therefore I count.
+> Warranted assertibility under open-ended inquiry confers epistemic standing.
+Epigraph provenance: Descartes [9]; Dewey [10]; Peirce [11].
+
+# Abstract
+
+We present **Gravastar**, a microphysics-agnostic, *teleomorphic* (ends-first) validation calculus that operationalizes the **Principle of Superposition (PoS)**: *“Do only that, which would be acceptable to all.”* Here, *acceptable to all* means **universally admissible under open-join audit**: **any observer admissible under the declared observer-equivalence group $G$** (e.g., paraphrase, ordering, units/encodings, tokenization, locale) and who follows the public method reproduces the decision within declared budgets; any compliant counterexample defeats the claim.
+
+The calculus is formalized by the **Timeline Selection Theorem (TST)** and a ternary decision gate $\delta\in\{-1,0,+1\}$: $\delta=+1$ admits and actualizes a candidate timeline, $\delta=0$ preserves superposition, and $\delta=-1$ vetoes.
+
+Decisions draw on an **acceptability field** $\Phi(x,t)$ with preregistered bands $\Phi_{\text{neutral}}$ (indifference) and $\Phi_{\min}$ (strict pass), together with a **moral geometry** $y=\arctanh(x)$. We map $\Phi$ to orientation by $x = 2(\Phi/\Phi_{\max}) - 1$, **where $\Phi_{\max}$** is the preregistered maximum acceptability in the pinned **III.json manifest**; thus $x\!\to\!-1^{+}$ marks moral egoism, $x=0$ neutrality, and $x\!\to\!1^{-}$ moral perfection. The gradient $dy/dx = 1/(1-x^2)$ yields an explicit **repair vector** whenever $\delta\in\{-1,0\}$. All comparisons obey **round-before-compare** at precisions fixed in **III.json** (budgets, rounding, tie policy).
+
+Correctness is enforced by fail-closed **floors** that **dominate $\Phi$**: a **G-floor** (gauge invariance under admissible redescriptions; observer-equivalence group G), the **PoS Screen** (neutrality operations only), **WITNESS** (asynchronous $W(n)$ with separability bounds $B(n)$), **CAUSALITY/ISO** (near-isotropy $A^\star$ and fitted front-speed cap $\hat c \le 1$), **CAPTION→RECEIPT** byte-equality binding, and **DETERMINISM**. A default invariant set (**DII-4**) is preregistered in **III.json**: $R(u)$ (universality ratio), $A^\star$, $\hat c$, and $W(n)$ vs $B(n)$. Methods are standardized via **ScanProtocol v1** (bidirectional scans, dark-window readout, $\ge 3\cdot\tau_{\text{reset}}$ waits, three-grid alias refuter; with bright/dark basis disclosure when interference or phase matters).
+
+An optional engineered-$\Phi$ layer (Discrete Nonlinear Transport) is quarantined—useful for “soliton-like” dynamics—yet cannot relax floors and must publish a causality cap $\hat c$. **Portability is demonstrated on the Adamas-1D physical testbed** (e.g., carbon-nanotube (CNT) strain/spectroscopy runs) with $\delta$-windows, byte-equality receipts, and end-to-end **REPLAY-RFD**; see also **SSH-like topological transitions under CNT strain** for context. In an agentless limit (CHSH [1]; see §9) of the witness program (e.g., **Clauser–Horne–Shimony–Holt, CHSH [1]**), the framework recovers standard quantum predictions; in all cases, admissibility is decided by $\delta$, not narrative. Panels/coverage may be reported as evidence, but **never define “all.”** The result is a gauge-invariant, time-stable, auditable standard for **admissible outcomes** that makes the PoS actionable and falsifiable.
+
+**Operational translation.** A claim has standing **if and only if** its warrant is **publicly reproducible** by any competent inquirer following the shared method; it is **invariant under admissible redescriptions** and **stable across time**; and **any compliant counterexample defeats it**. In this paper, “receipt-true” means **$\delta = +1$** with **floors dominating $\Phi$**, a **G-floor pass**, and **TTDA time spine** (UTC-LCRO badge, streaming/batch parity, explain\_url), with **caption→receipt binding** and **REPLAY-RFD** to first divergence. The validation state is **ternary-encoded as** $\delta\in\{-1,0,+1\}$; “count” means **admitted to the $\delta$ decision calculus** (subject to the PoS Screen and supersession).
+
+**Author keywords:**
+Principle of Superposition (PoS); open-join audit; ternary validation (δ); moral geometry; acceptability field Φ; gauge invariance (G-floor); TTDA time governance; receipts & byte-equality binding; REPLAY-RFD deterministic replay; Adamas-1D testbed; observer-equivalence group G; teleomorphic.
+
+---
+
+# Table of Contents
+
+1. Introduction
+1.1 Motivation and scope
+1.2 The Principle of Superposition (PoS): “acceptable to all”
+1.3 Contributions and summary of results
+1.4 Paper organization
+
+2. Preliminaries & Notation
+2.1 Symbols, sets, and rounding conventions (round-before-compare)
+2.2 Admissible observers and the observer-equivalence group $G$
+2.3 The pinned **III.json manifest** (budgets, thresholds, tie policy)
+
+3. Moral Geometry & Acceptability Field
+3.1 Acceptability field $\Phi(x,t)$ and bands $\Phi_{\min}, \Phi_{\text{neutral}}$
+3.2 Mapping $\Phi \to x$ via $x = 2(\Phi/\Phi_{\max}) - 1$ (with $\Phi_{\max}$ preregistered)
+3.3 Moral state $y=\arctanh(x)$, gradient $dy/dx = 1/(1-x^2)$, and repair vector
+
+4. Timeline Selection Theorem (TST) & Ternary Validation
+4.1 Decision gate $\delta \in \{-1,0,+1\}$: semantics and admissibility
+4.2 TST statement and operational consequences
+4.3 Counterexample defeat rule and supersession
+
+5. Floors: Fail-Closed Invariants that Dominate $\Phi$
+5.1 **G-floor**: gauge invariance under admissible re-descriptions
+5.2 **PoS Screen**: neutrality-preserving operations
+5.3 **WITNESS**: asynchronous $W(n)$ vs separability bounds $B(n)$
+5.4 **CAUSALITY/ISO**: near-isotropy $A^\star$ and fitted front-speed cap $\hat c \le 1$
+5.5 **CAPTION→RECEIPT**: byte-equality binding of figures/tables to claims
+5.6 **DETERMINISM**: RNG freeze, seeds, and platform parity
+
+6. Temporal Governance (TTDA)
+6.1 UTC-anchored Clock Disclosure Badge (UTC-LCRO)
+6.2 Right-to-Temporal-Resolution and RG-grid budgets
+6.3 Streaming↔Batch parity bound $|\delta_{\text{stream}} - \delta_{\text{batch}}| \le \Pi + 0.01\Pi$
+
+7. Receipts & Auditability
+7.1 **Receipt v2**: code/data/SBOM hashes, thresholds, energy
+7.2 Caption→receipt token trailers and byte-equality verification
+7.3 **REPLAY-RFD** (Replay-to-First-Divergence): definition and audit procedure (not Tree Evaluation [2,3,4])
+
+8. ScanProtocol v1 (Methods Standardization)
+8.1 Bidirectional scans and dark-window readout
+8.2 Reset waits $\ge 3 \cdot \tau_{\text{reset}}$
+8.3 Three-grid alias refuter
+8.4 Basis disclosure when interference/phase matters (bright/dark)
+
+9. Witness Program and Agentless Limit
+9.1 CHSH [1]-style tests and admissibility reporting
+9.2 Agentless limit: recovery of standard quantum predictions
+9.3 Panels/coverage as evidence (why panels ≠ “all”)
+
+10. Engineered-$\Phi$ (Quarantined Dynamics)
+10.1 Discrete Nonlinear Transport (DNT) model and parameters
+10.2 Causality cap reporting $\hat c$ and quarantine boundary
+10.3 Falsification windows and admissible deviations
+
+11. Adamas-1D Physical Testbed
+11.1 Hardware & setup (e.g., CNT strain/spectroscopy runs)
+11.2 $\delta$-windows, byte-equality receipts, and end-to-end REPLAY-RFD
+11.3 Results summary and portability notes
+
+12. Falsification, Threat Models, and Governance
+12.1 Open-join audit workflow and reproducibility budgets
+12.2 Adversarial attempts (gauge violations, time-skew, aliasing)
+12.3 Supersession, versioning, and public revocation
+
+13. Related Work
+13.1 Foundational tests (e.g., CHSH [1])
+13.2 Complexity/audit lineage (Tree Evaluation [2,3,4], Cook–Mertz, Williams)
+13.3 Teleomorphic/CA context and distinctions from proprietary mechanisms
+
+14. Discussion & Limitations
+14.1 What Gravastar does (and does not) claim
+14.2 Scalability and deployment considerations
+14.3 Ethical notes on PoS and universal admissibility
+
+15. Future Work
+15.1 Expanded witness suites and cross-domain portability
+15.2 Engineered-$\Phi$ soliton engineering road map
+15.3 Gravastar-TVLM / LLM integration pathways
+
+16. Acknowledgments
+
+17. Data, Code & Receipt Availability
+
+18. References
+
+Appendices
+
+Appendix A. Formal statement/proof sketch of TST and $\delta$ calculus lemmas
+Appendix B. G-floor test suite and admissible re-description classes
+Appendix C. TTDA derivations, RG-grid definitions, and parity diagnostics
+Appendix D. **Receipt v2** JSON schema and verification scripts
+Appendix E. **ScanProtocol v1** checklists and operator run-cards
+Appendix F. Estimation of **DII-4** invariants $(R(u), A^\star, \hat c, W(n)\!:\!B(n))$
+Appendix G. Adamas-1D hardware specs and calibration curves
+Appendix H. Engineered-$\Phi$ (DNT) parameter tables and ablations (quarantined)
+Appendix I. REPLAY-RFD auditor’s guide and first-divergence exemplars
+Appendix J. Right-to-Temporal-Resolution API (endpoints, budgets, audit logs)
+Appendix K. Extended examples: round-before-compare, tie policy, and repair vectors
+Appendix L. Glossary of terms and notation (PoS, floors, $G$, receipts, etc.)
+
 ## 1.1 Motivation and scope
 
 Scientific claims, safety decisions, and model deployments are too often adjudicated by **narrative** rather than by a uniform, audit-ready calculus. Two failure modes recur:
