@@ -23,8 +23,6 @@ An optional engineered-$\Phi$ layer (Discrete Nonlinear Transport) is quarantine
 **Author keywords:**
 Principle of Superposition (PoS); open-join audit; ternary validation (δ); moral geometry; acceptability field Φ; gauge invariance (G-floor); TTDA time governance; receipts & byte-equality binding; REPLAY-RFD deterministic replay; Adamas-1D testbed; observer-equivalence group G; teleomorphic.
 
----
-
 # Table of Contents
 
 1. Introduction
