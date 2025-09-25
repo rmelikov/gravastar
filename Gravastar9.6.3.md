@@ -6,7 +6,7 @@
 > Warranted assertibility under open-ended inquiry confers epistemic standing.<br>
 *Epigraph provenance: Descartes [9]; Dewey [10]; Peirce [11].*
 
-# Abstract
+## Abstract
 
 We present **Gravastar**, a microphysics-agnostic, *teleomorphic* (ends-first) validation calculus that operationalizes the **Principle of Superposition (PoS)**: *“Do only that, which would be acceptable to all.”* Here, *acceptable to all* means **universally admissible under open-join audit**: **any observer admissible under the declared observer-equivalence group $G$** (e.g., paraphrase, ordering, units/encodings, tokenization, locale) and who follows the public method reproduces the decision within declared budgets; any compliant counterexample defeats the claim.
 
