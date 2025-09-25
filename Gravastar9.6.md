@@ -4,7 +4,6 @@
 
 > I claim; my claim is receipt-true to any admissible observer; therefore I count.
 > Warranted assertibility under open-ended inquiry confers epistemic standing.
-
 Epigraph provenance: Descartes [9]; Dewey [10]; Peirce [11].
 
 # Abstract
