@@ -441,3 +441,104 @@ Given $\tau$ and $M$, an observer $o$ is admissible iff:
 * **Floors dominate $\Phi$.** If G-floor fails under any admissible $g$, the claim cannot pass on the basis of $\Phi$.
 * **Panels/coverage** may be cited as evidence but never define “all”; **all** means *every admissible observer under* $G$ *following the method and budgets*.
 * $G$ can be **extended** (e.g., spectroscopy encodings) by preregistering transforms in `III.json`; extensions must pass the same G-floor tests.
+
+## 2.3 The pinned `III.json` manifest (budgets, thresholds, tie policy)
+
+**Purpose.** `III.json` is the **single source of truth** for units, budgets, thresholds, rounding, tie policy, and admissible transformations. It is **pinned** (hash-bound) in receipts so an auditor can reproduce the gate exactly.
+
+**Binding and immutability.** The manifest’s content hash appears in **Receipt v2**; **CAPTION $\to$ RECEIPT** ensures byte-equality. Within a run (or audit epoch) the manifest is **immutable**. Any change triggers **supersession** with a new receipt and a new manifest hash. The manifest defines **what counts**: floors, RBC parameters, time budgets, and the declared classes of $G$.
+
+**Required top-level structure (skeleton).** Values below are placeholders; actual values are preregistered.
+
+```json
+{
+  "spec_id": "III.json",
+  "version": "1.0.0",
+  "hash_algo": "sha256",
+  "clock": {
+    "timebase": "UTC",
+    "sync": ["NTP", "PTP"],
+    "max_skew_ms": 2,
+    "clock_disclosure_badge": true
+  },
+  "rounding": {
+    "default": { "dp": 3, "tie": "half-even" },
+    "metrics": {
+      "Phi":         { "dp": 3, "tie": "half-even" },
+      "Phi_min":     { "dp": 3, "tie": "half-even", "relation": ">=" },
+      "Phi_neutral": { "dp": 3, "tie": "half-even", "closure": "closed", "lower": -0.010, "upper": 0.010 },
+      "A_star":      { "dp": 3, "tie": "half-even", "relation": ">=" },
+      "c_hat":       { "dp": 3, "tie": "half-even", "relation": "<=" },
+      "R_u":         { "dp": 3, "tie": "half-even" },
+      "W_n":         { "dp": 0, "tie": "half-even" },
+      "B_n":         { "dp": 0, "tie": "half-even" },
+      "energy":      { "dp": 2, "tie": "half-up" }
+    }
+  },
+  "thresholds": {
+    "Phi_min": 0.123,
+    "Phi_neutral": { "lower": -0.010, "upper": 0.010, "closure": "closed" }
+  },
+  "units": {
+    "length": "m",
+    "time":   "s",
+    "energy": "J"
+  },
+  "quantizers": {
+    "time": { "step": "1 ms", "epoch": "1970-01-01T00:00:00Z" }
+  },
+  "TTDA": {
+    "RTR_budget_ms": 50,
+    "stream_batch_parity": { "metric": "delta_auc", "bound": 0.002, "relation": "<=" },
+    "replay_order_tolerance": { "window": "first-divergence", "max_k": 1 }
+  },
+  "floors": {
+    "G_floor": true,
+    "PoS_screen": "neutrality-only",
+    "WITNESS": { "W_of_n": [16, 32, 64], "B_of_n": [14, 28, 57] },
+    "CAUSALITY_ISO": { "A_star_min": 0.97, "c_hat_max": 1.0 },
+    "CAPTION_to_RECEIPT": "byte-equality",
+    "DETERMINISM": { "rng": "Philox", "seed": 42, "platform_parity": ["cpu", "gpu"] }
+  },
+  "G": {
+    "lexical": ["whitespace_norm", "punct_norm", "meaning_preserving_paraphrase"],
+    "encoding": ["utf8", "ascii_compatible"],
+    "locale": ["decimal_point", "thousands_sep"],
+    "units": { "C_to_F": true, "m_to_ft": true },
+    "tokenization": ["tiktoken_vX", "sentencepiece_vY"],
+    "order": { "row_order_semantic": false, "col_order_semantic": false },
+    "timebase": { "streaming_vs_batch": "parity_bound", "clock_formats": ["unix", "iso8601"] },
+    "containers": { "csv_parquet_adapter": "v1.2.0", "endianness": "declared" },
+    "libraries_fp": { "allowed": ["libm", "fastmath"], "ulp_guard": 2 }
+  },
+  "methods": { "scan_protocol": "ScanProtocol v1", "tau_reset": "declared" },
+  "receipts": {
+    "explain_url": "https://example/audit",
+    "hashes": { "code": "sha256:…", "data": "sha256:…", "sbom": "sha256:…" }
+  },
+  "figcert": { "Figure1": "FIGCERT-001" }
+}
+```
+
+**Normative content and constraints.**
+
+* **RBC parameters.** The `rounding.metrics` map is the authoritative location for decimal places and tie policy per metric; **relations** (`>=`, `>`, `<=`, `<`) and **closure** for bands live here to avoid ambiguity. All comparisons in audits use **rounded values** per §2.1 (RBC). For notation, the rounding function can be written as $r(v; p,\text{tie})$.
+* **Units and conversions.** Each numeric field binds to a **canonical unit**. Allowed unit conversions (e.g., meters↔feet) are listed in `G.units` with pinned formulas. Unit changes outside this list are not admissible.
+* **Time governance (TTDA).** Pins the **Clock Disclosure Badge** (UTC, sync method, max skew), **Right-to-Temporal-Resolution** (quantizers for time-like values), **streaming/batch parity** metric and bound, and replay-order tolerance.
+* **Floors (fail-closed; dominate $\Phi$).** Encodes **G-floor**, **PoS Screen**, **WITNESS** (schedules $W(n)$ and separability bounds B(n)), **CAUSALITY/ISO** (minimum $A^\star$ and cap $\hat{c}\le 1$), **CAPTION $\to$ RECEIPT** (byte-equality), and **DETERMINISM** (RNG, seed, platform parity).
+* **Observer group $G$ (declaration).** Each class lists allowed transforms and **scope** (where they apply). Adapters (e.g., CSV↔Parquet) and FP libraries are listed **only if** proven invariant at the gate under RBC. $G$ must satisfy closure, identity, and inverse on its declared domain (cf. §2.2).
+* **Receipts and audit.** Receipt bundle includes: manifest hash; code/data/SBOM hashes; thresholds used (printed at declared dp); energy; and `explain_url`. **REPLAY-RFD** is mandatory: **first divergence** is the stopping rule. FIGCERT binds figure captions to receipts.
+* **Determinism and platform parity.** RNG algorithm and `seed` are pinned; non-deterministic kernels are either disabled or declared with bounds and tests. Platform parity (CPU/GPU, driver, library versions) is declared so auditors can match the environment.
+* **NaN/undefined policy (fail closed).** Any missing threshold, NaN, or undefined comparison **fails** the check; the gate outputs a repair vector rather than proceeding.
+
+**Minimal auditor workflow (from `III.json`).**
+
+1. Load `III.json` and verify its hash from the receipt.
+2. Canonicalize inputs per units/locale; apply time quantizers as declared.
+3. Compute effective metrics (apply budgets), then apply **RBC** per `rounding.metrics`.
+4. Verify **floors**; any floor failure yields $\delta=-1$.
+5. If floors pass, compare $\Phi$ with $\Phi_{\min}$ and $\Phi_{\mathrm{neutral}}$ using rounded values; decide $\delta\in{-1,0,+1}$.
+6. Exercise **G-floor** by sampling declared $g$ across classes; confirm invariance of rounded gate inputs and the gate output.
+7. Publish an auditor Receipt v2 with the same manifest hash and attach a **REPLAY-RFD** trace to first divergence (if any).
+
+**Change control and supersession.** No in-place edits: any change to thresholds, dp, tie policy, budgets, $G$ classes, or floor parameters requires a **version bump** and a new manifest hash. A compliant counterexample or first divergence **defeats standing**; the replacement decision cites the new manifest and receipt. Deprecated fields remain readable for audits, but the **active** fields are those in the manifest referenced by the current receipt.
