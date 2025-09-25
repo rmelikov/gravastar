@@ -126,6 +126,7 @@ Appendix J. Right-to-Temporal-Resolution API (endpoints, budgets, audit logs)
 Appendix K. Extended examples: round-before-compare, tie policy, and repair vectors
 Appendix L. Glossary of terms and notation (PoS, floors, $G$, receipts, etc.)
 
+# 1. Introduction
 ## 1.1 Motivation and scope
 
 Scientific claims, safety decisions, and model deployments are too often adjudicated by **narrative** rather than by a uniform, audit-ready calculus. Two failure modes recur:
@@ -257,8 +258,7 @@ The paper delivers: (i) a **provable decision kernel** (TST + ternary gate) with
 
 **Appendices (A–L).** Formal TST statement and lemmas (A); G-floor formalities and tests; TTDA details and parity proofs; receipt schemas and replay traces; III.json examples; rounding/ties and repair-vector worked examples; glossary.
 
----
-
+# 2. Preliminaries & Notation
 ## 2.1 Symbols, sets, and rounding conventions (round-before-compare)
 
 This section fixes symbols and the numeric discipline used throughout. All items below are **normative**; additions or overrides must be preregistered in `III.json`.
@@ -542,3 +542,192 @@ Given $\tau$ and $M$, an observer $o$ is admissible iff:
 7. Publish an auditor Receipt v2 with the same manifest hash and attach a **REPLAY-RFD** trace to first divergence (if any).
 
 **Change control and supersession.** No in-place edits: any change to thresholds, dp, tie policy, budgets, $G$ classes, or floor parameters requires a **version bump** and a new manifest hash. A compliant counterexample or first divergence **defeats standing**; the replacement decision cites the new manifest and receipt. Deprecated fields remain readable for audits, but the **active** fields are those in the manifest referenced by the current receipt.
+
+# 3. Moral Geometry & Acceptability Field
+## 3.1 Acceptability field $\Phi(x,t)$ and bands $\Phi_{\min}$, $\Phi_{\mathrm{neutral}}$
+
+**Definition (what $\Phi$ is).**
+$\Phi(x,t)$ is a **scalar acceptability field** evaluated at orientation/state $x$ and time $t$. It aggregates the method’s evidentiary signals (declared in $M$) into a single quantity that the gate compares against preregistered **bands**. All inputs used to compute $\Phi$ must be **auditable** under `III.json` (units, rounding/tie policy, budgets) and **admissible** under $G$ (observer-equivalence). Floors **dominate** $\Phi$: if any floor fails, the decision cannot pass on the basis of $\Phi$.
+
+**Bands (how $\Phi$ is used).**
+Two preregistered bands in `III.json` govern the ternary gate:
+
+* **Strict pass** $\Phi_{\min}$ — a scalar threshold; pass iff $\Phi \ge \Phi_{\min}$ (after rounding; see RBC below).
+* **Neutral band** $\Phi_{\mathrm{neutral}}=[\theta_L,\theta_U]$ — an indifference window; if $\Phi \in \Phi_{\mathrm{neutral}}$ (after rounding), the gate preserves superposition.
+
+**RBC discipline (round-before-compare).**
+Comparisons use **rounded** values only (cf. §2.1):
+
+* Compute the **effective** $\Phi$ by applying declared budgets; then round via $r(\Phi; p,\text{tie})$ to the metric’s precision `p` and tie policy (both from `III.json`).
+* Round $\Phi_{\min}$ and the endpoints $\theta_L,\theta_U$ to the same comparison spec.
+* Decide membership with the **rounded** $\Phi$ and thresholds/band endpoints. (This eliminates platform/representation ambiguity.)
+
+**Pinned maximum and scale.**
+`III.json` preregisters $\Phi_{\max}$, the maximum admissible acceptability in the current method. Later (§3.2) we map $\Phi$ to orientation via $x = 2(\Phi/\Phi_{\max}) - 1$; this pins $x\in[-1,1]$ with $\Phi=0 \mapsto x=-1$, $\Phi=\Phi_{\max} \mapsto x=1$. The moral state $y=\mathrm{arctanh}(x)$ and its gradient appear in §3.3 (repair calculus). The **gate** in this section, however, operates directly on $\Phi$ and the bands.
+
+**Construction of $\Phi$ (normative constraints).**
+
+* **Declared aggregator.** $\Phi$ is computed by a **declared, deterministic** aggregator over method features (e.g., scores, residuals, margins). The formula, weights, and any monotone reparameterizations are pinned in $M$ / `III.json`.
+* **Monotonicity.** If a reparameterization of a component is used (e.g., logit↔probability), the resulting $\Phi$ must be **monotone** in the underlying evidence, and thresholds/bands must be declared **in the same parameterization** used at compare time.
+* **No floor leakage.** Floor signals (e.g., $A^\star$, $\hat{c}$, W(n) vs separability bounds B(n)) are **not** added into $\Phi$ to “offset” failures; floors are checked independently and first.
+* **Units & budgets.** All inputs to $\Phi$ are unit-cast per `III.json`; budgeting (measurement/time) is applied **before** rounding.
+* **Time handling.** Time-like inputs use the declared quantizer (TTDA). Streaming vs. batch differences must satisfy the preregistered parity bound; otherwise the floor fails regardless of $\Phi$.
+
+**Decision semantics with $\Phi$.**
+
+* If **any floor** fails → $\delta=-1$ (report failure and a repair direction; see §3.3 for the repair calculus).
+* Else, with rounded values:
+
+  * If $\Phi \ge \Phi_{\min}$ → $\delta=+1$.
+  * Else if $\Phi \in \Phi_{\mathrm{neutral}}$ → $\delta=0$.
+  * Else → $\delta=-1$.
+
+**Band design guidance (declared in `III.json`).**
+
+* **Neutral band closure.** Declare whether $\Phi_{\mathrm{neutral}}$ is closed or half-open; default is **closed** $[\theta_L,\theta_U]$.
+* **Tie policy at edges.** Membership at $\theta_L$ or $\theta_U$ is determined **after rounding** with the declared tie policy (half-even recommended).
+* **Separation from $\Phi_{\min}$.** If a neutral band is present above zero, place $\Phi_{\min}$ **strictly above** $\theta_U$ to avoid oscillation at the margin; declare the relations explicitly (e.g., $\ge$ vs $>$) in `III.json`.
+
+**Edge cases (fail-closed).**
+
+* NaN or missing $\Phi$, or any missing threshold/band endpoint → comparison **fails**.
+* If $\Phi_{\max}$ is undefined or inconsistent with the method, the mapping to $x$ is invalid and the gate must not proceed; report the manifest error.
+* If time budgets are exceeded (TTDA), the check fails as a **floor** before any use of $\Phi$.
+
+**Example (schematic, RBC).**
+With `dp=3`, tie policy half-even, and an indifference window declared as $[\theta_L,\theta_U]=[0.010,0.020]$:
+
+* $r(0.0105;3,\text{half-even})=0.011$ ⇒ **inside** the band.
+* $r(0.0205;3,\text{half-even})=0.021$ ⇒ **outside** the band.
+* If $\Phi_{\min}=0.1234$ at `dp=3`, $r(\Phi_{\min};3,\text{half-even})=0.123$; $\Phi$ passes iff its **rounded** value is $\ge 0.123$.
+
+**Invariance under $G$ (G-floor interaction).**
+For any admissible $g\in G$ (units/locale/encoding/tokenization/timebase/container classes as declared), recomputing $\Phi$ under RBC must **not** alter the rounded gate inputs nor the gate decision. If any admissible $g$ produces a difference that changes the decision, the G-floor fails (independent of $\Phi$ magnitude), and standing is removed by supersession.
+
+Great call. I re-checked 9.6 and 9.6.2: §3.2 there is only a header, so nothing substantive to preserve. I kept everything we introduced (manifest binding, RBC-compat reporting, invariance under $G$, edge cases), and made one tiny addition: I explicitly name a reporting precision for $x$ (so GitHub prints match receipts). Here’s the **final §3.2** (no sub-subsections, GitHub-safe math):
+
+---
+
+## 3.2 Orientation mapping $x = 2(\Phi/\Phi_{\max}) - 1$
+
+**Purpose.**
+We map the acceptability field $\Phi$ to a **dimensionless orientation** $x\in[-1,1]$ by
+$x = 2(\Phi/\Phi_{\max}) - 1,$
+with $\Phi_{\max}$ **preregistered** in `III.json`. This pins the scale so that
+
+* $\Phi=0 \mapsto x=-1$ (worst orientation),
+* $\Phi=\Phi_{\max} \mapsto x=1$ (best orientation),
+* $\Phi=\tfrac{1}{2}\Phi_{\max} \mapsto x=0$ (neutral orientation).
+
+The gate in §3.1 **still operates directly on** $\Phi$ (against $\Phi_{\min}$ and $\Phi_{\mathrm{neutral}}$ under RBC). The orientation $x$ is for **reporting**, **alignment across domains**, and as the state variable used in the repair calculus of §3.3.
+
+**Properties (declared and auditable).**
+
+* **Monotone and affine.** The map is strictly increasing on $[0,\Phi_{\max}]$; it preserves order after a global rescale and shift.
+* **Pinned range.** $x\in[-1,1]$ whenever $\Phi\in[0,\Phi_{\max}]$; values outside indicate a manifest or measurement error and must be treated as an audit defect.
+* **Manifest binding.** $\Phi_{\max}$ is a **declared constant** for the method. Any change requires a new `III.json` and supersession (see §2.3).
+* **Gauge compatibility.** If a $g\in G$ preserves the **rounded** gate inputs for $\Phi$ (RBC), then the induced $x$ is likewise invariant. A difference in $x$ caused by $g$ is a G-floor failure.
+
+**Bands and thresholds in $x$ (optional reporting).**
+Although gate comparisons are defined in $\Phi$ (cf. §3.1), it is useful to **report** the implied orientation levels:
+
+* **Strict pass in $x$:** $x_{\min} = 2(\Phi_{\min}/\Phi_{\max}) - 1$.
+* **Neutral band in $x$:** $[x_L,x_U] = \bigl[\,2(\theta_L/\Phi_{\max})-1,\; 2(\theta_U/\Phi_{\max})-1\,\bigr]$.
+
+When reporting $x_{\min}$ or $[x_L,x_U]$, compute them **from the same rounded values** used in the underlying $\Phi$ comparison (RBC) to avoid any mismatch between reported and deciding numbers.
+
+**Numerical discipline (compatibility with RBC).**
+
+* **Decisions:** compute and compare **rounded** $\Phi$ and thresholds/band endpoints as in §2.1; do **not** switch the gate to $x$.
+* **Reporting:** if $x$ is printed, either (a) transform the already rounded quantities, or (b) declare a precision for $x$ in `III.json` (e.g., `rounding.metrics.x_orientation`) and compute $x$ from the effective $\Phi$ used by the gate. In both cases, printed decimals must match the declared precision.
+
+**Interpretation (link to moral geometry).**
+The affine map gives an orientation axis where $x\to -1$ corresponds to morally unacceptable orientations and $x\to 1$ to morally ideal orientations, with $x=0$ neutral. Section §3.3 lifts $x$ into the **moral state** $y=\mathrm{arctanh}(x)$, which provides a convenient gradient (and hence a **repair direction**) while respecting the pinned range of $x$.
+
+**Edge cases (fail-closed).**
+
+* If `III.json` omits or conflicts on $\Phi_{\max}$, orientation must **not** be computed; the manifest error is reported and the gate halts.
+* If any time governance constraint (TTDA) or floor fails, the decision is $\delta=-1$ regardless of $x$.
+* If a reported $x$ falls outside $[-1,1]$ due to inconsistent inputs, treat it as an audit defect (manifest or pipeline), not as evidence.
+
+**Example (schematic).**
+With $\Phi_{\max}=1.000$ and $\Phi_{\min}=0.700$, we have $x_{\min}=2(0.700/1.000)-1=0.400$. If the neutral band is $[\theta_L,\theta_U]=[0.495,0.505]$, then $[x_L,x_U]=[-0.010,\; 0.010]$. The **gate** still compares $\Phi$ to $\Phi_{\min}$ and $[\theta_L,\theta_U]$ after rounding; $x_{\min}$ and $[x_L,x_U]$ are for consistent reporting and for the repair calculus in §3.3.
+
+## 3.3 Moral state $y=\mathrm{arctanh}(x)$ and the repair calculus
+
+**Definition and purpose.**
+The **moral state** is $y=\mathrm{arctanh}(x),\qquad x\in(-1,1),$ a strictly increasing, odd map with inverse $x=\tanh(y)$. We use $y$ as a **coordinate for repairs**: its gradient grows as $|x|\to 1$, indicating that proposals near the extremes require disproportionately careful change. (Implementations may, if declared in `III.json`, clamp the reported orientation to $x\in[-1+\epsilon,,1-\epsilon]$ for numerical safety; this does not change gate semantics.)
+
+**Gradients (for repair direction).**
+From §3.2, $x = 2(\Phi/\Phi_{\max}) - 1$. Hence
+
+$$
+\frac{dy}{dx}=\frac{1}{1-x^2},\qquad
+\frac{dx}{d\Phi}=\frac{2}{\Phi_{\max}},\qquad
+\frac{dy}{d\Phi}=\frac{2}{\Phi_{\max}\,(1-x^2)}.
+$$
+
+These derivatives guide direction only. The gate still **compares in $\Phi$** under round-before-compare (RBC; §2.1).
+
+**Repair objective (when $\delta\in{-1,0}$).**
+Given inputs $\mathbf{u}$ (features/knobs/conditions declared in $M$) and a scalar field $\Phi(\mathbf{u})$, find the **smallest** admissible change $\Delta\mathbf{u}$ that (i) passes floors, (ii) satisfies RBC, and (iii) reaches the nearest admissible band (typically $\Phi_{\min}$) without violating the **PoS Screen** (neutrality-only operations when $\delta=0$).
+
+**Unconstrained local step (reference).**
+Let $\nabla_{!\mathbf{u}}\Phi$ be the gradient at the current point and let the required increase be $\Delta\Phi_{\text{need}}>0$. The **minimum $L^2$-norm** update achieving at least $\Delta\Phi_{\text{need}}$ is
+
+$$
+\Delta\mathbf{u}^{\star}
+= \frac{\Delta\Phi_{\text{need}}}{\|\nabla_{\!\mathbf{u}}\Phi\|_2^2}\,\nabla_{\!\mathbf{u}}\Phi,
+$$
+
+followed by a **line search** (still along $\nabla\Phi$) that enforces floors, TTDA budgets, and $G$-invariance. While $\delta=0$, only neutrality-preserving operations are allowed (PoS Screen).
+
+**RBC-aware target (how to compute $\Delta\Phi_{\text{need}}$).**
+Decisions use **rounded** values. Let precision be `p` (decimal places) and tie policy be `tie` (both from `III.json`); define the grid $h=10^{-p}$ and $R(\cdot)=r(\cdot; p,\text{tie})$.
+
+* **Non-strict pass ($\ge$):** let $T=R(\Phi_{\min})$. Use
+
+  $$\Phi_{\text{target}} = T - \frac{1}{2}h + \epsilon.$$
+
+  with a small guard $\epsilon\in(0,0.1h]$ so $R(\Phi_{\text{target}})=T$. Then $\Delta\Phi_{\text{need}}=\max{0,\ \Phi_{\text{target}}-\Phi_{\text{current}}}$.
+* **Strict $>$ (rare but allowed):**
+
+  $$\Phi_{\text{target}} = T + \frac{1}{2}h + \epsilon.$$
+
+  avoiding equality-at-rounding.
+* **Neutral band exit:** if $R(\Phi)\in[R(\theta_L),R(\theta_U)]$ (closed band), pick the nearest side and target
+
+  $$\Phi_{\text{target}} \le R(\theta_L) - \frac{1}{2}h - \epsilon.$$
+  $$\Phi_{\text{target}} \ge R(\theta_U) + \frac{1}{2}h + \epsilon.$$
+
+These targets **prevent oscillation** at decimal boundaries and stabilize the decision under RBC.
+
+**From $y$ to a repair vector.**
+A practical two-step:
+
+1. **Direction (in $\mathbf{u}$):** follow $\nabla_{!\mathbf{u}}\Phi$ (or proportional $\partial x/\partial \mathbf{u}$).
+2. **Step size and reporting:** choose $\Delta\Phi_{\text{need}}$ via the RBC rule above; after an accepted line-search step with achieved $\Delta\Phi_{\text{eff}}$, report progress in $y$:
+
+  $$\Delta y \approx \frac{dy}{d\Phi}\,\Delta\Phi_{\text{eff}} = \frac{2\,\Delta\Phi_{\text{eff}}}{\Phi_{\max}\,(1-x^2)}.$$
+
+**Constraints that must hold (fail-closed).**
+
+* **Floors dominate $\Phi$.** No step may violate G-floor, PoS Screen, WITNESS (W(n) vs separability bounds B(n)), CAUSALITY/ISO ($A^\star$ minimum and $\hat{c}\le 1$), CAPTION→RECEIPT (byte-equality), or DETERMINISM. Any such violation yields $\delta=-1$ regardless of $\Phi$.
+* **TTDA alignment.** Time quantizers and streaming vs. batch parity must be satisfied **after** the repair; otherwise the repair is invalid.
+* **$G$-invariance.** For admissible $g\in G$, the **rounded** gate inputs must remain invariant; representation tricks are out.
+* **PoS Screen during $\delta=0$.** Only neutrality-preserving operations are permitted while in superposition.
+
+**Numerical cautions.**
+
+* **Near $|x|=1$:** $\tfrac{dy}{dx}$ grows large; select steps in **$\Phi$-space** with conservative line search, and use $y$ primarily for reporting.
+* **Quantization:** for time-like fields, quantize first (TTDA), compute effective $\Phi$, then apply RBC.
+* **Gradients:** if analytic $\nabla\Phi$ is unavailable, use symmetric finite differences that honor units, quantizers, and RBC.
+
+**Example (schematic).**
+With `p=3` (so $h=0.001$), tie = half-even, current $\Phi=0.1180$, $\Phi_{\min}=0.1234$. Then $T=R(\Phi_{\min})=0.123$ and
+$\Phi_{\text{target}} = 0.123 - 0.0005 + 0.0001 = 0.1226$. Thus $\Delta\Phi_{\text{need}}=0.0046$. If the gradient two-norm equals $\lVert \nabla \Phi \rVert_2 = 2.0$, the unconstrained proposal is
+$$\Delta \mathbf{u}^{\star} = 0.00115 \cdot \nabla \Phi.$$ Follow with a line search to satisfy floors and TTDA. For reporting, with
+$$\Phi_{\max} = 1.000, \qquad x = 2(0.1180)-1 = -0.764,$$ the achieved increment is $$\Delta y \approx \frac{2\,\Delta \Phi_{\text{eff}}}{\Phi_{\max}(1-x^{2})}.$$
+
+**Receipts and auditability.**
+Each repair that changes inputs produces a new **Receipt v2** (hashes, thresholds, energy, explain_url) and a **REPLAY-RFD** trace to first divergence. The manifest hash and RBC parameters are pinned so an auditor can recompute the gate, verify floors, and confirm that the post-repair $\delta$ is warranted.
