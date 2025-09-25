@@ -26,33 +26,30 @@ Principle of Superposition (PoS); open-join audit; ternary validation (δ); mora
 
 ---
 
-**ToC**
+# Table of Contents
 
-**1. Introduction**
+1. Introduction
 1.1 Motivation and scope
 1.2 The Principle of Superposition (PoS): “acceptable to all”
 1.3 Contributions and summary of results
 1.4 Paper organization
 
-**2. Preliminaries & Notation**
+2. Preliminaries & Notation
 2.1 Symbols, sets, and rounding conventions (round-before-compare)
 2.2 Admissible observers and the observer-equivalence group $G$
-Notation: G (observer-equivalence group); G-floor denotes the invariant; **admissible re-descriptions** are the allowed transformations within G tested by the floors.
 2.3 The pinned **III.json manifest** (budgets, thresholds, tie policy)
 
-**3. Moral Geometry & Acceptability Field**
+3. Moral Geometry & Acceptability Field
 3.1 Acceptability field $\Phi(x,t)$ and bands $\Phi_{\min}, \Phi_{\text{neutral}}$
-(both statistic and thresholds are rounded at the pinned precision before comparison)
-
 3.2 Mapping $\Phi \to x$ via $x = 2(\Phi/\Phi_{\max}) - 1$ (with $\Phi_{\max}$ preregistered)
 3.3 Moral state $y=\mathrm{arctanh}(x)$, gradient $dy/dx = 1/(1-x^2)$, and repair vector
 
-**4. Timeline Selection Theorem (TST) & Ternary Validation**
+4. Timeline Selection Theorem (TST) & Ternary Validation
 4.1 Decision gate $\delta \in \{-1,0,+1\}$: semantics and admissibility
 4.2 TST statement and operational consequences
 4.3 Counterexample defeat rule and supersession
 
-**5. Floors: Fail-Closed Invariants that Dominate $\Phi$**
+5. Floors: Fail-Closed Invariants that Dominate $\Phi$
 5.1 **G-floor**: gauge invariance under admissible re-descriptions
 5.2 **PoS Screen**: neutrality-preserving operations
 5.3 **WITNESS**: asynchronous $W(n)$ vs separability bounds $B(n)$
@@ -60,88 +57,79 @@ Notation: G (observer-equivalence group); G-floor denotes the invariant; **admis
 5.5 **CAPTION→RECEIPT**: byte-equality binding of figures/tables to claims
 5.6 **DETERMINISM**: RNG freeze, seeds, and platform parity
 
-**6. Temporal Governance (TTDA)**
+6. Temporal Governance (TTDA)
 6.1 UTC-anchored Clock Disclosure Badge (UTC-LCRO)
 6.2 Right-to-Temporal-Resolution and RG-grid budgets
 6.3 Streaming↔Batch parity bound $|\delta_{\text{stream}} - \delta_{\text{batch}}| \le \Pi + 0.01\Pi$
-Constraint (TTDA parity budget, ASCII): |delta_stream - delta_batch| ≤ Pi + 0.01*Pi.
 
-**7. Receipts & Auditability**
+7. Receipts & Auditability
 7.1 **Receipt v2**: code/data/SBOM hashes, thresholds, energy
 7.2 Caption→receipt token trailers and byte-equality verification
-Repair recipe (publisher compatibility):
-
-Token field order (canonical): id, receipt, iii, artifact, mode[, scrubber].
 7.3 **REPLAY-RFD** (Replay-to-First-Divergence): definition and audit procedure (not Tree Evaluation [2,3,4])
 
-**8. ScanProtocol v1 (Methods Standardization)**
+8. ScanProtocol v1 (Methods Standardization)
 8.1 Bidirectional scans and dark-window readout
 8.2 Reset waits $\ge 3 \cdot \tau_{\text{reset}}$
-Baseline MUST match step-0 within epsilon_base (rounded).
 8.3 Three-grid alias refuter
 8.4 Basis disclosure when interference/phase matters (bright/dark)
 
-**9. Witness Program and Agentless Limit**
+9. Witness Program and Agentless Limit
 9.1 CHSH [1]-style tests and admissibility reporting
 9.2 Agentless limit: recovery of standard quantum predictions
-In the agentless (CHSH [1]) limit, Gravastar reports δ from the registered method; this reproduces the standard quantum statistics because floors and round-before-compare enforce the same invariants as the usual test (no signalling, bounded speed, randomized bases), and δ is computed from those rounded diagnostics.
-
 9.3 Panels/coverage as evidence (why panels ≠ “all”)
 
-**10. Engineered-$\Phi$ (Quarantined Dynamics)**
+10. Engineered-$\Phi$ (Quarantined Dynamics)
 10.1 Discrete Nonlinear Transport (DNT) model and parameters
 10.2 Causality cap reporting $\hat c$ and quarantine boundary
-When dnt.enabled=true, the measured c_hat from the DNT loop MUST satisfy c_hat ≤ c_hat_cap and the CAUSALITY/ISO floor MUST still pass independently of the DNT step.
-
 10.3 Falsification windows and admissible deviations
 
-**11. Adamas-1D Physical Testbed**
+11. Adamas-1D Physical Testbed
 11.1 Hardware & setup (e.g., CNT strain/spectroscopy runs)
 11.2 $\delta$-windows, byte-equality receipts, and end-to-end REPLAY-RFD
 11.3 Results summary and portability notes
 
-**12. Falsification, Threat Models, and Governance**
+12. Falsification, Threat Models, and Governance
 12.1 Open-join audit workflow and reproducibility budgets
 12.2 Adversarial attempts (gauge violations, time-skew, aliasing)
 12.3 Supersession, versioning, and public revocation
 
-**13. Related Work**
+13. Related Work
 13.1 Foundational tests (e.g., CHSH [1])
 13.2 Complexity/audit lineage (Tree Evaluation [2,3,4], Cook–Mertz, Williams)
 13.3 Teleomorphic/CA context and distinctions from proprietary mechanisms
 
-**14. Discussion & Limitations**
+14. Discussion & Limitations
 14.1 What Gravastar does (and does not) claim
 14.2 Scalability and deployment considerations
 14.3 Ethical notes on PoS and universal admissibility
 
-**15. Future Work**
+15. Future Work
 15.1 Expanded witness suites and cross-domain portability
 15.2 Engineered-$\Phi$ soliton engineering road map
 15.3 Gravastar-TVLM / LLM integration pathways
 
-**16. Acknowledgments**
+16. Acknowledgments
 
-**17. Data, Code & Receipt Availability**
+17. Data, Code & Receipt Availability
 
-**18. References**
+18. References
 
 ---
 
-**Appendices**
+Appendices
 
-**Appendix A.** Formal statement/proof sketch of TST and $\delta$ calculus lemmas
-**Appendix B.** G-floor test suite and admissible re-description classes
-**Appendix C.** TTDA derivations, RG-grid definitions, and parity diagnostics
-**Appendix D.** **Receipt v2** JSON schema and verification scripts
-**Appendix E.** **ScanProtocol v1** checklists and operator run-cards
-**Appendix F.** Estimation of **DII-4** invariants $(R(u), A^\star, \hat c, W(n)\!:\!B(n))$
-**Appendix G.** Adamas-1D hardware specs and calibration curves
-**Appendix H.** Engineered-$\Phi$ (DNT) parameter tables and ablations (quarantined)
-**Appendix I.** REPLAY-RFD auditor’s guide and first-divergence exemplars
-**Appendix J.** Right-to-Temporal-Resolution API (endpoints, budgets, audit logs)
-**Appendix K.** Extended examples: round-before-compare, tie policy, and repair vectors
-**Appendix L.** Glossary of terms and notation (PoS, floors, $G$, receipts, etc.)
+Appendix A. Formal statement/proof sketch of TST and $\delta$ calculus lemmas
+Appendix B. G-floor test suite and admissible re-description classes
+Appendix C. TTDA derivations, RG-grid definitions, and parity diagnostics
+Appendix D. **Receipt v2** JSON schema and verification scripts
+Appendix E. **ScanProtocol v1** checklists and operator run-cards
+Appendix F. Estimation of **DII-4** invariants $(R(u), A^\star, \hat c, W(n)\!:\!B(n))$
+Appendix G. Adamas-1D hardware specs and calibration curves
+Appendix H. Engineered-$\Phi$ (DNT) parameter tables and ablations (quarantined)
+Appendix I. REPLAY-RFD auditor’s guide and first-divergence exemplars
+Appendix J. Right-to-Temporal-Resolution API (endpoints, budgets, audit logs)
+Appendix K. Extended examples: round-before-compare, tie policy, and repair vectors
+Appendix L. Glossary of terms and notation (PoS, floors, $G$, receipts, etc.)
 
 ---
 
@@ -7668,3 +7656,4 @@ Rounding is not a formatting nicety—it is part of the **method**. By pinning p
 **$\Pi$ (deviation budget).** TTDA budget used in parity bound and RtTR decisions; may be decomposed (class/join/clock/priv) in III.json. See §6 and App. J.
 
 **$\rho$ (precision).** Pinned decimal precision for a statistic/table (or time quantum $\Delta$); used by RBC with a declared tie policy. See §2.1 and App. K.
+
