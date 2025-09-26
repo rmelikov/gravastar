@@ -851,15 +851,15 @@ $$
 \delta_o(g\cdot\tau;\ g\cdot M)=\delta_o(\tau;\ M).
 $$
 
-   If an admissible action changes **rounded** gate inputs or the outcome, the G-floor fails (and $\delta=-1$).
+If an admissible action changes **rounded** gate inputs or the outcome, the G-floor fails (and $\delta=-1$).
 
-4. **Temporal stability (TTDA).**
+3. **Temporal stability (TTDA).**
    With TTDA budgets satisfied (including the stream↔batch parity bound on **rounded** statistics), recomputation at admissible times yields the **same** decision. First divergence in **REPLAY-RFD** is the stopping rule and defeats standing.
 
-5. **Monotonicity in the RBC sense.**
-   Holding floors, $G$, and TTDA fixed, increasing the **rounded** acceptability $\Phi'_{\text{eff}}$ cannot flip $\delta=+1$ to $\delta=-1$. RBC pins equality/inequality boundaries, eliminating representation ambiguity.
+4. **Monotonicity in the RBC sense.**
+   Holding floors, $G$, and TTDA fixed, increasing the **rounded** acceptability $\Phi_{\text{eff}}'$ cannot flip $\delta=+1$ to $\delta=-1$. RBC pins equality/inequality boundaries, eliminating representation ambiguity.
 
-6. **Defeat by counterexample (supersession).**
+5. **Defeat by counterexample (supersession).**
    If any admissible observer, re-description $g\in G$, or admissible recomputation produces a **floor violation**, **parity breach**, **G-flip**, or an **RFD** first divergence on bound bytes, the claim cannot hold $\delta=+1$; prior standing, if any, is **superseded** by a receipt-backed update.
 
 **Operational consequences.**
@@ -880,7 +880,7 @@ m'=\mathrm{round}_{p_{\mathrm{cmp}},\ \mathrm{tie}_{\mathrm{cmp}}}(m),\qquad
 \theta'=\mathrm{round}_{p_{\mathrm{cmp}},\ \mathrm{tie}_{\mathrm{cmp}}}(\theta)
 $$
 
-  and compares only $m'$ and $\theta'$ (strict vs non-strict per spec). This pins boundaries and removes platform/representation drift (cf. §2.1).
+and compares only $m'$ and $\theta'$ (strict vs non-strict per spec). This pins boundaries and removes platform/representation drift (cf. §2.1).
 
 * **Gate (piecewise form, rounded comparisons).**
 
@@ -900,19 +900,19 @@ $$
 |\delta_{\text{stream}} - \delta_{\text{batch}}| \le \Pi + 0.01\Pi
 $$
 
-  and re-check $G$-invariance:
+and re-check $G$-invariance:
 
 $$
 \delta(g\cdot\tau;\ g\cdot M)=\delta(\tau;\ M)\quad\text{for all } g\in G.
 $$
 
-  Any violation implies $\delta\ne +1$ and triggers **supersession** of any prior $+1$.
+Any violation implies $\delta\ne +1$ and triggers **supersession** of any prior $+1$.
 
-* **Repair calculus available whenever $\delta\in\{-1,0\}$.**
+* **Repair calculus available whenever $\delta\in{-1,0}$.**
   With $x=2(\Phi/\Phi_{\max})-1$ and $y=\mathrm{arctanh}(x)$, the gradient $dy/dx=1/(1-x^{2})$ provides a **repair direction** toward $\Phi_{\min}'$ that must respect floors and TTDA (see §3.3). Use TTDA → $\Phi_{\text{eff}}$ → RBC order and conservative steps near $|x|\approx 1$.
 
 * **Multiple candidates (ties & selection).**
   Apply the gate **per** candidate $\tau_k$. If several reach $\delta=+1$, selection follows the **preregistered** tie policy in `III.json` (e.g., earliest receipt time, lexicographic receipt hash, or a declared tie-break metric evaluated under RBC). Post-hoc tie-breaks are non-admissible.
 
 * **Receipts and auditability.**
-  A decision that “counts” is **receipt-true**: CAPTION→RECEIPT enforces byte-equality on bound bytes; all compares are RBC-pinned; publication includes a **Decision provenance record** (III.json hash/version; Receipt v2 hash; energy/runtime; platform/clock badges; floor pass/fail table; $\Phi$ components, $\Phi_{\text{eff}}$, band endpoints (rounded), and $\delta$; G-coverage card; TTDA parity report; **REPLAY-RFD** trace ID; and, if $\delta\in\{0,-1\}$, a repair vector with feasibility notes).
+  A decision that “counts” is **receipt-true**: CAPTION→RECEIPT enforces byte-equality on bound bytes; all compares are RBC-pinned; publication includes a **Decision provenance record** (III.json hash/version; Receipt v2 hash; energy/runtime; platform/clock badges; floor pass/fail table; $\Phi$ components, $\Phi_{\text{eff}}$, band endpoints (rounded), and $\delta$; G-coverage card; TTDA parity report; **REPLAY-RFD** trace ID; and, if $\delta\in{0,-1}$, a repair vector with feasibility notes).
