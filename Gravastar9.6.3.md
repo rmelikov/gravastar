@@ -979,3 +979,81 @@ Every claim maintains a machine-readable status:
 **Why one counterexample is enough.**
 The calculus encodes *universal admissibility*: “acceptable to all” means *no compliant observer* can overturn the admission. Therefore, one compliant counterexample demonstrates non-universality and collapses standing. **Supersession** turns that collapse into a public, reproducible update path—tightening the method or declaring the boundary where repairs are infeasible under the floors.
 
+# 5. Floors: Fail-Closed Invariants that Dominate $\Phi$
+## 5.1 G-floor: gauge invariance under admissible re-descriptions
+
+**Purpose.** Floors **dominate** $\Phi$: if G-floor fails, $\Phi$ cannot admit. G-floor guarantees that admissibility does **not** depend on presentation, encoding, or reference frame. A claim may be admitted only if the decision $\delta$ is **invariant** under the preregistered observer-equivalence group $G$ (declared in `III.json`).
+
+**Group action & scope.**
+$G$ is a group of *invertible* re-descriptions acting on both inputs and method:
+
+$$
+g\cdot(\tau,M)=(\tau',M'),\quad g\in G.
+$$
+
+Identity, closure, and inverses hold on the declared **domain of validity** for each class (units map applies only to fields it declares, etc.). The manifest lists **only** admissible classes; anything else is out-of-scope. Typical classes include paraphrase (semantic-preserving), ordering/association (set permutations), units & scales (SI/affine with pinned constants), tokenization/segmentation (pinned normalizers), encodings & Unicode (UTFs; NFC/NFKC), locale formats (dates/numbers), time bases (to **UTC-LCRO**), and data wrappers (CSV/JSON idempotent variants).
+
+**Invariant to be proved (normative).**
+
+$$
+\delta(g\cdot\tau;\ g\cdot M)=\delta(\tau;\ M)\quad\text{for all } g\in G,
+$$
+
+with **all** admissibility comparisons executed **round-before-compare** at the per-metric precision and tie policy declared in `III.json`. Real-valued diagnostics that feed $\Phi$ (e.g., $R(u)$, $A^\star$, $\hat c$, $W!:!B$) may exhibit **reported drift** up to a public tolerance $\eta$; **the gate $\delta$ itself must not drift**. Any $g$ that flips $\delta$ causes a floor failure ($\delta=-1$).
+
+**Canonicalization-first (recommended).**
+Canonicalize **before** feature extraction (units → SI, Unicode → NFC/NFKC, time → UTC-LCRO, tokenizer normalization), then compute $\Phi$ and perform RBC-pinned comparisons. This realizes much of invariance “by construction” and shrinks the surprise surface in $G$-testing.
+
+**Paraphrase admissibility (semantic-preserving only).**
+Paraphrase $g_{\text{para}}$ is admissible iff a pinned equivalence harness verifies **content preservation** at/above threshold $\theta$ (declared in `III.json`). The harness is deterministic and may combine: (i) bidirectional textual entailment with pinned RNG-frozen models; (ii) schema/slot agreement (key facts, numbers, units); (iii) answer-equivalence on a pinned QA probe set. Summarization, truncation, or augmentation are **non-admissible**.
+
+**Canonical classes (declared in the manifest).**
+
+1. **Units & dimensions (U)** — linear unit changes with pinned constants (°C↔K, in↔mm↔cm↔m, psi↔Pa, eV↔J, Hz↔rad/s with $2\pi$ rule, dB add/mult conventions), percent↔fraction; includes micro-symbol normalization and “×” vs “x” smoothing. **Excludes:** nonlinear remaps without physical identity; ad-hoc “calibration” without a published map.
+2. **Numeric formatting (N)** — decimal comma vs dot; thousand separators; exponent glyphs; Unicode minus vs hyphen-minus; signed zero; NaN/Inf canonical tokens; per-mille↔percent. **Excludes:** rounding changes beyond `III.json`; manual sig-fig edits.
+3. **Locale & language (L)** — label language; month/day names; RTL/LTR; digit sets to ASCII; CSV list separators tied to decimal comma. **Excludes:** semantic relabeling; dropping required fields.
+4. **Encoding & Unicode (E)** — UTF-8/16 with/without BOM; NFC/NFKC; homoglyph smoothing for measurement tokens. **Excludes:** lossy transcoding that changes bytes of content-bound tables.
+5. **Structural ordering (S)** — row/column permutation with schema-preserving keys; JSON key reorder; YAML whitespace variance; stable joins with explicit sort keys; CRLF/LF. **Excludes:** joins without keys; order-dependent reductions; re-bucketing.
+6. **Containers & compression (C)** — CSV/TSV/Parquet/Feather for the **same logical table**; gzip/zstd/zip; tar layout differences; path separators. **Excludes:** Excel formulas/macros/hidden sheets that alter values.
+7. **Tokenization/segmentation** — pinned tokenizer/detokenizer and stable variants that preserve content/effect under the method. **Excludes:** changes that alter effective content or model behavior beyond declared tolerances.
+8. **Timebase/admin** — anchoring to **UTC-LCRO**; streaming vs batch **within TTDA parity budgets**; replay order within tolerance windows. **Excludes:** any manipulation exceeding TTDA budgets.
+9. **Libraries / FP modes** — alternative math libs or FP flags **only if** pinned in `III.json` and gate inputs remain invariant after RBC.
+
+**Non-admissible transforms (examples).**
+Any content-changing edit; undisclosed filtering; dataset swap; lossy recoding that alters parsed values; unpinned spell-correction; drifting clocks/timezones; any change breaking **CAPTION→RECEIPT** byte-equality; monotone reparameterizations that **change** operational thresholding unless preregistered (e.g., probit↔logit without remap); privacy/anonymization that removes or perturbs fields used by $M$ unless preregistered and shown neutral under **RBC**; any representation trick that crosses a threshold **without** changing the underlying claim.
+
+**G-test protocol (receipt-backed).**
+
+1. **Declaration.** In `III.json`, name classes, parameters, and the **coverage plan** $G_{\text{test}}\subseteq G$ (representative instances per class).
+2. **Execution.** For each $g\in G_{\text{test}}$, run the pipeline end-to-end; record $\delta_g$, diagnostics, and a **REPLAY-RFD** trace ID.
+3. **Report.** Publish a **G-coverage card** (counts, instances, pass/fail) and per-class drift tables (all numbers rounded per §2.1).
+4. **Verdict.** G-floor **passes** iff $\delta_g=\delta$ for all tested $g$ and no class-level violation is found. Any compliant $g$ that flips $\delta$ ⇒ **G-floor failure** (claim cannot be admitted on $\Phi$).
+
+**Interaction with other floors.**
+• **CAPTION→RECEIPT:** testing does not weaken byte-equality; captions bind to receipts by bytes.
+• **DETERMINISM:** RNG freeze/platform pinning apply to all $g$-runs.
+• **TTDA:** all $g$-runs must satisfy the same time spine (clock badge, RG budgets, stream↔batch parity).
+• **PoS Screen:** if $\Phi_{\text{eff}}'\in \Phi_{\text{neutral}}'$ under any admissible $g$, neutrality holds ($\delta=0$)—no cherry-picking frames.
+
+**Admissible observer checklist (what an auditor must do).**
+
+1. Fetch artifacts and `III.json`; verify hashes (Receipt v2).
+2. Disclose environment (platform parity) and clocks (TTDA badge).
+3. Reproduce $\delta(\tau;M)$ and diagnostics with **RBC**.
+4. Execute $G_{\text{test}}$; confirm $\delta$-invariance; record **REPLAY-RFD** traces.
+5. If any compliant counterexample emerges (floor breach, invariance break, parity violation, first-divergence mismatch): publish it; the claim loses standing (supersession).
+
+**Failure modes & compliant counterexamples.**
+A **single** admissible $g^\star$ producing a $\delta$-flip (with proper rounding, TTDA, and REPLAY-RFD) **defeats** any prior $+1$ and triggers **supersession** (§4.3). Common causes: unit-cast omissions; tokenizer-dependent parsing; locale/date drift; timebase discrepancies; paraphrase-checker under-coverage.
+
+**Repair vectors for G-violations (must not relax floors).**
+Admissible repairs include: pushing canonicalization earlier; adding robust parsing; pinning constants; tightening the paraphrase harness; declaring stricter class boundaries in `III.json` (narrowing $G$ with justification); or re-expressing $\Phi$ in invariant features. *Increasing* $\Phi$ alone cannot rescue a G-failure.
+
+**Tester’s CMP reminder (RBC).**
+
+$$
+m'=\mathrm{round}_{p_{\mathrm{cmp}},\ \mathrm{tie}_{\mathrm{cmp}}}(m),\qquad
+\theta'=\mathrm{round}_{p_{\mathrm{cmp}},\ \mathrm{tie}_{\mathrm{cmp}}}(\theta).
+$$
+
+Compare **only** $m'$ and $\theta'$ (strict vs non-strict per spec).
