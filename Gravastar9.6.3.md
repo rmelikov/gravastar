@@ -916,3 +916,66 @@ Any violation implies $\delta\ne +1$ and triggers **supersession** of any prior 
 
 * **Receipts and auditability.**
   A decision that “counts” is **receipt-true**: CAPTION→RECEIPT enforces byte-equality on bound bytes; all compares are RBC-pinned; publication includes a **Decision provenance record** (III.json hash/version; Receipt v2 hash; energy/runtime; platform/clock badges; floor pass/fail table; $\Phi$ components, $\Phi_{\text{eff}}$, band endpoints (rounded), and $\delta$; G-coverage card; TTDA parity report; **REPLAY-RFD** trace ID; and, if $\delta\in{0,-1}$, a repair vector with feasibility notes).
+
+## 4.3 Counterexample defeat rule and supersession
+
+**Defeat rule (plain statement).**
+A single **compliant counterexample**—produced by any admissible observer under open-join audit—**defeats** any previously published $\delta=+1$ for the same claim. “Defeat” means the admission decision loses standing and must be **superseded** publicly.
+
+**What counts as a compliant counterexample.**
+An artifact bundle $\mathcal{C}$ defeats the claim iff **all** of the following hold:
+
+1. **Scope & bytes.** The bundle references the exact published bytes (code/data/Receipt v2/**III.json**) or a declared $g\in G$ re-description of inputs/method. Captions bind **by byte-equality** (CAPTION→RECEIPT).
+2. **Time spine.** Clocks disclosed; execution anchored to **UTC-LCRO**; **TTDA** budgets honored; stream↔batch parity check included.
+3. **Rounding discipline.** All admissibility comparisons use **round-before-compare** at the manifest’s per-metric precision and tie policy.
+4. **Determinism & parity.** RNG freeze (or RNG-free path), platform parity satisfied per manifest.
+5. **Repro evidence.** A **REPLAY-RFD** trace shows the first instruction/step at which the auditor’s replay diverges from the claim’s reference trace **on bound bytes**, or yields a different $\delta$ while meeting (1)–(4).
+6. **Violation type.** At least one of:
+
+   * **Floor failure** (G-floor, PoS Screen, WITNESS $W!:!B$, CAUSALITY/ISO $A^\star,\ \hat c$, CAPTION→RECEIPT, DETERMINISM).
+   * **TTDA breach** (clock/RG non-compliance or parity bound violated on rounded diagnostics).
+   * **G-flip** of $\delta$ under a declared $g\in G$.
+   * **Band misgate** (with proper rounding) showing $\tilde\Phi_{\text{eff}} \not\ge \widetilde{\Phi_{\min}}$ when the claim asserted it was.
+   * **REPLAY-RFD divergence** on bound bytes before admission is reached.
+
+Artifacts that alter semantics (non-admissible transforms), use private knobs, or ignore rounding/TTDA do **not** count; they are rejected with a receipt-backed rationale.
+
+**Immediate consequences of defeat.**
+Upon receipt of a compliant counterexample:
+
+* The prior $\delta=+1$ is **revoked**; the record is marked **Superseded** with a link to the defeating REPLAY-RFD trace.
+* The claim’s live status becomes $\delta\in{0,-1}$:
+
+  * **Floor violation or REPLAY-RFD divergence on bound bytes → $\delta=-1$** (veto).
+  * **Pure TTDA/G-coverage shortfall without floor breach → $\delta=0$** (neutral; PoS Screen applies).
+* A **repair vector** must be published (if feasible under floors), indicating the minimal adjustments that would restore admission.
+* **Time-stability in practice.** Publishing the TTDA parity report is mandatory for $+1$. If the parity bound is violated **ex post** (e.g., a new batch replay), the prior $+1$ is superseded—even if $\Phi$ stayed above $\Phi_{\min}$.
+
+**Supersession protocol (public, receipt-backed).**
+Supersession is a new publication that **replaces** the defeated admission:
+
+1. **New manifest.** Publish a revised **III.json** with a new hash, listing `supersedes: <prior_iii_json_sha256>` and the **specific violated premise** (floor/TTDA/G/Band/RFD).
+2. **Monotonic discipline.** Thresholds and floors SHOULD tighten; any loosening must be explicitly justified (receipt-backed) and flagged.
+3. **Re-adjudication.** Recompute $\Phi$, TTDA budgets, floors, and $\delta$ under the new manifest; publish **REPLAY-RFD** traces and a new Receipt v2.
+4. **Cross-references.** The superseding record links the defeating trace, the prior DOI/identifier, and the repair outcomes (applied/not-feasible).
+5. **Announce scope.** If $G$ is narrowed or ScanProtocol changed, state it; prior $+1$ claims cannot be retro-defended by post-hoc narrowing.
+
+**Burden and timelines (norms, not clocks).**
+Open-join audit means *anyone* may file $\mathcal{C}$. The **burden of re-proof** lies with the original claimant: either concede defeat (publish supersession) or show, via REPLAY-RFD, that $\mathcal{C}$ is non-compliant (and why). No private adjudication is admissible.
+
+**Multi-subclaim and composition effects.**
+For a conjunction $\tau=\bigwedge_k \tau_k$, a compliant defeat of any admitted subclaim $\tau_j$ defeats the conjunction’s $\delta=+1$. Independent subclaims not implicated retain their own $\delta$-status.
+
+**Edge cases & abuse resistance.**
+
+* **Duplicate claims.** Byte-identical artifacts under a new caption are defeated en bloc by the original counterexample (CAPTION→RECEIPT).
+* **Ambiguous rounding.** Not possible: per-metric precision and tie policy are pinned in **III.json**; counterexamples must use them.
+* **Bad-faith floods.** Non-compliant submissions are rejected with a short, receipt-backed explanation (which field of (1)–(6) failed). No private blacklists.
+
+**Public status page (normative fields).**
+Every claim maintains a machine-readable status:
+`{ claim_uuid, iii_json_sha256, receipt_sha256, δ, status: active|superseded, superseded_by?, defeating_rfd?, floors_passed, ttda_parity, g_coverage_card }`.
+
+**Why one counterexample is enough.**
+The calculus encodes *universal admissibility*: “acceptable to all” means *no compliant observer* can overturn the admission. Therefore, one compliant counterexample demonstrates non-universality and collapses standing. **Supersession** turns that collapse into a public, reproducible update path—tightening the method or declaring the boundary where repairs are infeasible under the floors.
+
