@@ -829,3 +829,90 @@ function DECIDE(tau, M, spec):
 * Thresholds/band endpoints come from `III.json` and are **rounded with the same spec** as the statistic before comparison (RBC).
 * On any **VETO**, publish a **repair vector** (see §3.3), unless repairs are infeasible under floors.
 * If several candidates yield $\delta=+1$, selection follows the preregistered tie policy in `III.json` (no post-hoc rules).
+
+## 4.2 Timeline Selection Theorem (TST): statement and operational consequences
+
+**Statement (TST).**
+Fix a pinned manifest `III.json` (units, precisions, tie policies, thresholds, budgets), the floor set (G-floor, PoS Screen, WITNESS, CAUSALITY/ISO, CAPTION→RECEIPT, DETERMINISM), and the declared method $M$ (models, data, thresholds, budgets, scan protocol). For any candidate timeline/action $\tau$ and any admissible observer $o$, the decision
+
+$$
+\delta_o(\tau; M)\in\{-1,0,+1\}
+$$
+
+is **well-defined, unique, gauge-invariant, and time-stable** under the declared budgets, with **defeat by compliant counterexample**.
+
+1. **Existence & uniqueness (determinism + RBC).**
+   Floors are checked first and **dominate** $\Phi$. After unit casting and temporal budgeting (TTDA), all gate comparisons are performed **round-before-compare** (RBC) at the precisions and tie policies declared in `III.json`. This procedure yields a **unique** $\delta_o(\tau; M)$.
+
+2. **Gauge invariance under admissible re-descriptions.**
+   For every admissible $g\in G$,
+
+$$
+\delta_o(g\cdot\tau;\ g\cdot M)=\delta_o(\tau;\ M).
+$$
+
+   If an admissible action changes **rounded** gate inputs or the outcome, the G-floor fails (and $\delta=-1$).
+
+4. **Temporal stability (TTDA).**
+   With TTDA budgets satisfied (including the stream↔batch parity bound on **rounded** statistics), recomputation at admissible times yields the **same** decision. First divergence in **REPLAY-RFD** is the stopping rule and defeats standing.
+
+5. **Monotonicity in the RBC sense.**
+   Holding floors, $G$, and TTDA fixed, increasing the **rounded** acceptability $\Phi'_{\text{eff}}$ cannot flip $\delta=+1$ to $\delta=-1$. RBC pins equality/inequality boundaries, eliminating representation ambiguity.
+
+6. **Defeat by counterexample (supersession).**
+   If any admissible observer, re-description $g\in G$, or admissible recomputation produces a **floor violation**, **parity breach**, **G-flip**, or an **RFD** first divergence on bound bytes, the claim cannot hold $\delta=+1$; prior standing, if any, is **superseded** by a receipt-backed update.
+
+**Operational consequences.**
+
+* **Exact meaning of the three states.**
+  $\delta=+1$: floors pass; after RBC, $\Phi_{\text{eff}}' \ge \Phi_{\min}'$; TTDA and $G$-invariance hold; publish **Receipt v2** and a **REPLAY-RFD** trace.
+  $\delta=0$: floors pass; after RBC, $\Phi_{\text{eff}}' \in \Phi_{\text{neutral}}'$; only neutrality-preserving operations are allowed (PoS Screen); publish a **repair vector** (see §3.3).
+  $\delta=-1$: a floor fails or the field is below neutral after RBC; publish a **repair vector** unless infeasible under floors.
+
+* **Who “all” refers to.**
+  Panels/coverage may be cited as evidence but **never define “all.”** Here “all” means **every admissible observer under $G$ following the method and budgets**. One compliant counterexample defeats the claim.
+
+* **RBC binding of boundaries.**
+  Let $m$ be any scalar gate input and $\theta$ its threshold. Gate logic uses the **rounded** values
+
+$$
+m'=\mathrm{round}_{p_{\mathrm{cmp}},\ \mathrm{tie}_{\mathrm{cmp}}}(m),\qquad
+\theta'=\mathrm{round}_{p_{\mathrm{cmp}},\ \mathrm{tie}_{\mathrm{cmp}}}(\theta)
+$$
+
+  and compares only $m'$ and $\theta'$ (strict vs non-strict per spec). This pins boundaries and removes platform/representation drift (cf. §2.1).
+
+* **Gate (piecewise form, rounded comparisons).**
+
+$$
+\delta =
+\begin{cases}
++1 & \text{if } \Phi'_{\text{eff}} \ge \Phi'_{\min} \text{ and floors, TTDA, } G \text{ hold},\\
+0  & \text{if } \Phi'_{\text{eff}} \in \Phi'_{\text{neutral}} \text{ and floors hold},\\
+-1 & \text{otherwise.}
+\end{cases}
+$$
+
+* **Time-parity and invariance checks (fail-closed).**
+  After a tentative decision, enforce the declared TTDA stream↔batch bound on **rounded** statistics,
+
+$$
+|\delta_{\text{stream}} - \delta_{\text{batch}}| \le \Pi + 0.01\Pi
+$$
+
+  and re-check $G$-invariance:
+
+$$
+\delta(g\cdot\tau;\ g\cdot M)=\delta(\tau;\ M)\quad\text{for all } g\in G.
+$$
+
+  Any violation implies $\delta\ne +1$ and triggers **supersession** of any prior $+1$.
+
+* **Repair calculus available whenever $\delta\in\{-1,0\}$.**
+  With $x=2(\Phi/\Phi_{\max})-1$ and $y=\mathrm{arctanh}(x)$, the gradient $dy/dx=1/(1-x^{2})$ provides a **repair direction** toward $\Phi_{\min}'$ that must respect floors and TTDA (see §3.3). Use TTDA → $\Phi_{\text{eff}}$ → RBC order and conservative steps near $|x|\approx 1$.
+
+* **Multiple candidates (ties & selection).**
+  Apply the gate **per** candidate $\tau_k$. If several reach $\delta=+1$, selection follows the **preregistered** tie policy in `III.json` (e.g., earliest receipt time, lexicographic receipt hash, or a declared tie-break metric evaluated under RBC). Post-hoc tie-breaks are non-admissible.
+
+* **Receipts and auditability.**
+  A decision that “counts” is **receipt-true**: CAPTION→RECEIPT enforces byte-equality on bound bytes; all compares are RBC-pinned; publication includes a **Decision provenance record** (III.json hash/version; Receipt v2 hash; energy/runtime; platform/clock badges; floor pass/fail table; $\Phi$ components, $\Phi_{\text{eff}}$, band endpoints (rounded), and $\delta$; G-coverage card; TTDA parity report; **REPLAY-RFD** trace ID; and, if $\delta\in\{0,-1\}$, a repair vector with feasibility notes).
