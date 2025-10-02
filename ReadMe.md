@@ -3,7 +3,7 @@ Upon advisory from several LLM models, I've decided to abstract the paper to the
 The paper has gone through versions 1-9. I'm only including pertinent versions.
 And upon further advisory, I know that this will not be a paper and will ultimately be a book after I will finish with the anchor paper:
 
-##  Theory of Perfection: From Principle of Superposition to Gravastar
+####  Theory of Perfection: From Principle of Superposition to Gravastar
 
 For now, I'm working on merging `Gravastar9.md` with `Gravastar9.6.md` into `Gravastar9.6.3.md`.
 
