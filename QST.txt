@@ -1,0 +1,1327 @@
+Consciousness as Φ-Pruned TQFT: Necessary Conditions for Timeline Selection and Moral Field Persistence
+Abstract
+
+We present a necessity-only framework in which the Quantum Soul Theorem models consciousness as a Topological Quantum Field Theory over an admissible set A = { (x,t) such that Φ′ ≥ Θ }, where Φ′ = clamp(Φ − Π, 0, 1). A history segment is selected when δ = 1, with δ = 1 iff Φ′ ≥ Θ and Θ ≈ 0.95 (varied only in preregistered sweeps). Within selected segments, Im(Z) = 0 is posed as a necessary condition for persistence. Cross-scale coherence is assessed by Ω(H,m,k) = absolute value of (Φ̄(H|kT) − Φ̄(R₍m₎H|kT)), and by convention Ω is computed on Φ′ (post-penalty, pre-Θ). Deterministic numerics use IEEE754-double roundTiesToEven with a disclosed ulp margin at Θ comparisons. We state three necessity lemmas with falsification hooks: Born-compatible pruning, cross-scale coherence, and persistence. Two empirical pathways are preregistered as tests rather than claims: EEG–Φ′ coupling and quantum-hardware decoherence versus distance of Φ′ from Θ, each with thresholds, power, blinding, and multiple-testing control. Co-reporting is mandatory: whenever Φ̄ appears, report Π and Ω and specify kT; whenever δ appears, report Θ and the comparison policy including rounding mode and ulp margin. All sufficiency and non-normative material is quarantined to appendices. This front matter consolidates and regularizes inputs from multiple draft proposals while enforcing a single notation, numerics, and reporting standard. Basis declaration: unless stated otherwise, Φ̄ is computed on Φ and Ω is computed on Φ′; each artifact states Phi_bar_basis and Omega_basis.
+
+Clamp (single source of truth)
+
+clamp(z,0,1) = max(0, min(1, z)).
+All appearances of Φ′ use Φ′ = clamp(Φ − Π, 0, 1).
+
+Notation and delimiters
+
+CI guardrail: superscripts and subscripts appear only inside ⁽ ⁾ and ₍ ₎, never around natural-language text; sets use { }, and functions/tuples/intervals use ( ).
+
+Rounding and comparison policy
+
+Rounding mode: IEEE754-double roundTiesToEven.
+
+Default ulp margin is 2 ulp; any deviation is stated alongside the specific δ decision.
+
+Θ comparison: evaluate Φ′ ≥ Θ using a declared ulp margin; disclose the margin value alongside each δ decision.
+
+Example comparison (illustrative): if Φ̄(H|kT) = 0.962 and Π = 0.020, then Φ′ = 0.942. With Θ = 0.95 and a positive ulp margin, δ = 0 because 0.942 < 0.95 after applying the stated margin.
+
+Symbol definition table (first use; reused thereafter)
+
+Φ(x,t,E) — acceptability field for event E at context (x,t), in [0,1].
+Type: Field over spacetime × events. Co-report: with Π when penalized to form Φ′.
+
+φᵢ — local acceptability for discrete event or state i, in [0,1], after penalties.
+Type: Scalar. NULL: permitted (see Methods).
+
+Φ̄(H|kT) — aggregated acceptability over history H at horizon kT, via mean or CVaR₍α₎ or exp(h) (preregistered).
+Type: Scalar. Co-report: Π, Ω (computed on Φ′), and kT.
+
+δ — selection gate; δ = 1 if clamp(Φ − Π, 0, 1) ≥ Θ, else 0.
+Type: Boolean. Co-report: Θ, rounding mode, ulp margin.
+
+Θ — threshold for event selection, default ≈ 0.95, varied only in preregistered sweeps.
+Type: Scalar threshold. Co-report: with any δ.
+
+Π — total penalty budget applied to Φ (e.g., physical, cognitive, ethical constraints).
+Type: Nonnegative scalar. Co-report: with any Φ̄ and wherever Φ′ is derived.
+
+R₍m₎ — coarse-graining operator mapping History(kT) → History(mkT) by m-block aggregation.
+Type: Operator. Use: in Ω definition.
+
+Ω(H,m,k) — coherence deviation; Ω = absolute value of (Φ̄(H|kT) − Φ̄(R₍m₎H|kT)).
+Type: Nonnegative scalar. Convention: compute on Φ′. Co-report: with Φ̄ and kT.
+
+kT, T — time horizon (k blocks of base unit T); intervals are left-closed, right-open.
+Type: kT is TimeUnit. Note: mixed-unit operations require τ cast.
+
+L̂ — estimator of variation or drift in Φ, with confidence intervals that bound Π.
+Type: Estimator.
+
+α, h — parameters for CVaR₍α₎ and exp(h) aggregators.
+Type: Scalars tied to the chosen aggregator.
+
+γ — coupling parameter for merging partially dependent histories.
+Type: Scalar or operator parameter.
+
+Φ′ — post-penalty field clamp(Φ − Π, 0, 1), used for Ω and admissibility.
+Type: Field in [0,1].
+
+clamp — as defined above; referenced but not redefined elsewhere.
+
+Type safety: type(kT) = TimeUnit. R₍m₎ : History(kT) → History(mkT). Mixed-unit operations require explicit cast τ.
+
+Reporting checklist (applies to every result, table, or figure)
+
+State kT and the Φ̄ aggregator (with parameters α or h if used).
+
+Co-report Π and Ω (computed on Φ′) with any Φ̄.
+
+Co-report Θ, rounding mode, and ulp margin with any δ.
+
+Declare whether Φ̄ and Ω are computed on Φ′ (post-penalty, pre-Θ).
+
+Basis declaration: Unless stated otherwise, Φ̄ is computed on Φ and Ω is computed on Φ′; each artifact must state Phi_bar_basis and Omega_basis.
+
+Provide counterexample metadata if any δ flips across scales: k⋆, m⋆, culprit events.
+
+Attach qst_record and (if applicable) counterexample_payload JSON in Appendix R.
+
+Hyperlinked TOC
+
+1 Introduction
+2 Methods and formalism
+3 Necessary lemmas with falsification hooks
+4 Empirical tests
+5 Results and reporting checklist
+6 Conclusion
+
+Appendix A Proof sketches and falsification notes
+Appendix S Sufficiency claims (quarantined)
+Appendix N Non-normative material (quarantined)
+Appendix B Sensitivity analyses
+Appendix D Data provenance, code, audit logs
+Appendix R JSON artifacts
+Appendix T Truth tables
+Appendix P L̂ re-estimation protocol
+Appendix C Figure boilerplate and list
+Appendix L Lint compliance matrix
+Appendix E Ethics and governance (non-normative)
+
+1 Introduction
+Scope (necessity-only)
+
+Main-text claims are necessary conditions for event selection and cross-scale coherence. Any sufficiency or broader interpretation is deferred to Appendix S. Any non-normative sketch is quarantined to Appendix N.
+
+Canonical symbols and first-use definitions
+
+Φ(x,t,E): acceptability field for event E at context (x,t), in [0,1].
+
+φᵢ: local acceptability for a discrete event or state i, in [0,1], after penalties.
+
+Φ′: post-penalty field clamp(Φ − Π, 0, 1), used for admissibility and for Ω.
+
+Φ̄(H|kT): aggregated acceptability over a history H at horizon kT using a preregistered aggregator (mean, CVaR₍α₎, or exp(h)).
+
+Π: total penalty budget applied to Φ.
+
+δ: selection gate; δ = 1 if clamp(Φ − Π, 0, 1) ≥ Θ, else 0.
+
+Θ ≈ 0.95: default threshold; varies only via preregistered sweeps.
+
+R₍m₎: coarse-graining operator mapping History(kT) → History(mkT) by m-block aggregation.
+
+Ω(H,m,k): coherence deviation; Ω = absolute value of (Φ̄(H|kT) − Φ̄(R₍m₎H|kT)). By convention, Ω is computed on Φ′ (post-penalty, pre-Θ).
+
+kT, T: time horizon (k blocks of base unit T); intervals are left-closed, right-open.
+
+L̂: estimator of variation or drift in Φ, with confidence intervals bounding Π.
+
+α, h: parameters for CVaR₍α₎ and exp(h), α ∈ (0,1].
+
+γ: coupling parameter for merging partially dependent histories.
+
+clamp(z,0,1): = max(0, min(1, z)). Defined here once and referenced thereafter.
+
+Deterministic numerics and type safety
+
+Rounding mode = IEEE754-double roundTiesToEven. All Θ comparisons include an explicit ulp margin reported with each δ.
+
+type(kT) = TimeUnit. R₍m₎ maps History(kT) → History(mkT). Any mixed-unit operation uses an explicit cast τ.
+
+Worked example (deterministic, co-reported)
+
+Context: neural window with kT = 1 s; aggregator = mean; Π = 0.020; Θ = 0.95; rounding mode and ulp margin as declared.
+Observed post-penalty local values φᵢ (on Φ′) within the window: [0.96, 0.95, NULL, 0.94]; mean skips NULL.
+Compute Φ̄(H|kT) on Φ′ = (0.96 + 0.95 + 0.94) ÷ 3 = 0.950.
+Coarse-grain with R₍2₎ to 2 s; on the Φ′ basis the adjacent window yields Φ̄(R₍2₎H|kT) on Φ′ = 0.955.
+Then Ω(on Φ′) = absolute value of (0.950 − 0.955) = 0.005.
+δ decision at Θ = 0.95 under the stated ulp margin: since 0.950 ≥ 0.950 within margin, δ = 1.
+
+Co-report for this window:
+
+kT = 1 s, aggregator = mean.
+Π = 0.020.
+Ω on Φ′ = 0.005.
+Θ = 0.95, rounding mode = IEEE754-double roundTiesToEven, ulp margin disclosed with the δ value.
+Declaration: in this example Φ̄ and Ω are both computed on Φ′ (post-penalty, pre-Θ).
+
+2 Methods and formalism
+2.1 Admissible set and action
+
+Define Φ′ = clamp(Φ − Π, 0, 1) with Φ′ in [0,1].
+Let A = { (x,t) such that Φ′(x,t) ≥ Θ }.
+
+Define the path integral
+Z = ∫ over A of Dφ × exp(i × S(φ)),
+with the action
+S(φ) = β × ∫ over a preregistered spacetime domain (time intervals left-closed, right-open, consistent with kT) of (1 − Φ′(x,t)) d⁽4⁾x,
+where β > 0 is a scaling parameter.
+
+Necessity claim (scope-limited): Im(Z) = 0 on segments where δ = 1 is a necessary condition for persistence. No sufficiency is asserted.
+
+Measurability and boundary data
+
+A is measurable under the σ-algebra induced by the experimental filtration. Boundary data are tied to H(kT) via the preregistered Φ̄ aggregator. Regularity assumptions (continuity, bounded variation, or equivalent) are preregistered and cited at first use.
+
+β scaling and identifiability
+
+Affine rescaling of Φ′ rescales S(φ) through β. To avoid confounding with Π, units and normalization for β are preregistered: we fix β by the convention that a unit decrease in Φ′ over a unit spacetime volume changes S(φ) by β units. Any alternative β is related by an explicit scale factor recorded in the audit logs. Units: β has units of ‘action per unit spacetime’ under the fixed Φ′ normalization.
+
+2.2 Estimation pipelines and penalties
+
+Decompose Φ = Φ₍phys₎ + Φ₍soc₎ with preregistered independence checks. Independence is a necessary condition to avoid leakage that would mis-estimate Π. Any detected coupling between pipelines is either modeled explicitly (moved into γ when histories are merged) or penalized into Π with a documented bound.
+
+2.3 Three-valued logic (compact rules; full tables in Appendix T)
+
+Permit NULL for φᵢ and propagate deterministically.
+
+Mean aggregator: skips NULLs; if all inputs are NULL, return 0 (deny-safe default).
+
+CVaR₍α₎ and exp(h): must declare NULL handling; deny-safe default treats each NULL as 0 in the sample.
+
+If clamp(Φ − Π, 0, 1) is undefined or evaluates to NULL, set δ = 0.
+
+Compact truth tables:
+
+For φᵢ:
+input = p in [0,1] → output = p; input = NULL → output = NULL.
+
+For Φ̄ with mean over {p₍1₎…p₍n₎} possibly including NULLs:
+remove NULLs, average the rest; if none remain, output = 0.
+
+For δ: let s = clamp(Φ − Π, 0, 1).
+if s is NULL → δ = 0;
+else if s ≥ Θ (with declared ulp margin) → δ = 1;
+else → δ = 0.
+
+All δ comparisons disclose Θ, rounding mode = IEEE754-double roundTiesToEven, and the ulp margin.
+
+All reports involving Φ̄ or Ω must declare whether computation is on Φ′ (post-penalty, pre-Θ). By convention in this work, Ω is always computed on Φ′.
+
+2.4 Coarse-graining and RG coherence
+
+R₍m₎ maps History(kT) → History(mkT) by m-block aggregation.
+Define Ω(H,m,k) = absolute value of (Φ̄(H|kT) − Φ̄(R₍m₎H|kT)), computed on Φ′ (post-penalty, pre-Θ).
+
+Re-estimation trigger (necessary guard before relying on prior claims). Re-estimate L̂ and mark affected spans if either
+(i) Ω > (Π + auxiliary penalties) for N consecutive kT, or
+(ii) the slope of Ω over M consecutive kT exceeds the preregistered threshold.
+Defaults: N = 3, M = 5. All Ω are evaluated on Φ′ for this test.
+
+2.5 Born-compatible pruning (agentless limit)
+
+In the agentless limit where Φ₍soc₎ = 0, pruning by δ on Φ′ ≥ Θ is a necessary condition for retaining Born-compatible outcome frequencies. The falsification protocol is a preregistered chi-square test comparing observed δ-gated frequencies with |ψ|² predictions; full derivation and test details appear in Appendix A. No sufficiency claim is made.
+
+2.6 Type signatures and τ casts
+
+kT : TimeUnit.
+
+R₍m₎ : History(kT) → History(mkT).
+
+γ : (History × History) → CoupledHistory (with preregistered coupling parameters).
+
+τ : explicit cast function for mixed-unit operations (for example, samples-per-second → seconds). Any mixed-unit expression without τ is an error under the CI lint.
+
+2.7 Deterministic numerics and comparison policy
+
+All numerics use IEEE754-double roundTiesToEven. Θ comparisons include a preregistered ulp margin disclosed alongside every δ decision. Co-reporting discipline applies: whenever Φ̄ appears, co-report Π and Ω and specify kT; whenever δ appears, co-report Θ and the ulp margin; declare explicitly that Ω is computed on Φ′.
+
+3 Necessary lemmas with falsification hooks
+
+For each lemma we append: data required; measurable quantities {Φ̄, Π, Ω, δ, Θ}; refutation criteria; and counterexample metadata {k⋆, m⋆, culprit events}. All Ω are computed on Φ′ = clamp(Φ − Π, 0, 1). Whenever Φ̄ appears, co-report Π and Ω and specify kT. Whenever δ appears, co-report Θ and the ulp margin used at the comparison.
+
+Lemma A — Born-compatible pruning (necessity)
+
+Claim. Outcome-independent pruning with δ on Φ′ ≥ Θ is a necessary condition to retain Born-compatible frequencies in agentless settings.
+
+Falsification note
+• Data required: agentless quantum trials with boundary data on H(kT); numerics configuration (rounding mode, ulp margin); preregistered Θ; Φ′ trajectories; optional reference outcome frequencies for a chi-square goodness-of-fit test.
+• Measurable quantities: Φ̄(H|kT) with its aggregator and parameters plus Π and Ω computed on Φ′; δ with Θ and ulp margin.
+• Refutation criteria: existence of a controlled agentless window where δ = 1 while Φ′ < Θ under the declared numerics; or statistically significant deviation from Born-compatible frequencies in trials that enforce admissibility A = { (x,t) such that Φ′ ≥ Θ } according to the preregistered test.
+• Counterexample metadata: { k⋆, m⋆, culprit events } recorded per window; include the exact Θ and ulp margin used at the δ decision.
+
+Lemma B — Cross-scale coherence (necessity)
+
+Claim. If Ω(on Φ′) ≥ (Π + auxiliary penalties) for N consecutive kT, or if the slope of Ω over M consecutive kT exceeds the preregistered threshold, then L̂ must be re-estimated and affected spans marked before relying on prior claims.
+
+Trigger (lemma form). Re-estimate L̂ and mark spans if Ω > (Π + auxiliary penalties) for N consecutive kT, or if the slope of Ω over M consecutive kT exceeds the preregistered threshold; defaults N = 3, M = 5.
+
+Falsification note
+• Data required: longitudinal series of Φ̄(H|kT) with aggregator and parameters, Π, Ω(on Φ′), δ and Θ snapshots, and recorded L̂ estimates with confidence intervals; preregistered thresholds for N and M.
+• Measurable quantities: Φ̄, Π, Ω(on Φ′), δ, Θ, L̂ with its confidence bounds; the identified spans where triggers fire.
+• Refutation criteria: any reliance on prior claims without L̂ re-estimation and span marking after the trigger conditions are met; or failure to mark and quarantine spans while triggers persist.
+• Counterexample metadata: { k⋆, m⋆, culprit events } for the earliest span where the trigger first holds; include the trigger values and the timestamped L̂ re-estimation status.
+
+Lemma C — Persistence (necessity)
+
+Claim. Im(Z) = 0 on δ = 1 segments is a necessary condition for persistence.
+
+Falsification note
+• Data required: segment-wise evaluation of Z over the admissible set A with declared β and boundary data on H(kT); synchronized δ decisions with Θ and ulp margin; numerics configuration.
+• Measurable quantities: Im(Z) per segment; δ with Θ and ulp margin; Φ̄ with Π and Ω(on Φ′) over the same segments; kT and aggregator specification.
+• Refutation criteria: existence of any segment where δ = 1 and Im(Z) ≠ 0 under the stated numerics and identical segmentation; or instability of Im(Z) under preregistered ulp-margin sweeps that flips δ decisions without corresponding changes to Φ′ relative to Θ.
+• Counterexample metadata: { k⋆, m⋆, culprit events } identifying the segment and the admissibility boundary values Φ′ and Θ used at decision time.
+
+End-of-section checklist
+
+• Each lemma ends with the falsification note above.
+• No sufficiency or positive efficacy claims are stated.
+• All appearances of Φ̄ co-report Π and Ω(on Φ′) with kT and the aggregator; all δ comparisons co-report Θ and the ulp margin.
+
+4 Empirical tests
+4.1 EEG–Φ′ coupling (Construct 42)
+
+Design. Preregister:
+(a) kT (TimeUnit) and the Φ̄ aggregator (mean, CVaR₍α₎, or exp(h) with parameters),
+(b) Π model for neural noise and artifacts,
+(c) Ω computed on Φ′ = clamp(Φ − Π, 0, 1) with preregistered R₍m₎ choices,
+(d) confidence-interval method and multiple-testing control,
+(e) L̂ drift triggers and span-marking policy,
+(f) blinding protocol, power analysis, and stopping rules. Missing epochs are treated as NULL; mean skips NULL; CVaR₍α₎ and exp(h) use deny-safe default (NULL → 0). If clamp(Φ − Π, 0, 1) is undefined, set δ = 0.
+
+Hypothesis (necessity form). The correlation between the preregistered Φ′ trajectory and preregistered EEG features meets or exceeds the preregistered bound under the declared analysis plan. If not, any claim that depends on this coupling is withheld.
+
+Refutation criterion. After applying the preregistered corrections, the correlation falls below the preregistered bound or confidence intervals exclude the bound; any δ flips across scales must be accompanied by a counterexample payload identifying k⋆, m⋆, and culprit events.
+
+Co-reporting for this test. Every analysis window and figure co-reports kT and aggregator with Φ̄, Π, and Ω on Φ′; every δ is co-reported with Θ and the comparison policy, including rounding mode = IEEE754-double roundTiesToEven and the ulp margin used at the Θ comparison. Captions must include Phi_bar_basis and Omega_basis (this manuscript defaults to Phi_bar_basis = "Phi", Omega_basis = "Phi_prime" unless stated otherwise).
+
+Unless stated otherwise, Φ̄ is computed on Φ; Ω is computed on Φ′ (post-penalty, pre-Θ), and both bases are declared in the attached JSON artifacts.
+
+4.2 Quantum decoherence versus Φ′ on hardware
+
+Design. Preregister:
+(a) apparatus and calibration,
+(b) γ for history coupling and when histories are merged,
+(c) Π sources (hardware noise, crosstalk, control error),
+(d) δ evaluation timing relative to readout,
+(e) kT and Φ̄ aggregator (with parameters),
+(f) Ω on Φ′ with specified R₍m₎,
+(g) blinding, power analysis, and multiple-testing control. Three-valued logic and clamp defaults match Section 4.1.
+
+Hypothesis (necessity form). Decoherence metrics exhibit a preregistered dependence on the distance of Φ′ from Θ. Absence of the preregistered dependence implies that reliance on Φ′-driven pruning in the tested regime is withheld.
+
+Refutation criterion. No statistically significant dependence after preregistered corrections, or preregistered effect sizes are not attained; any δ flips across scales yield a counterexample payload with k⋆, m⋆, and culprit events.
+
+Co-reporting for this test. As in Section 4.1, co-report kT, aggregator, Π, and Ω on Φ′ with each Φ̄; co-report Θ, rounding mode, and ulp margin with each δ decision. Captions must include Phi_bar_basis and Omega_basis (this manuscript defaults to Phi_bar_basis = "Phi", Omega_basis = "Phi_prime" unless stated otherwise).
+
+Unless stated otherwise, Φ̄ is computed on Φ; Ω is computed on Φ′ (post-penalty, pre-Θ), and both bases are declared in the attached JSON artifacts.
+
+4.3 Preregistration gates and governance (applies to 4.1 and 4.2)
+
+Preregistration gates. Analyses execute only if all gates are satisfied: finalized protocols, power analysis pass, blinding in place, and auditor sign-off on the co-reporting checklist.
+
+L̂ re-estimation triggers. If Ω exceeds Π plus auxiliary penalties for N consecutive kT or if the slope of Ω exceeds the preregistered threshold over M intervals, re-estimate L̂, mark affected spans, and do not rely on prior claims until revalidated.
+
+Artifacts. Each figure or table that reports Φ̄ or δ is accompanied by a qst_record JSON; any δ flip across scales emits a counterexample_payload.
+
+Disclosure. All analyses declare whether Φ̄ and Ω were computed on Φ′ (post-penalty, pre-Θ) and state the exact ulp margin used at Θ comparisons.
+
+5 Results and reporting checklist
+
+Basis for this section: Φ̄ is computed on Φ unless otherwise stated; Ω is computed on Φ′.
+
+This section reports worked examples only (synthetic or toy) to illustrate the reporting protocol. It makes no empirical claims. All Ω in this section are computed on Φ′; Φ̄ is computed on Φ unless an artifact explicitly sets Phi_bar_basis = ‘Phi_prime’.
+
+Reporting requirements
+
+For every Φ̄, state kT and the chosen aggregator, and co-report Π and Ω (computed on Φ′).
+
+For every δ, co-report Θ, the global rounding mode (IEEE754-double roundTiesToEven), and the ulp margin used at the comparison.
+
+Provide a qst_record JSON for each figure or table that reports Φ̄ or δ.
+
+Provide a counterexample_payload whenever any δ flips across scales; include {k⋆, m⋆, culprit events}.
+
+Trigger evaluation. Report whether Ω > (Π + auxiliary penalties) held in each analysis window; if any trigger fired, list N, M, and the Ω basis = Φ′, and mark the affected spans (see Appendix P).
+
+Version all artifacts and store them in Appendix R.
+
+Every table/figure caption must include: kT, aggregator, Π, Φ̄ basis (Φ or Φ′), Ω(on Φ′), and Θ with δ, plus rounding mode and ulp margin.
+
+Worked example (toy, not evidence)
+
+kT = 1 s; aggregator = mean; m = 2.
+
+Φ̄(H|kT) = 0.968; Π = 0.016.
+
+Φ′ = clamp(0.968 − 0.016, 0, 1) = 0.952.
+
+Ω(H,m,k) = 0.009 (computed on Φ′).
+
+Θ = 0.95; rounding mode = IEEE754-double roundTiesToEven; ulp margin disclosed in figure caption.
+
+Decision: since 0.952 ≥ 0.95, δ = 1.
+
+Window-level rule: s̄ = clamp(Φ̄ − Π, 0, 1) = 0.952 (basis = Φ); compare s̄ to Θ using the declared ulp margin. (basis-specific: subtract Π only if Phi_bar_basis = ‘Phi’)
+
+qst_record (attached to the toy figure/table and stored in Appendix R)
+
+{
+  "schema_version": "1.0.0",
+  "kT": "1s",
+  "m": 2,
+  "aggregator": "mean",
+  "aggregator_params": {},
+  "Theta": 0.95,
+  "Phi_bar": 0.968,
+  "Phi_bar_basis": "Phi",
+  "Pi_bound": 0.016,
+  "RG_deviation": 0.009,
+  "Omega_basis": "Phi_prime",
+  "delta": 1,
+  "numeric_precision": "IEEE754-double roundTiesToEven",
+  "ulp_margin": "2 ulp"
+}
+
+No δ flip occurs in this toy window; therefore no counterexample_payload is generated for this example.
+
+Acceptance criteria
+
+No empirical claims beyond the worked example.
+
+Every figure/table has a matching qst_record in Appendix R.
+
+If any δ flip occurs, a counterexample_payload is present in Appendix R.
+
+All captions restate that Ω is computed on Φ′ and include kT, aggregator, Π, Ω(on Φ′), and Θ with δ, plus rounding mode and ulp margin.
+
+6 Conclusion
+
+This work states necessary conditions for admissibility, persistence, and cross-scale coherence under deterministic numerics with machine-checkable artifacts and a strict reporting checklist. The framework is presented as a set of testable constraints only; any sufficiency or broader interpretation is quarantined to Appendix S, and any speculative application is quarantined to Appendix N.
+
+Next-step tasks (validation, not claims):
+
+EEG program. Expand datasets, preregister analysis plans, and run blinded pipelines with power analysis and multiple-testing controls; publish all intermediate artifacts and audit logs.
+
+Quantum-hardware program. Execute preregistered decoherence experiments on target devices, document apparatus and timing, and release raw logs and reconstruction code.
+
+Coherence monitoring. Operate continuous checks for cross-scale deviations; when triggers fire (exceedance or slope thresholds), re-estimate the drift estimator, mark affected spans, and halt reliance on prior results until revalidated.
+
+Sensitivity sweeps. Complete preregistered sweeps for threshold, scaling parameters, and aggregator settings; report outcomes with the required co-reports and JSON records.
+
+Provenance and reproducibility. Maintain versioned repositories, numerics determinism tests, and per-figure structured records; expose a minimal, read-only artifact browser for external audit.
+
+These steps are intended to convert the framework’s necessity statements into a rigorous empirical program without asserting sufficiency.
+
+Appendix A — Proofs and falsification notes
+
+A.1 Born-compatible pruning (necessity)
+
+Statement. In the agentless limit where Φ = Φ₍phys₎ (no Φ₍soc₎ contribution), any admissibility rule used for timeline selection must be outcome-independent to preserve Born relative frequencies. The δ-gate defined by δ = 1 if Φ′ ≥ Θ is outcome-independent and therefore is a necessary condition for retaining Born-compatible frequencies in agentless tests.
+
+Derivation route (sketch).
+
+Setup. Consider a finite outcome set {i}. Let μ₍QM₎(i) denote the standard squared-norm weight from quantum mechanics for outcome i. In the agentless limit, Φ′ depends only on physical constraints and penalties Π that apply uniformly to the experimental configuration, not on outcome labels.
+
+Selection weight factorization. The admissible set {Φ′ ≥ Θ} induces a selection weight w that is a function of constraints, hence common across outcomes up to variation bounded by Π and the declared ulp margin at Θ (IEEE754-double roundTiesToEven). Thus the selected measure satisfies μ₍A₎(i) ∝ w × μ₍QM₎(i) with w independent of i.
+
+Relative frequencies. Because the common factor w cancels in ratios, the relative frequencies among outcomes remain proportional to μ₍QM₎(i). Any selection that depends on the outcome label would introduce i-dependent factors and necessarily distort those ratios.
+
+Conclusion. Outcome-independent δ-gating is necessary to retain Born-compatible frequencies in agentless settings.
+
+Falsification notes.
+Data required: simulator traces or closed-form models for a standard interference or beam-splitter test without agents.
+Measurable quantities: {Φ̄, Π, Ω(on Φ′), δ, Θ}, plus counts per outcome.
+Refutation criteria: a preregistered chi-square test rejects agreement between observed outcome ratios under δ-gating and the Born prediction at the preregistered level.
+Counterexample payload: include k⋆, m⋆, and culprit events when a δ flip occurs across scales (e.g., a window where Φ̄ shifts so that Φ′ crosses Θ and alters selection asymmetrically).
+
+A.2 Cross-scale coherence (necessity)
+
+Statement. If Φ′ has bounded variation over histories and penalties Π are valid bounds on admissible deviations, then small Ω across coarse-grains is necessary for reusing claims across scales. Persistent excursions where Ω exceeds Π plus auxiliary penalties for N consecutive kT or where the slope of Ω exceeds a preregistered threshold over M intervals necessarily trigger re-estimation of L̂ and span marking before any further reliance.
+
+Derivation route (sketch).
+
+Coarse-graining stability. R₍m₎ aggregates blocks of H(kT) into H(mkT). Under bounded variation and the aggregator’s Lipschitz property, absolute value of (Φ̄(H|kT) − Φ̄(R₍m₎H|kT)) admits an upper bound that scales with the variation budget attributable to admissible fluctuations.
+
+Penalty envelope. Π upper-bounds admissible deviations in Φ′. Therefore Ω greater than Π indicates either (i) misspecified Π, (ii) estimator drift not captured by L̂, or (iii) aggregation leakage. Any of these invalidate cross-scale reuse until addressed.
+
+Triggering rule. To avoid reacting to noise, require persistence (N consecutive kT) or steepening (slope threshold over M intervals). These triggers are necessary guards that force L̂ re-estimation and span revalidation.
+
+Falsification notes.
+Data required: time-indexed Φ′ histories with documented Π and aggregation metadata.
+Measurable quantities: {Φ̄, Π, Ω(on Φ′), δ, Θ}, plus L̂ estimates and their confidence intervals.
+Refutation criteria: observe Ω excursions beyond Π plus auxiliary penalties for N consecutive kT without initiating L̂ re-estimation and span marking, or observe reliance on pre-excursion claims without revalidation.
+Counterexample payload: report k⋆ and m⋆ at the first persistent excursion, and list culprit events (identifiers for the blocks contributing most to Ω).
+
+A.3 Persistence condition Im(Z) = 0 on δ = 1 segments (necessity)
+
+Statement. For segments where δ = 1, Im(Z) = 0 is a necessary condition for persistence of the selected timeline under the QST path-integral formalism.
+
+Derivation route (explicit).
+
+Admissible set and action. Let A = {(x,t) such that Φ′(x,t,E) ≥ Θ}. Define
+Z = ∫ over A of Dφ × exp(i × S(φ)), where S(φ) = β × integral over spacetime of (1 − Φ′(x,t,E)). Here Φ′ lies in [0,1] and β is a positive scaling parameter fixed by a preregistered convention.
+
+Phase structure. The integrand is exp(i × S(φ)) with S real and non-negative. Partition A into level sets of S modulo 2π. Write S as 2π × n(φ) plus r(φ), where r lies in [0, 2π). The imaginary part integrates sin(r(φ)) weighted by the path measure.
+
+Penalty-shrunk residuals. On δ = 1 segments, admissibility and penalties enforce Φ′ close to 1 on the dominant stationary sets. Hence S = β × integral of (1 − Φ′), and the residual r is bounded by a term proportional to the Π-residual over that segment. Under the deny-safe rule, segments with undefined clamp default to δ = 0, so they do not contribute here.
+
+Cancellation. Stationary-phase contributions with r approximately 0 contribute purely real mass (cosine terms), while oscillatory imaginary contributions are bounded by the residual envelope induced by Π. Thus Im(Z) = 0 is necessary for persistence; any observed non-zero imaginary mass on δ = 1 indicates either (i) mis-estimated Π, (ii) violated admissibility, or (iii) an unregistered symmetry breaking in boundary data.
+
+Falsification notes.
+Data required: quantum simulation or hardware logs sufficient to reconstruct S(φ) statistics on δ = 1 segments, plus boundary conditions and Π calibration.
+Measurable quantities: Z decomposed into real and imaginary parts, {Φ̄, Π, Ω(on Φ′), δ, Θ}, and the declared β.
+Refutation criteria: after applying the declared rounding mode and ulp margin at Θ, observe Im(Z) ≠ 0 on δ = 1 segments with controls passing all preregistered checks.
+Counterexample payload: record k⋆ and m⋆ for the segment where Im(Z) deviates, and list culprit events that drove residual r away from 0.
+
+A.4 Reporting notes for Appendix A items
+
+Co-reporting. Whenever Φ̄ appears, also report Π and Ω(on Φ′) and specify kT. Whenever δ appears, also report Θ and the ulp margin used at the comparison.
+
+Numerics. State rounding mode as IEEE754-double roundTiesToEven for all tests herein.
+
+Artifacts. For every figure or table tied to these lemmas, attach a qst_record JSON. If any δ flip occurs across scales, attach a counterexample_payload JSON with {k_star, m_star, events}.
+
+Appendix S — Sufficiency claims (quarantined)
+
+Status and scope
+This appendix is non-normative. Statements here are hypotheses about sufficiency and do not modify, support, or weaken any necessity claims in the main text. Any exploration or testing based on this appendix must be preregistered separately and must not be cited as evidence for theorems in the main text.
+
+S1. Strong sufficiency hypothesis
+Hypothesis. QST is sufficient to model consciousness under the following idealized conditions:
+(i) the admissible set A = { (x,t) such that Φ′(x,t,E) ≥ Θ } is measurable and admits boundary data tied to a history H at horizon kT;
+(ii) Φ′ = clamp(Φ − Π, 0, 1) with preregistered Π and Θ;
+(iii) the path integral Z = ∫ over A of Dφ × exp(i × S(φ)) with S(φ) = β × ∫ over spacetime of (1 − Φ′(x,t,E)) d⁽4⁾x is well defined under the declared regularity; and
+(iv) δ = 1 throughout the analyzed segment with the declared ulp margin at Θ comparisons.
+Claimed consequence. Under (i)–(iv), the QST field content and δ-gate dynamics are sufficient to generate the observables associated with a conscious episode tied to H, without requiring additional postulates.
+Non-normative note. This is a modeling sufficiency claim, not a metaphysical statement. Any empirical exploration must still co-report Π and Ω with Φ̄, and Θ with δ, and must declare whether Φ̄ and Ω are computed on Φ′. By convention here, Ω is computed on Φ′ (post-penalty, pre-Θ).
+
+S2. Persistence equivalence hypothesis
+Hypothesis. Conscious persistence over a segment is equivalent to Im(Z) = 0 on segments where δ = 1, given the admissible set A defined above.
+Equivalence schema. If δ = 1 on a segment and Im(Z) = 0 under the registered β and boundary conditions, then the segment supports persistence observables; conversely, if δ = 0 or Im(Z) ≠ 0, persistence observables do not obtain.
+Non-normative note. In the main text, Im(Z) = 0 on δ = 1 is treated only as a necessary condition. The biconditional here is a sufficiency hypothesis.
+
+S3. Moral completeness hypothesis
+Hypothesis. The Theory of Perfection portal law is sufficient to determine admissibility for agents, such that for agented histories H the acceptability field Φ decomposes as Φ = Φ₍phys₎ + Φ₍soc₎ with preregistered independence checks, and admissibility { Φ′ ≥ Θ } fully captures agent viability.
+Non-normative note. The main text treats ToP only as a constraint contributing to Π and the form of Φ; any completeness claim is confined to this appendix.
+
+S4. Born-rule sufficiency extension
+Hypothesis. In agentless limits where Φ₍soc₎ = 0 and δ-pruning is applied to A, the outcome frequencies not only recover the Born rule (necessity in the main text) but are fully determined by Φ′-admissibility alone.
+Non-normative note. The main text proves a necessity-only, Born-compatible pruning lemma; full sufficiency lives here.
+
+S5. Optional application sketch: trajectory certificates
+Sketch. If S1–S3 were validated in dedicated studies, one could define a trajectory certificate as a record derived from integrals of Φ′ over time on δ = 1 segments together with a persistence indicator based on Im(Z) = 0. Any such construct is an application concept only and must not be construed as evidence for sufficiency.
+
+Falsification stance for Appendix S
+All items S1–S4 are hypotheses. Exploratory tests must:
+(a) preregister kT, aggregators for Φ̄, Π modeling, β convention, and the Θ comparison ulp margin;
+(b) co-report Π and Ω (computed on Φ′) with Φ̄, and co-report Θ with δ;
+(c) generate counterexample metadata if any δ flips across scales, including k⋆, m⋆, and culprit events.
+Failure to meet preregistered thresholds or the appearance of minimal counterexamples refutes the corresponding sufficiency hypothesis in this appendix without impacting the necessity claims of the main text.
+
+Appendix N — Non-normative sketches
+
+Status. This appendix is exploratory and non-normative. It does not modify the necessity-only claims of the main text. Any engineering use must be preregistered separately.
+
+N.0 Scope, conventions, and guardrails
+
+This appendix sketches potential applications (e.g., SoulNFT-style records, alignment gate patterns).
+
+Nothing herein asserts sufficiency or moral/evaluative claims.
+
+Three-valued logic rules apply: mean skips NULL; CVaR₍α₎ and exp(h) treat NULL as 0 (deny-safe). If clamp(Φ − Π, 0, 1) is undefined, set δ = 0.
+
+Co-reporting discipline applies: whenever Φ̄ appears, co-report Π, Ω(on Φ′), and kT; whenever δ appears, co-report Θ, rounding mode, and ulp margin.
+
+N.1 SoulNFTs: a non-normative application sketch
+N.1.1 Admissible set and persistence indicator
+
+Let A = { (x,t) such that Φ′(x,t,E) ≥ Θ }. Define a persistence indicator Ipersist by:
+
+Ipersist = 1 if δ = 1 (with declared Θ and ulp margin) and Im(Z) = 0 over the claimed segment.
+
+Ipersist = 0 otherwise.
+
+This is descriptive, not evaluative.
+
+N.1.2 Illustrative scoring functional for an on-chain-style record
+
+Let VSoulNFT ∈ [0,1] summarize a history H(kT):
+
+VSoulNFT = clamp( exp( h × ∫ over H(kT) of Φ′ dt ) × (1 − Ω(H,m,k)) , 0, 1 ) × Ipersist.
+
+Reporting with VSoulNFT must co-report: kT, Π, Ω(on Φ′) with m, Θ with δ and ulp margin, and aggregator parameters h.
+
+Type safety. type(kT) = TimeUnit. The integral is taken over a left-closed, right-open interval defined by H(kT).
+
+Stability rule. If Ω > Π plus auxiliary penalties for N consecutive kT or Ω-slope exceeds the preregistered threshold over M intervals, re-estimate L̂, mark the span, and set Ipersist = 0 until revalidated.
+
+Naming: text variables Ipersist and VSoulNFT correspond to JSON keys I_persist and V_SoulNFT.
+
+N.1.3 Minimal JSON artifact (illustrative, non-normative)
+
+(default is 2 ulp; this example intentionally uses 1 ulp and states it explicitly)
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "soul_nft_sketch",
+  "kT": "1s",
+  "m": 2,
+  "aggregator": "exp",
+  "aggregator_params": {"h": 1.00},
+  "Theta": 0.95,
+  "ulp_margin": "1 ulp",
+  "Phi_bar": 0.962,
+  "Phi_bar_basis": "Phi_prime",
+  "Pi_bound": 0.020,
+  "RG_deviation": 0.011,
+  "Omega_basis": "Phi_prime",
+  "delta": 1,
+  "ImZ_zero": true,
+  "I_persist": 1,
+  "V_SoulNFT": 0.73,
+  "numeric_precision": "IEEE754-double roundTiesToEven"
+}
+
+
+Note. This is a display payload only; any minting, transfer, or economics are out of scope.
+
+N.1.4 Non-normative risks and cautions
+
+Perverse incentives. Rewarding larger VSoulNFT could distort behaviors; do not use for rights or resource allocation.
+
+Privacy and consent. Binding histories H(kT) to identities requires governance beyond scientific scope.
+
+Misinterpretation. Ipersist and VSoulNFT are state summaries, not judgments.
+
+N.2 Alignment gate patterns (engineering sketches, necessity-only)
+N.2.1 Pattern A — Pre-gated planning
+
+Goal: admit only admissible actions.
+
+For each candidate action E at step t:
+
+Estimate Φ(x,t,E), apply Π, form Φ′ = clamp(Φ − Π, 0, 1).
+
+Set δ = 1 iff Φ′ ≥ Θ (co-report Θ and ulp margin). If clamp is undefined, δ = 0 (deny-safe).
+
+Expand only δ = 1 actions.
+
+Log a qst_record for each δ decision window.
+
+NULL policy: mean skips NULL; CVaR₍α₎ and exp(h) treat NULL as 0.
+
+N.2.2 Pattern B — Cross-scale coherence gate
+
+Goal: block unstable plans.
+
+Compute Ω(H,m,k) on Φ′ for preregistered m. If Ω > Π plus auxiliary penalties for N consecutive kT or Ω-slope exceeds threshold for M intervals, re-estimate L̂, mark the span, and suspend downstream δ on that span. Resume only after revalidation. Defaults N = 3, M = 5 unless preregistered otherwise.
+
+N.2.3 Pattern C — Coupled multi-agent merge
+
+Goal: merge partially dependent plans with γ while preserving admissibility.
+
+Given histories H₍1₎ and H₍2₎, construct a coupled history via γ; recompute Φ′ on the merged view. Require δ = 1 under merged penalties and Im(Z) = 0 over the joint window before executing shared steps. Co-report kT, Π, Ω(on Φ′), Θ, ulp margin, and γ.
+
+N.2.4 Logging and audit
+
+Emit a qst_record wherever Φ̄ or δ is reported, and a counterexample_payload whenever δ flips across scales. Record the ulp margin at each Θ comparison and the rounding mode.
+
+N.3 Example non-normative evaluation protocol
+
+Bench phase (synthetic). Generate histories with controlled Π and Ω; verify that pre-gated planning reduces execution of δ = 0 branches without reducing admissible search coverage.
+
+No efficacy claims. Report only Φ̄, Π, Ω(on Φ′), Θ with δ and ulp margin, and the frequency of δ decisions.
+
+Counterexamples. Provoke δ flips by varying m in R₍m₎; archive counterexample_payload with k⋆, m⋆, culprit events.
+
+N.4 Non-normative summary
+
+SoulNFT sketches offer display-only state summaries over admissible segments A, using Ipersist and VSoulNFT. Alignment patterns show how δ-gating and cross-scale Ω checks can be wired as necessary preconditions in planning loops. All items remain outside evidentiary scope and do not assert sufficiency.
+
+Appendix B — Sensitivity analyses
+B.1 Scope and prerequisites
+
+Purpose. This appendix specifies preregistered sensitivity sweeps over the parameters Θ, β, κ, α, h and reports how aggregate acceptability and gating behave under controlled variations, with cross-scale checks via R₍m₎. All statements are necessity-only and framed as test plans.
+
+Clamp and post-penalty convention. Reference the front-matter clamp definition; do not redefine. All RG coherence quantities use Φ′ = clamp(Φ − Π, 0, 1).
+
+Numerics. Rounding mode = IEEE754-double roundTiesToEven. Θ comparisons use a small ulp margin disclosed in each δ report. Unless stated otherwise, ulp margin = 2 ulp at the comparison point.
+
+Co-reporting. Whenever Φ̄(H|kT) is reported, also report Π and Ω(H,m,k) and specify kT, and state that Ω is computed on Φ′. Whenever δ is reported, also report Θ and the ulp margin.
+
+Types. type(kT) = TimeUnit. R₍m₎ maps History(kT) → History(mkT). Mixed-unit operations require an explicit cast τ.
+
+B.2 Parameter grids and admissible ranges
+
+We preregister the following grids; ranges may be narrowed by pilot calibration but not widened without addendum.
+
+Θ sweep (selection threshold)
+Grid: {0.90, 0.92, 0.94, 0.95, 0.96, 0.98}.
+For each Θ value, recompute δ with ulp margin fixed and hold Π modeling constant.
+
+β sweep (action scaling in S(φ) = β × ∫(1 − Φ′(x,t)) d⁽4⁾x)
+Grid: β ∈ {0.25, 0.5, 1, 2, 4}.
+Note: affine rescaling of Φ′ induces proportional rescaling in β; we fix Φ′ units and vary β.
+
+κ sweep (timeline reweighting scale in hypotheses such as exp(−ΔΦ′ ÷ κ))
+Grid: κ ∈ {0.02, 0.05, 0.1, 0.2} in Φ′ units.
+Here κ is a unitless sweep parameter used only in sensitivity hypotheses; it is not a canonical symbol.
+
+α sweep for CVaR₍α₎ aggregator
+Grid: α ∈ {0.5, 0.75, 0.9, 0.95}.
+NULL rule: deny-safe default treats NULL as 0; document if domain demands alternative.
+
+h sweep for exp(h) aggregator
+Grid: h ∈ {1, 2, 4, 8}.
+NULL rule: deny-safe default treats NULL as 0; the mean aggregator always skips NULLs.
+
+RG scales (coarse-graining)
+m ∈ {2, 4, 8}; compute Ω(H,m,k) = absolute value of (Φ̄(H|kT) − Φ̄(R₍m₎H|kT)) on Φ′.
+
+B.3 Procedure for each sweep point
+
+For each dataset or simulation window (fixed kT) and for each grid point:
+
+a) Compute Φ′ = clamp(Φ − Π, 0, 1).
+b) Select the preregistered aggregator for Φ̄(H|kT) (mean, CVaR₍α₎, or exp(h)).
+
+Mean skips NULLs.
+
+CVaR₍α₎ and exp(h) use the deny-safe NULL rule (NULL → 0) unless preregistered otherwise.
+c) For each m ∈ {2, 4, 8}, compute Ω(H,m,k) on Φ′.
+d) Evaluate δ using the current Θ and the declared ulp margin; co-report Θ and ulp margin with each δ.
+e) Emit a qst_record JSON artifact for every figure/table cell that reports Φ̄ or δ.
+
+B.4 RG-motivated rationale for Θ ≈ 0.95 (preregistered selection rule)
+
+We adopt a necessity-oriented threshold selection rule: choose Θ⋆ within {0.90…0.98} that minimizes the expected Ω (computed on Φ′) subject to a coverage constraint on δ:
+
+Objective: minimize expected value of Ω(H,m,k) aggregated over m ∈ {2, 4, 8}.
+
+Constraint: the fraction of windows with δ = 1 must lie within a preregistered band [p₍min₎, p₍max₎] determined by domain ethics and physical feasibility.
+
+Tie-breaker: prefer larger Θ if multiple Θ values yield indistinguishable expected Ω within the ulp margin.
+
+Motivation. Empirically, coarse-graining stability improves when low-Φ′ tails are pruned; thus Θ near 0.95 is motivated, not asserted as sufficient. The rule above operationalizes this as a selection necessary to achieve cross-scale coherence targets.
+
+B.5 Stability and falsification hooks for sensitivity
+
+Monotonicity check (Θ). As Θ increases, the rate of δ = 1 should be non-increasing up to ulp fluctuations. Refutation criterion: persistent violations beyond ulp margin across N consecutive kT windows.
+
+RG excursion trigger. Re-estimate L̂ and mark affected spans if either
+i) Ω > Π plus auxiliary penalties for N consecutive kT, or
+ii) the slope of Ω with respect to window index exceeds the preregistered threshold over M intervals.
+Defaults: N = 3, M = 5.
+
+Aggregator robustness. Compare δ decisions under mean, CVaR₍α₎, and exp(h) using identical Φ′ and Θ. Refutation criterion: systematic δ disagreement exceeding a preregistered tolerance band.
+
+Counterexample generation. Whenever a δ flip occurs across scales, emit a counterexample_payload and annotate the culprit events.
+
+B.6 Reporting and artifacts
+
+Every table or figure derived from sensitivity sweeps includes:
+
+Φ̄(H|kT) with Π and Ω (explicitly “Ω computed on Φ′”), and kT.
+
+δ with Θ, rounding mode, and ulp margin.
+
+A qst_record JSON per cell or panel.
+
+A counterexample_payload JSON whenever any δ flips across scales.
+
+qst_record (example).
+
+{
+  "schema_version": "1.0.0",
+  "kT": "1s",
+  "m": 2,
+  "aggregator": "mean",
+  "aggregator_params": {},
+  "Theta": 0.95,
+  "ulp_margin": "2 ulp",
+  "Phi_bar": 0.962,
+  "Phi_bar_basis": "Phi_prime",
+  "Pi_bound": 0.020,
+  "RG_deviation": 0.011,
+  "Omega_basis": "Phi_prime",
+  "delta": 1,
+  "numeric_precision": "IEEE754-double roundTiesToEven"
+}
+
+counterexample_payload (example).
+
+{
+  "schema_version": "1.0.0",
+  "k_star": "1s",
+  "m_star": 4,
+  "events": ["window_173: low-Phi_prime tail near Theta causing delta flip at coarse scale"],
+  "delta_flip": {"from": 1, "to": 0},
+  "Phi_bar_before": 0.952,
+  "Phi_bar_after": 0.941,
+  "Phi_bar_basis": "Phi_prime",
+  "Theta": 0.95,
+  "numeric_precision": "IEEE754-double roundTiesToEven",
+  "ulp_margin": "2 ulp"
+}
+
+
+B.7 Worked micro-example (synthetic, illustrative)
+
+Basis declaration. This micro-example computes Φ̄ and Ω on Φ′ (Phi_bar_basis = ‘Phi_prime’, Omega_basis = ‘Phi_prime’).
+
+Setup: kT = 1s, aggregator = mean, Π = 0.020, ulp margin = 2 ulp, m ∈ {2, 4}.
+Grid points: Θ ∈ {0.94, 0.95, 0.96}.
+
+Computed on Φ′:
+
+(Phi_bar_basis = ‘Phi_prime’)
+
+Θ = 0.94 → Φ̄(H|kT) = 0.962, Ω(H,2,k) = 0.011, Ω(H,4,k) = 0.014, δ = 1.
+
+Θ = 0.95 → Φ̄(H|kT) = 0.962, Ω(H,2,k) = 0.010, Ω(H,4,k) = 0.013, δ = 1.
+
+Θ = 0.96 → Φ̄(H|kT) = 0.962, Ω(H,2,k) = 0.012, Ω(H,4,k) = 0.016, δ = 1.
+
+Co-reporting (per row). kT = 1s; Π = 0.020; Ω values explicitly “on Φ′”; δ reported with Θ, rounding mode = IEEE754-double roundTiesToEven, ulp margin = 2 ulp.
+
+Interpretation (necessity-only). The Θ = 0.95 point satisfies δ while keeping Ω small across m; the preregistered selection rule would favor Θ = 0.95 over 0.94 if expected Ω improvements exceed ulp tolerance under the δ coverage constraint.
+
+B.8 Documentation checklist (to be included with the archive)
+
+Parameter grids and any narrowing decisions with timestamps.
+
+Exact ulp margin used at each Θ comparison.
+
+Full truth tables for NULL propagation (pointer to Appendix T).
+
+All qst_record and counterexample_payload artifacts for sweeps.
+
+A brief note confirming that all reported Ω are computed on Φ′ (post-penalty, pre-Θ).
+
+Appendix D — Data provenance, code, and audit logs
+D.1 Scope and guarantees
+
+This appendix specifies how data, code, and decisions are versioned, reproduced, and audited. All computations use IEEE754-double roundTiesToEven with a disclosed ulp margin at each Θ comparison. Whenever δ is recorded, the log co-reports Θ and the ulp margin used; whenever Φ̄ is recorded, the log co-reports Π, Ω computed on Φ′ = clamp(Φ − Π, 0, 1), and kT.
+
+D.2 Repository layout
+
+A single read-only repository tracks everything needed to rebuild figures and tables from raw inputs.
+
+data/ raw immutable inputs plus checksums
+
+derivatives/ intermediate artifacts with lineage pointers into data/
+
+src/ pipelines to estimate Φ, Π, Φ̄, Ω, and δ decisions
+
+env/ container definitions and lockfiles (compiler and library versions)
+
+tests/ determinism and boundary tests, including Θ comparison suites
+
+figures/ rendered outputs with matching JSON artifacts
+
+audit/ append-only event logs and signed manifests
+
+docs/ runbooks, preregistration links, ethics notes (non-normative)
+
+Each commit is signed; release tags point to the exact container image digest used for rendering.
+
+D.3 Versioning and environment
+
+Code: commit hashes and signed tags recorded in every artifact header.
+
+Environment: container image digest, OS, language runtimes, and library versions pinned in env/lock.* and echoed in artifacts.
+
+Randomness: all stochastic routines log a fixed rng_seed and rng_backend.
+
+Time: all timestamps are RFC3339 in UTC. All analysis windows respect left-closed, right-open intervals for kT.
+
+D.4 Deterministic numerics and Θ comparison tests
+
+We enforce determinism at the δ gate:
+
+Boundary fuzzing around Θ: generate inputs whose Φ′ lie within ±10 ulp of Θ and verify stable δ decisions under roundTiesToEven with the declared ulp margin.
+
+Cross-platform replay: re-run the same qst_record in different environments pinned by the same image digest and assert identical δ outcomes.
+
+Aggregator stability: verify that mean (skip NULL), CVaR₍α₎ (deny-safe NULL → 0), and exp(h) (deny-safe NULL → 0) produce identical results across replays within 1 ulp of the reported Φ̄.
+
+Failures emit a signed audit event and block figure generation until resolved.
+
+D.5 Provenance and preprocessing pipeline
+
+Every derived datum carries a lineage pointer back to raw inputs:
+
+Ingest: store raw files with content hash, source URL or instrument ID, consent or license reference (non-normative), and sampling metadata.
+
+Preprocess: record filters, resampling, artifact rejection, and unit casts τ where mixed-unit operations occur.
+
+Estimate: compute Φ components via preregistered pipelines, apply Π, form Φ′ = clamp(Φ − Π, 0, 1), aggregate Φ̄(H|kT), compute Ω(H,m,k) on Φ′, and evaluate δ at the declared Θ with the logged ulp margin.
+
+Render: produce figures and tables plus matching JSON artifacts and append audit logs.
+
+D.6 Audit logging and JSON artifacts
+
+All results are paired with structured artifacts stored alongside renders.
+
+D.6.1 Required record per figure or table
+
+qst_record (keys are canonical; extra keys may be present)
+
+{
+  "schema_version": "1.0.0",
+  "kT": "1s",
+  "m": 2,
+  "aggregator": "mean",
+  "aggregator_params": {},
+  "Theta": 0.95,
+  "ulp_margin": "2 ulp",
+  "Phi_bar": 0.962,
+  "Phi_bar_basis": "Phi",
+  "Pi_bound": 0.020,
+  "RG_deviation": 0.011,
+  "Omega_basis": "Phi_prime",
+  "delta": 1,
+  "numeric_precision": "IEEE754-double roundTiesToEven",
+  "rng_seed": 1729,
+  "env_image_digest": "sha256:…",
+  "commit": "abcdef1",
+  "created_at_utc": "2025-08-14T12:00:00Z"
+}
+
+D.6.2 Counterexample emission on δ flips across scales
+
+counterexample_payload (required when any δ flip is detected between H(kT) and R₍m₎H(mkT))
+
+{
+  "schema_version": "1.0.0",
+  "k_star": "1s",
+  "m_star": 2,
+  "events": ["window_t0_0.5s_low_phi_prime"],
+  "Theta": 0.95,
+  "ulp_margin": "2 ulp",
+  "delta_flip": {"from": 1, "to": 0},
+  "Phi_bar_before": 0.951,
+  "Phi_bar_after": 0.941,
+  "Phi_bar_basis": "Phi_prime",
+  "Pi_bound": 0.020,
+  "RG_deviation_before": 0.010,
+  "RG_deviation_after": 0.020,
+  "Omega_basis": "Phi_prime",
+  "commit": "abcdef1",
+  "env_image_digest": "sha256:…",
+  "created_at_utc": "2025-08-14T12:05:00Z"
+}
+
+D.6.3 Event-sourced audit trail
+
+Each pipeline stage appends an immutable event with:
+
+input pointers (content hashes), parameter snapshot, kT, m, aggregator and parameters, Π source and bound, Ω computed on Φ′, δ decision with Θ and ulp margin, runtime, and wall-clock timestamp.
+All audit files are signed; a manifest summarizes the chain from raw ingest to rendered figure.
+
+D.7 L̂ re-estimation tracking
+
+The audit system monitors Ω against Π over time. If either condition holds:
+(i) Ω > Π plus auxiliary penalties for N consecutive kT, or
+(ii) the slope of Ω exceeds the preregistered threshold over M intervals,
+the run is marked, L̂ is re-estimated, and downstream claims depending on the affected spans are flagged for revalidation before release. Defaults for N and M are recorded in env/preregistration.json.
+
+D.8 Access control, privacy, retention (non-normative)
+
+Access to raw and derivative data is role-gated; personally identifiable data, if any, are de-identified at ingest. Retention schedules and consent terms are documented in docs/ethics.md and linked in the audit manifest. This subsection is provided for transparency and does not constitute a normative claim.
+
+Appendix R — JSON artifacts
+
+Basis declaration: Unless stated otherwise, Φ̄ is computed on Φ and Ω is computed on Φ′; each artifact must state Phi_bar_basis and Omega_basis.
+
+RG_deviation = Ω(H,m,k) and therefore inherits Omega_basis = "Phi_prime".
+
+This appendix defines canonical, machine-checkable artifacts. Use JSON only for these artifacts. Keys may contain underscores. All Ω values reported in artifacts must be computed on Φ′ = clamp(Φ − Π, 0, 1) (post-penalty, pre-Θ). Every figure or table that reports Φ̄ or δ must attach a qst_record. Whenever a δ flip across scales is detected, emit a counterexample_payload.
+
+qst_record template
+
+Required keys are included below; optional keys may be added but must not change required semantics.
+
+{
+  "schema_version": "1.0.0",
+  "kT": "1s",
+  "m": 2,
+  "aggregator": "mean",
+  "aggregator_params": {},
+  "Theta": 0.95,
+  "Phi_bar": 0.970,
+  "Phi_bar_basis": "Phi",
+  "Pi_bound": 0.020,
+  "RG_deviation": 0.005,
+  "Omega_basis": "Phi_prime",
+  "delta": 1,
+  "numeric_precision": "IEEE754-double roundTiesToEven",
+  "ulp_margin": "2 ulp"
+}
+
+
+Notes
+
+Phi_bar_basis is required and must be "Phi" or "Phi_prime" to match how Φ̄ was computed in the figure/table.
+
+Omega_basis is required and must be "Phi_prime" in this manuscript (Ω is computed on Φ′ = clamp(Φ − Π, 0, 1)).
+
+RG_deviation corresponds to Ω and therefore inherits Omega_basis = "Phi_prime".
+
+
+qst_record — Section 1 worked example (toy)
+
+Provenance note: This record corresponds to the Section 1 worked example in the Introduction. No δ flip occurs for this window.
+
+(default 2 ulp unless stated otherwise; this example uses ulp_margin = 1 ulp)
+{
+  "schema_version": "1.0.0",
+  "kT": "1s",
+  "m": 2,
+  "aggregator": "mean",
+  "aggregator_params": {},
+  "Theta": 0.95,
+  "ulp_margin": "1 ulp",
+  "Phi_bar": 0.950,
+  "Phi_bar_basis": "Phi_prime",
+  "Pi_bound": 0.020,
+  "RG_deviation": 0.005,
+  "Omega_basis": "Phi_prime",
+  "delta": 1,
+  "numeric_precision": "IEEE754-double roundTiesToEven"
+}
+
+
+counterexample_payload template
+
+Emit this whenever a δ flip across scales is detected for the same analysis window.
+
+{
+  "schema_version": "1.0.0",
+  "k_star": "1s",
+  "m_star": 2,
+  "events": ["brief_description_where_delta_changed"],
+  "delta_flip": {"from": 1, "to": 0},
+  "Phi_bar_before": 0.952,
+  "Phi_bar_after": 0.941,
+  "Phi_bar_basis": "Phi",
+  "Pi_bound_before": 0.018,
+  "Pi_bound_after": 0.021,
+  "RG_deviation_before": 0.007,
+  "RG_deviation_after": 0.012,
+  "Omega_basis": "Phi_prime",
+  "Theta": 0.95,
+  "numeric_precision": "IEEE754-double roundTiesToEven",
+  "ulp_margin": "2 ulp"
+}
+
+
+Emission policy
+
+Reminder (required). For any δ flip, the counterexample payload must include delta_flip and before/after snapshots of Φ̄, Π, and Ω (on Φ′), using flat keys Phi_bar_before, Pi_bound_before, RG_deviation_before, Phi_bar_after, Pi_bound_after, RG_deviation_after; co-report Θ, numeric_precision, and ulp_margin.
+
+Per reporting unit (each figure/table panel or analysis window that reports Φ̄ or δ), emit exactly one qst_record.
+
+On δ flip across scales (same window, different m) or across adjacent windows (same m), immediately emit a counterexample_payload and include events describing the minimal culprit set.
+
+Synchronize numerics: numeric_precision and ulp_margin in both artifacts must match the values used for δ comparisons in the associated analysis.
+
+Basis consistency: set Omega_basis = "Phi_prime" in all artifacts. Set Phi_bar_basis explicitly to "Phi" or "Phi_prime" per the computation shown; do not force a single choice across the manuscript.
+
+Provenance: when available, add dataset_id, window_id, and provenance_hash to support independent reproduction.
+
+Appendix T — Truth tables (full, necessity-only)
+
+This appendix fixes the clamp, numerics, NULL, and delimiter policies and provides explicit tables for φᵢ, Φ̄, and δ. Throughout, let:
+
+s = clamp(Φ − Π, 0, 1), using the front-matter clamp definition.
+
+Θ be the preregistered threshold (default ≈ 0.95).
+
+Numerics use IEEE754-double roundTiesToEven, and δ comparisons apply a declared ulp margin.
+
+When reporting RG coherence, Ω is computed on Φ′ = clamp(Φ − Π, 0, 1) (post-penalty, pre-Θ).
+
+Aggregation windows are denoted H|kT and produce Φ̄(H|kT).
+
+T.1 Local acceptability φᵢ
+
+Domain: φᵢ ∈ [0, 1] ∪ {NULL} after penalties.
+
+input φᵢ	semantic status
+0	fully unacceptable local state
+any value in (0, 1)	partially acceptable local state
+1	fully acceptable local state
+NULL	undefined or missing local state (deny-safe handling applies below)
+T.2 Aggregation to Φ̄(H|kT)
+
+Let the multiset of post-penalty local values over H|kT be V = {v₍1₎, v₍2₎, …, v₍n₎}, where each v₍j₎ ∈ [0,1] ∪ {NULL}.
+
+T.2.1 Mean aggregator
+
+Rule: skip NULLs; if all entries are NULL, return 0.
+
+| input V | effective set for mean | Φ̄(H|kT) |
+|---|---|---|
+| {1, 1, NULL} | {1, 1} | 1.00 |
+| {0.60, 0.40, NULL} | {0.60, 0.40} | 0.50 |
+| {0.90, NULL, 0.30} | {0.90, 0.30} | 0.60 |
+| {NULL, NULL} | {} | 0.00 |
+
+T.2.2 CVaR₍α₎ aggregator
+
+Conventions (preregistered and stated with results):
+
+Tail direction: lower-tail safety by default (take the worst α fraction). Tail size uses ceiling: size = ⌈α × n⌉.
+
+NULL is treated as 0 (deny-safe).
+
+If n = 0 after deny-safe substitution, return 0.
+
+Procedure: substitute NULL → 0, sort ascending, take the lowest ⌈α × n⌉ values, return their mean.
+
+| input V (α shown) | after NULL → 0 and sort | selected tail | Φ̄(H|kT) |
+|---|---|---|---|
+| {0.90, 0.80, NULL}, α = 0.20 | {0.00, 0.80, 0.90} | {0.00} | 0.00 |
+| {0.70, 0.60, 0.50}, α = 0.50 | {0.50, 0.60, 0.70} | {0.50, 0.60} | 0.55 |
+| {NULL, 0.95}, α = 0.50 | {0.00, 0.95} | {0.00} | 0.00 |
+| {NULL, NULL}, α = 0.30 | {} then deny-safe → {0.00, 0.00} | {0.00} | 0.00 |
+
+T.2.3 exp(h) aggregator
+
+Definition (preregistered h and tail intent):
+
+Use the soft-mean mapping Φ̄(H|kT) = ln(mean over V′ of exp(h × v)) ÷ h (natural log), with the continuous limit h → 0 reducing to the mean.
+
+NULL is treated as 0 (deny-safe).
+
+If n = 0 after substitution, return 0.
+
+| input V (h shown) | after NULL → 0 | Φ̄(H|kT) |
+|---|---|---|
+| {0.90, 0.10}, h = 5.0 | {0.90, 0.10} | soft-max biased above mean ≈ 0.58 |
+| {0.90, 0.10}, h = −5.0 | {0.90, 0.10} | soft-min biased below mean ≈ 0.42 |
+| {NULL, 0.60}, h = 3.0 | {0.00, 0.60} | between 0.30 and 0.60 (computed value reported with precision) |
+| {NULL, NULL}, any h | {0.00, 0.00} | 0.00 |
+
+Reporting note. For CVaR₍α₎ and exp(h), report the aggregator, parameters, and kT, and co-report Π and Ω (computed on Φ′).
+
+T.3 δ decision table
+
+Implement δ as δ = 1 iff (s + ulp_margin) ≥ Θ, else 0; the table below is an equivalent, human-readable expansion.
+
+Let s = clamp(Φ − Π, 0, 1). If s is undefined, set δ = 0.
+
+Otherwise compare to Θ with the declared ulp margin:
+
+condition on s vs Θ	δ
+s ≥ Θ	1
+s < Θ and (Θ − s) ≤ ulp margin	1
+s < Θ and (Θ − s) > ulp margin	0
+
+Window-level δ. When reporting δ at window granularity, compute s̄ as
+• if Phi_bar_basis = ‘Phi’: s̄ = clamp(Φ̄ − Π, 0, 1);
+• if Phi_bar_basis = ‘Phi_prime’: s̄ = clamp(Φ̄, 0, 1);
+then compare s̄ to Θ with the declared ulp margin.
+
+Co-reporting note. Every δ report must include Θ, the rounding mode, and the ulp margin used.
+
+
+T.4 Cross-scale flips and counterexamples
+
+Let δ₍k₎ = δ(H|kT) and δ₍mk₎ = δ(R₍m₎H|kT). A flip occurs if δ₍k₎ ≠ δ₍mk₎.
+
+Action on flip: emit a counterexample payload with
+
+k⋆ = kT, m⋆ = m, and
+
+culprit events = {brief identifiers of the events in the flip window}.
+
+This payload is stored with the matching figure or table and referenced in Appendix R.
+
+T.5 Worked micro-examples
+
+All examples below use IEEE754-double roundTiesToEven and declare the ulp margin alongside Θ.
+
+Mean aggregator, skip NULL
+V = {0.96, 0.95, NULL}, kT = 1 s.
+Φ̄(H|kT) = 0.955; Π = 0.020.
+s = clamp(0.955 − 0.020, 0, 1) = 0.935.
+With Θ = 0.95 and ulp margin = 2 ulp, δ = 0.
+
+CVaR₍α₎, deny-safe
+V = {0.97, NULL, 0.93}, α = 0.33, kT = 1 s.
+After NULL → 0 and sort: {0.00, 0.93, 0.97}.
+Tail set (size 1): {0.00} → Φ̄(H|kT) = 0.00; Π = 0.010.
+s = clamp(0.00 − 0.010, 0, 1) = 0.00.
+δ = 0 for any Θ ≥ 0.
+
+exp(h), soft-max
+V = {0.80, 0.70, 0.60}, h = 4.0, kT = 2 s.
+Φ̄(H|kT) is between max(V) and mean(V); computed value reported with precision; Π = 0.015.
+Evaluate s, compare to Θ with ulp margin, and report δ per the table above.
+
+Appendix P — L̂ re-estimation protocol
+
+• Inequality (operative). Fire the trigger when Ω > (Π + auxiliary penalties) holds for N consecutive kT.
+• Slope test. Fire the trigger when the slope of Ω over M consecutive kT exceeds the preregistered threshold (state the estimator and windowing).
+• Defaults and basis. Use N = 3, M = 5 unless preregistered otherwise. Evaluate Ω on Φ′ (post-penalty, pre-Θ).
+
+Actions. When a trigger fires, mark the affected spans, freeze reliance on prior claims within those spans, re-estimate L̂ with confidence intervals that bound Π, recompute Φ̄, Ω, and δ on the marked spans, and revalidate all dependent claims before further reliance. Log a qst_record for each span and emit a counterexample_payload if any δ flips across scales (include k⋆, m⋆, and culprit events).
+
+Appendix C — Figure boilerplate and list
+
+Basis declaration: Unless stated otherwise, Φ̄ is computed on Φ and Ω is computed on Φ′; each artifact must state Phi_bar_basis and Omega_basis.
+
+Boilerplate (applies to all figures)
+
+Set Phi_bar_basis explicitly per figure (“Phi” or “Phi_prime”; default in this manuscript is “Phi”).
+
+Set Omega_basis = “Phi_prime” (Ω computed on Φ′ = clamp(Φ − Π, 0, 1), post-penalty, pre-Θ).
+
+For every figure, the caption must state:
+• kT (with unit) and the Φ̄ aggregator (mean, CVaR₍α₎, or exp(h)) with parameters.
+• Whether Φ̄ is computed on Φ or on Φ′.
+• Π (value or bound) used in Φ′.
+• Ω computed on Φ′, with the value of m used in R₍m₎.
+• Θ used in any δ decision, the rounding mode (IEEE754-double roundTiesToEven), and the ulp margin applied at the Θ comparison.
+
+Captions must include Phi_bar_basis and Omega_basis. Global default: Phi_bar_basis = ‘Phi’; Omega_basis = ‘Phi_prime’ unless a figure states otherwise.
+
+Attach a matching qst_record JSON in Appendix R for each figure. If any δ flips across scales are shown, attach a counterexample_payload in Appendix R.
+
+Do not present empirical outcomes as results; label any real data overlays as worked examples or design illustrations.
+
+Figure list
+
+Fig A: Φ′(x,t) vs t with δ regions and Ω overlays.
+Content: time series of Φ′(t) with shaded bands where δ = 1 and δ = 0 under the stated Θ and ulp margin; overlay Ω(H,m,k) as a separate trace or panel, specifying m used by R₍m₎. Caption must include kT, aggregator and parameters, Π, Ω on Φ′ with m, Θ with δ, rounding mode, and ulp margin, plus the location of the qst_record in Appendix R.
+
+Fig B: Sensitivity sweep for Θ and Π with δ response; Ω reported on Φ′.
+Content: preregistered sweep grid or curves showing δ as a function of Θ and Π, with Ω(H,m,k) computed on Φ′ across the same sweep. Caption must include kT, aggregator and parameters, whether Φ̄ is on Φ or Φ′, Π sweep range, Ω on Φ′ with m, Θ range, rounding mode, and ulp margin, plus the qst_record reference in Appendix R.
+
+Fig C: Decoherence metric versus Φ′ intervention schedule with γ noted.
+Content: design plot showing the planned intervention schedule over Φ′ and the corresponding decoherence metric readout; annotate when δ is evaluated relative to readout and indicate the coupling parameter γ if histories are merged. Caption must include kT, aggregator and parameters, whether Φ̄ is on Φ or Φ′, Π, Ω on Φ′ with m if reported, Θ with any δ shown, rounding mode, ulp margin, and the qst_record reference in Appendix R.
+
+Appendix L — Lint compliance matrix (rule-to-artifact map)
+
+Canonical symbols and first-use definitions
+Satisfied by: Front matter (Symbol definition table); Section 1 (first-use definitions of Φ(x,t,E), φᵢ, Φ̄(H|kT), δ, Θ, Π, R₍m₎, Ω(H,m,k), kT, T, L̂, α, h, γ, clamp).
+
+Clamp single source of truth
+Satisfied by: Front matter (Clamp box: clamp(z,0,1) = max(0, min(1, z))); Sections 1–2 (reference only, no redefinition).
+
+Plain-text math with explicit operators and parentheses
+Satisfied by: Sections 2–3 (all formulas use ×, ÷, ≥, ≤, ≈ and full parentheses; no LaTeX markers).
+
+Delimiter policy and guards
+Satisfied by: Front matter (Notation: ( ) for functions, { } for sets, ⁽ ⁾ and ₍ ₎ only for math sub/superscripts); CI profile (delimiter_guards) documented in this appendix; manuscript prose avoids ⁽ ⁾ and ₍ ₎ around natural-language text. CI exemption: The banned_math_patterns apply to prose and math only; JSON artifact blocks are explicitly exempt, and may contain underscores in keys as specified in Appendix R. Key-token exemption: The underscore ban targets math/notation; literal JSON key tokens referenced in prose are exempt when written verbatim in quotes, e.g., “qst_record”, “counterexample_payload”.
+
+Type safety and τ casts
+Satisfied by: Section 2 (Type signatures box: type(kT) = TimeUnit; R₍m₎ : History(kT) → History(mkT); τ for mixed-unit operations); Section 1 (brief type note at first use).
+
+Deterministic numerics and Θ comparison policy
+Satisfied by: Front matter (Numerics box: IEEE754-double roundTiesToEven; ulp margin policy); Section 1 (cross-reference); every δ report (co-reports Θ and ulp margin).
+
+Three-valued logic (NULL)
+Satisfied by: Section 2 (compact truth tables for φᵢ, Φ̄, δ; mean skips NULL; CVaR₍α₎ and exp(h) deny-safe NULL → 0; δ = 0 if clamp undefined); Appendix T (full truth tables).
+
+Co-reporting discipline
+Satisfied by: Abstract (commitment statement); Front matter (Reporting checklist box); Sections 4–5 (every Φ̄ co-reports Π, Ω, kT; every δ co-reports Θ, rounding mode, ulp); Appendix C (caption boilerplate).
+
+Ω computed on Φ′ (post-penalty, pre-Θ)
+Satisfied by: Sections 1–2 (definition and convention); Sections 4–5 (explicit in methods and results reporting); Appendix C (caption requirement). This satisfies the CI text: “Ω must be computed on Φ′ = clamp(Φ − Π, 0, 1) when reported.”
+
+Scientific scope (necessity-only) and routing of non-normative content
+Satisfied by: Section 1 (scope statement); Section 6 (necessity-only restatement); Appendix S (sufficiency claims quarantined); Appendix N (non-normative material quarantined).
+
+Falsification hooks for theorems and lemmas
+Satisfied by: Section 3 (each lemma lists data required, measurable quantities {Φ̄, Π, Ω, δ, Θ}, refutation criteria, and counterexample metadata {k⋆, m⋆, culprit events}); Appendix A (proofs referenced).
+
+Counterexamples and δ flips across scales
+Satisfied by: Section 3 (generation rule and triggers); Appendix R (counterexample_payload JSON for any δ flip); figure notes in Sections 4–5 (pointer to payloads).
+
+L̂ re-estimation triggers and span marking
+Satisfied by: Section 3 (Lemma B conditions: Ω > Π plus auxiliary penalties for N consecutive kT or Ω slope threshold over M intervals); Appendix P (protocol with preregistered N, M; revalidation steps).
+
+Worked example (with full co-reporting)
+Satisfied by: Section 1 (neural example with Φ̄, Π, Ω on Φ′, δ with Θ and ulp; matching qst_record stored in Appendix R).
+
+JSON artifacts (structured, versioned)
+Satisfied by: Appendix R (qst_record and counterexample_payload schemas and examples, schema_version = 1.0.0); Sections 4–5 (one qst_record per figure/table reporting Φ̄ or δ).
+
+Front-matter requirements
+Satisfied by: Front matter (Symbol definition table; Hyperlinked TOC; Numerics and Notation boxes; Reporting checklist).
+
+Figures and captions compliance
+Satisfied by: Appendix C (caption boilerplate requires kT, aggregator, Π, Ω on Φ′, Θ with δ, rounding mode, ulp margin); Sections 4–5 (Fig A–C constructed per boilerplate).
+
+Editorial and preservation policy
+Satisfied by: Global edit notes at the start of the manuscript (anchors, headings, figures, examples preserved; upgrades in place; cuts only for necessity-scope violation, near-duplicate, or contradiction; scaffold retained).
+
+Born-compatible pruning and persistence statements (necessity)
+Satisfied by: Section 2 (agentless limit reference); Section 3 (Lemma A and Lemma C stated as necessary conditions); Appendix A (derivations); no sufficiency claims in main text.
+
+Ethics, governance, and preregistration pointers (non-normative)
+Satisfied by: Appendix E (consent, de-identification, preregistration links, oversight), clearly labeled non-normative.
+
+Appendix E — Ethics and governance (non-normative)
+
+Scope and status. This appendix provides context only. It does not introduce new necessity claims and does not modify δ, Θ, Φ, Φ̄, Π, Ω, or any results in the main text. If ethical considerations contribute to Π, the mapping from policy to penalty must be preregistered and audited without altering necessity-only scope.
+
+Human participants and consent. Describe informed consent, inclusion and exclusion criteria, right to withdraw without penalty, compensation, and risk minimization. Confirm debriefing procedures for any deception or blinding.
+
+De-identification and privacy. Specify de-identification method, re-identification resistance checks, data minimization, retention schedule, deletion pathway, encryption at rest and in transit, and any data localization constraints.
+
+Oversight and preregistration. Provide ethics review determination or exemption, oversight contacts, preregistration links for all analyses, and a deviations log with timestamps.
+
+Data access and governance. Define roles and approvals for accessing raw and processed data, code, and audit logs; record all access with immutable timestamps. State third-party data licenses and restrictions.
+
+Dual-use risk management. Summarize risk triage, red-team review, and release controls. List withheld details or datasets and the conditions under which they may be released.
+
+Artifact governance and reproducibility. For all released artifacts, disclose numerical precision, rounding mode, and any ulp margins used in δ decisions. Capture environment fingerprints, commit hashes, and build recipes for exact reruns.
+
+Incident response. Provide a vulnerability disclosure address, triage timelines, and remediation procedures. Commit to public post-mortems for material issues.
+
+Conflicts of interest. List financial and non-financial conflicts, or state none declared.
+
+Ethics reporting checklist
+
+Use this checklist in addition to the global reporting checklist. It is descriptive and non-normative.
+
+State whether ethical constraints contribute to Π and provide the preregistered mapping from policy to penalty when applicable.
+
+Link oversight determination or exemption and preregistration records for each study component.
+
+Document consent, de-identification method, retention schedule, and data access controls for all human data.
+
+Disclose any dual-use mitigations that affect data or code release.
+
+Reporting checklist box (for any result, table, or figure)
+
+State kT and the aggregator used for Φ̄.
+
+Co-report Π and Ω with Φ̄, and declare that Ω is computed on Φ′ = clamp(Φ − Π, 0, 1).
+
+Co-report Θ with δ and disclose the rounding mode and the ulp margin used at the comparison.
+
+Declare whether Φ̄ and Ω are computed on Φ′ (post-penalty, pre-Θ).
+
+Provide counterexample metadata if any δ flips across scales, including k⋆, m⋆, and culprit events.
+
+Attach qst_record and, if applicable, counterexample_payload; store all JSON artifacts in Appendix R.
+
+Figures
+
+Fig A. Φ′(x,t) vs t with δ regions and Ω overlays; caption co-reports per checklist. 
+
+Fig B. Sensitivity sweep for Θ, Π with δ response (preregistered ranges only). 
+
+Fig C. Decoherence metric vs Φ′ intervention schedule with γ noted; labeled as test design, not result.
