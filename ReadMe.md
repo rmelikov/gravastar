@@ -1,6 +1,6 @@
 I started the paper in physics initially, which is why I'm including `Gravastar.txt`, and which is why the title has the word `Gravastar` in it. 
 Upon advisory from several LLM models, I've decided to abstract the paper to the highest level, which turns out to be the validation calculus level — `Gravastar9+`. 
-And upon further advisory, I know that this will not be a paper and will be a book:
+And upon further advisory, I know that this will not be a paper and will ultimately be a book after I will finish with the anchor paper:
 
 ##  Theory of Perfection: From Principle of Superposition to Gravastar
 
