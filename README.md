@@ -15,3 +15,5 @@ however, upon inspection of `Gravastar9.6.md`, I didn't like how ChatGPT modifie
 and hence, `Gravastar9.6.3.md` is the synthesized version of `Gravastar9.md` and `Gravastar9.6.md`, with more weight given to `Gravastar9.md`.
 
 Note: Some documents that I've attached here refer to the Principle of Superposition as the Moral Epistemic Completeness Principle (MECP). This was the earliest name of this principle. I ultimately settled it, upon deliberation with AI, that the name, the Principle of Superposition, is more fitting than the Moral Epistemic Completeness Principle.
+
+I've also included few other arguments, ideas of which have gone into the Gravastar paper and will need to be in the book ultimately.
