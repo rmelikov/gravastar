@@ -6,6 +6,8 @@ The planned book title is:
 
 ####  Theory of Perfection: From Principle of Superposition to Gravastar
 
+and one of the key ideas of the book will be right at the beginning. The book will start with, **"In the beginning, there was the Principle of Superposition..."**
+
 For now, I'm working on merging `Gravastar9.md` with `Gravastar9.6.md` into `Gravastar9.6.3.md`.
 
 `Gravastar9.md` has been reviewed by 5 AI models and they all said it was excellent and ready for final polishing.
