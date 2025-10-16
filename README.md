@@ -4,7 +4,7 @@ The paper has gone through versions 1-9. I'm only including pertinent versions.
 And upon further advisory, I know that this will not be a paper and will ultimately be a book after I will finish with the anchor paper, `Gravastar9.6.3.md`. 
 The planned book title is:
 
-####  Theory of Perfection: From Principle of Superposition to Gravastar
+####  Theory of Holographic Perfection: From Principle of Superposition to Gravastar
 
 and one of the key ideas of the book will be right at the beginning. The book will start with, **"In the beginning, there was the Principle of Superposition..."**
 
